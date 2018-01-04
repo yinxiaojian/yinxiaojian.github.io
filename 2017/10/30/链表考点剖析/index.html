@@ -1,0 +1,1288 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+  <meta name="google-site-verification" content="kMp7W67ZsoZmUmTEvZo3J4IevBIXHG_yNoR7bnCSZpw" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/logo.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.png?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="面试," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="链表，最为基础的数据结构，同时也是面试中最容易出现的考察点。很多人都觉得链表如此简单，以至于在面试不断的深入考察中出现纰漏。一旦在链表上出现差错，那么也意味着你基础的羸弱，直接导致面试的失败。 在大三一年实习和后来校招的面试中，遇到了不下于五次链表的题目，题目有难有易，很难保证第一次接触能够完美的给出解答。因此总结了链表相关题目和解法，如有补充请留言。">
+<meta name="keywords" content="面试">
+<meta property="og:type" content="article">
+<meta property="og:title" content="链表考点剖析">
+<meta property="og:url" content="http://blog.yinjianwen.site/2017/10/30/链表考点剖析/index.html">
+<meta property="og:site_name" content="尹小贱的自留地">
+<meta property="og:description" content="链表，最为基础的数据结构，同时也是面试中最容易出现的考察点。很多人都觉得链表如此简单，以至于在面试不断的深入考察中出现纰漏。一旦在链表上出现差错，那么也意味着你基础的羸弱，直接导致面试的失败。 在大三一年实习和后来校招的面试中，遇到了不下于五次链表的题目，题目有难有易，很难保证第一次接触能够完美的给出解答。因此总结了链表相关题目和解法，如有补充请留言。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://oygov02sc.bkt.clouddn.com/%E9%93%BE%E8%A1%A8%E8%80%83%E7%82%B9%E5%89%96%E6%9E%90-1.png">
+<meta property="og:updated_time" content="2018-01-03T16:03:11.046Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="链表考点剖析">
+<meta name="twitter:description" content="链表，最为基础的数据结构，同时也是面试中最容易出现的考察点。很多人都觉得链表如此简单，以至于在面试不断的深入考察中出现纰漏。一旦在链表上出现差错，那么也意味着你基础的羸弱，直接导致面试的失败。 在大三一年实习和后来校招的面试中，遇到了不下于五次链表的题目，题目有难有易，很难保证第一次接触能够完美的给出解答。因此总结了链表相关题目和解法，如有补充请留言。">
+<meta name="twitter:image" content="http://oygov02sc.bkt.clouddn.com/%E9%93%BE%E8%A1%A8%E8%80%83%E7%82%B9%E5%89%96%E6%9E%90-1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":true,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://blog.yinjianwen.site/2017/10/30/链表考点剖析/"/>
+
+
+
+
+
+  <title>链表考点剖析 | 尹小贱的自留地</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">尹小贱的自留地</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">coding forever</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://blog.yinjianwen.site/2017/10/30/链表考点剖析/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="尹小贱">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="尹小贱的自留地">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">链表考点剖析</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-10-30T15:20:06+08:00">
+                2017-10-30
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/笔试面试/" itemprop="url" rel="index">
+                    <span itemprop="name">笔试面试</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2017/10/30/链表考点剖析/" class="leancloud_visitors" data-flag-title="链表考点剖析">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>链表，最为基础的数据结构，同时也是面试中最容易出现的考察点。很多人都觉得链表如此简单，以至于在面试不断的深入考察中出现纰漏。一旦在链表上出现差错，那么也意味着你基础的羸弱，直接导致面试的失败。</p>
+<p>在大三一年实习和后来校招的面试中，遇到了不下于五次链表的题目，题目有难有易，很难保证第一次接触能够完美的给出解答。因此总结了链表相关题目和解法，如有补充请留言。</p>
+<a id="more"></a>
+<h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><p>全文的链表节点定义如下，无哑节点，基于C++实现。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">ListNode</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">	<span class="keyword">int</span> m_nKey;</span><br><span class="line">	ListNode * m_pNext;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h3 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h3><h4 id="求节点数目"><a href="#求节点数目" class="headerlink" title="求节点数目"></a>求节点数目</h4><p>最基础的题目，直接遍历，注意循环停止条件。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">unsigned</span> <span class="keyword">int</span> <span class="title">GetThisLength</span><span class="params">(ListNode *pHead)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (pHead == <span class="literal">NULL</span>)</span><br><span class="line">		<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">	ListNode *pCurrent = pHead;</span><br><span class="line">	<span class="keyword">unsigned</span> <span class="keyword">int</span> nlength = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">while</span> (pCurrent != <span class="literal">NULL</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		nlength++;</span><br><span class="line">		pCurrent = pCurrent-&gt;m_pNext;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> nlength;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="反转链表"><a href="#反转链表" class="headerlink" title="反转链表"></a>反转链表</h4><p>一道非常经典的面试题，简单的同时也非常容易出错，分为递归和非递归解法。</p>
+<p>递归解法：每次递归返回的是已经反转好的链表的头结点，注意好跳出条件即可。</p>
+<p>非递归解法：遍历链表，已遍历的部分已反转，将正在遍历的节点当做头结点连接到已反转的部分。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//递归解法</span></span><br><span class="line"><span class="function">ListNode * <span class="title">ReverseList</span><span class="params">(ListNode *pHead)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (pHead == <span class="literal">NULL</span> || pHead-&gt;m_pNext == <span class="literal">NULL</span>)</span><br><span class="line">		<span class="keyword">return</span> pHead;</span><br><span class="line">	ListNode *newHead = ReverseList(pHead-&gt;next);</span><br><span class="line">  	pHead-&gt;next-&gt;next = newHead-&gt;next;</span><br><span class="line">  	pHead-&gt;next = <span class="literal">NULL</span>;</span><br><span class="line">	<span class="keyword">return</span> newHead;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//非递归解法</span></span><br><span class="line"><span class="function">ListNode * <span class="title">ReverseList</span><span class="params">(ListNode *pHead)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (pHead == <span class="literal">NULL</span> || pHead-&gt;m_pNext == <span class="literal">NULL</span>)</span><br><span class="line">		<span class="keyword">return</span> pHead;</span><br><span class="line">	ListNode *pReverseHead = <span class="literal">NULL</span>;</span><br><span class="line">	ListNode *pCurrent = pHead;</span><br><span class="line">	<span class="keyword">while</span> (pCurrent != <span class="literal">NULL</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		ListNode *temp = pCurrent;</span><br><span class="line">		pCurrent = pCurrent-&gt;m_pNext;</span><br><span class="line">		temp-&gt;m_pNext = pReverseHead;</span><br><span class="line">		pReverseHead = temp;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> pReverseHead;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="找倒数第k个节点"><a href="#找倒数第k个节点" class="headerlink" title="找倒数第k个节点"></a>找倒数第k个节点</h4><p>双指针解题，这中思考方式在后面的题目经常出现。第一个指针先走k步，然后两个指针一起遍历，这样第一个指针到最后一个节点的时候，第二个指针即指向第k个节点。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">ListNode * <span class="title">RGetKthNode</span><span class="params">(ListNode * pHead, <span class="keyword">unsigned</span> <span class="keyword">int</span> k)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (k == <span class="number">0</span> || pHead == <span class="literal">NULL</span>)</span><br><span class="line">		<span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">	ListNode *pAhead = pHead;</span><br><span class="line">	ListNode *pBehind = pHead;</span><br><span class="line">	<span class="keyword">while</span> (pAhead != <span class="literal">NULL</span>&amp;&amp;k &gt; <span class="number">1</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		pAhead = pAhead-&gt;m_pNext;</span><br><span class="line">		k--;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span> (k &gt; <span class="number">1</span> || pAhead == <span class="literal">NULL</span>)</span><br><span class="line">		<span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">	<span class="keyword">while</span> (pAhead-&gt;m_pNext != <span class="literal">NULL</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		pAhead = pAhead-&gt;m_pNext;</span><br><span class="line">		pBehind = pBehind-&gt;m_pNext;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="查找中间节点"><a href="#查找中间节点" class="headerlink" title="查找中间节点"></a>查找中间节点</h4><p>无需先获取长度，只需要一次遍历即可解决问题，和上一题类似思路，两个指针，分别为“快”指针和“慢”指针。快指针每次“走两步”，慢指针每次”走一步“，这样快指针走过的节点始终是慢指针的两倍。快指针到尾节点时，返回慢指针即可。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">ListNode * <span class="title">GetMiddleNode</span><span class="params">(ListNode * pHead)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (pHead == <span class="literal">NULL</span> || pHead-&gt;m_pNext == <span class="literal">NULL</span>)</span><br><span class="line">		<span class="keyword">return</span> pHead;</span><br><span class="line">	ListNode *pAhead = pHead;</span><br><span class="line">	ListNode *pBehind = pHead;</span><br><span class="line">	<span class="keyword">while</span> (pAhead-&gt;m_pNext != <span class="literal">NULL</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		pAhead = pAhead-&gt;m_pNext;</span><br><span class="line">		pBehind = pBehind-&gt;m_pNext;</span><br><span class="line">		<span class="keyword">if</span> (pAhead-&gt;m_pNext != <span class="literal">NULL</span>)</span><br><span class="line">			pAhead = pAhead-&gt;m_pNext;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> pBehind;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="倒序打印链表"><a href="#倒序打印链表" class="headerlink" title="倒序打印链表"></a>倒序打印链表</h4><p>借助栈实现，遍历时将节点值存储到栈中。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">PrintList</span><span class="params">(ListNode *pHead)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="built_in">stack</span>&lt;ListNode *&gt; s;</span><br><span class="line">	<span class="keyword">while</span> (pHead != <span class="literal">NULL</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		s.push(pHead);</span><br><span class="line">		pHead = pHead-&gt;m_pNext;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">while</span> (!s.empty())</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; s.top() &lt;&lt; <span class="string">"\t"</span>;</span><br><span class="line">		s.pop();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="合并两个链表"><a href="#合并两个链表" class="headerlink" title="合并两个链表"></a>合并两个链表</h4><p>遍历对比节点值，直接合并。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">ListNode *<span class="title">MergeSortedLit</span><span class="params">(ListNode *pHead1, ListNode *pHead2)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (pHead1 == <span class="literal">NULL</span>)</span><br><span class="line">		<span class="keyword">return</span> pHead1;</span><br><span class="line">	<span class="keyword">if</span> (pHead2 == <span class="literal">NULL</span>)</span><br><span class="line">		<span class="keyword">return</span> pHead2;</span><br><span class="line">	ListNode *pHeadMerged = <span class="literal">NULL</span>;</span><br><span class="line">	<span class="keyword">if</span> (pHead1-&gt;m_nKey &lt; pHead2-&gt;m_nKey)</span><br><span class="line">	&#123;</span><br><span class="line">		pHeadMerged = pHead1;</span><br><span class="line">		<span class="comment">//pHeadMerged-&gt;m_pNext = NULL;</span></span><br><span class="line">		pHead1 = pHead1-&gt;m_pNext;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">	&#123;</span><br><span class="line">		pHeadMerged = pHead2;</span><br><span class="line">		<span class="comment">//pHeadMerged-&gt;m_pNext = NULL;</span></span><br><span class="line">		pHead2 = pHead2-&gt;m_pNext;</span><br><span class="line">	&#125;</span><br><span class="line">	ListNode *pTemp = pHeadMerged;</span><br><span class="line">	<span class="keyword">while</span> (pHead1 != <span class="literal">NULL</span> &amp;&amp; pHead2 != <span class="literal">NULL</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span> (pHead1-&gt;m_nKey &lt; pHead2-&gt;m_nKey)</span><br><span class="line">		&#123;</span><br><span class="line">			pTemp-&gt;m_pNext = pHead1;</span><br><span class="line">			pHead1 = pHead1-&gt;m_pNext;</span><br><span class="line">			pTemp = pTemp-&gt;m_pNext;</span><br><span class="line">			<span class="comment">//pTemp-&gt;m_pNext = NULL;</span></span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span></span><br><span class="line">		&#123;</span><br><span class="line">			pTemp-&gt;m_pNext = pHead2;</span><br><span class="line">			pHead2 = pHead2-&gt;m_pNext;</span><br><span class="line">			pTemp = pTemp-&gt;m_pNext;</span><br><span class="line">			<span class="comment">//pTemp-&gt;m_pNext = NULL;</span></span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span> (pHead1 != <span class="literal">NULL</span>)</span><br><span class="line">		pTemp-&gt;m_pNext = pHead1;</span><br><span class="line">	<span class="keyword">else</span> <span class="keyword">if</span> (pHead2 != <span class="literal">NULL</span>)</span><br><span class="line">		pTemp-&gt;m_pNext = pHead2;</span><br><span class="line">	<span class="keyword">return</span> pHeadMerged;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="判断单链表是否有环"><a href="#判断单链表是否有环" class="headerlink" title="判断单链表是否有环"></a>判断单链表是否有环</h4><p>注意该链表有可能是首尾相接，也可能是只有后面一段是环。</p>
+<p>经典的快慢指针解题思路，快指针每次走两步，慢指针每次走一步。如果快慢指针相遇则存在环，否则不存在环。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">HasCircle</span><span class="params">(ListNode *pHead)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	ListNode *pFast = pHead;</span><br><span class="line">	ListNode *pSlow = pHead;</span><br><span class="line">	<span class="keyword">while</span> (pFast != <span class="literal">NULL</span>&amp;&amp;pFast-&gt;m_pNext != <span class="literal">NULL</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		pFast = pFast-&gt;m_pNext-&gt;m_pNext;</span><br><span class="line">		pSlow = pSlow-&gt;m_pNext;</span><br><span class="line">		<span class="keyword">if</span> (pFast == pSlow)</span><br><span class="line">			<span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="判断两个链表是否相交"><a href="#判断两个链表是否相交" class="headerlink" title="判断两个链表是否相交"></a>判断两个链表是否相交</h4><p>如果两个链表相交，那么他们在相交点之后必定成为同一条链表，所以只需要判断两个链表的尾节点是否相同即可。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">IsIntersected</span><span class="params">(ListNode *pHead1, ListNode *pHead2)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (pHead1 == <span class="literal">NULL</span>&amp;&amp;pHead2 == <span class="literal">NULL</span>)</span><br><span class="line">		<span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">	<span class="keyword">while</span> (pHead1-&gt;m_pNext != <span class="literal">NULL</span>)</span><br><span class="line">		pHead1 = pHead1-&gt;m_pNext;</span><br><span class="line">	<span class="keyword">while</span> (pHead2-&gt;m_pNext != <span class="literal">NULL</span>)</span><br><span class="line">		pHead2 = pHead2-&gt;m_pNext;</span><br><span class="line">	<span class="keyword">return</span> pHead1 == pHead2;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="求两个单链表相交的第一个节点"><a href="#求两个单链表相交的第一个节点" class="headerlink" title="求两个单链表相交的第一个节点"></a>求两个单链表相交的第一个节点</h4><p>先获取两个链表的长度，然后获取长度差值len，双指针策略，较长的链表的指针先走len步，然后两个指针一起遍历，相遇即跳出，跳出点即相交的第一个节点。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">ListNode * <span class="title">GetFirstCommonNode</span><span class="params">(ListNode *pHead1, ListNode *pHead2)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (pHead1 == <span class="literal">NULL</span> || pHead2 == <span class="literal">NULL</span>)</span><br><span class="line">		<span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">	<span class="keyword">int</span> len1 = <span class="number">1</span>;</span><br><span class="line">	ListNode *pTail1 = pHead1;</span><br><span class="line">	<span class="keyword">while</span> (pTail1-&gt;m_pNext != <span class="literal">NULL</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		len1++;</span><br><span class="line">		pTail1 = pTail1-&gt;m_pNext;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">int</span> len2 = <span class="number">1</span>;</span><br><span class="line">	ListNode *pTail2 = pHead2;</span><br><span class="line">	<span class="keyword">while</span> (pTail1-&gt;m_pNext != <span class="literal">NULL</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		len2++;</span><br><span class="line">		pTail2 = pTail2-&gt;m_pNext;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span> (pTail1 != pTail2)</span><br><span class="line">		<span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">	ListNode * pNode1 = pHead1;</span><br><span class="line">	ListNode * pNode2 = pHead2;</span><br><span class="line">	<span class="keyword">if</span> (len1 &gt; len2)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">int</span> k = len1 - len2;</span><br><span class="line">		<span class="keyword">while</span> (k--)</span><br><span class="line">			pNode1 = pNode1-&gt;m_pNext;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">int</span> k = len1 - len2;</span><br><span class="line">		<span class="keyword">while</span> (k--)</span><br><span class="line">			pNode1 = pNode1-&gt;m_pNext;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">while</span> (pNode1!=pNode2)</span><br><span class="line">	&#123;</span><br><span class="line">		pNode1 = pNode1-&gt;m_pNext;</span><br><span class="line">		pNode2 = pNode2-&gt;m_pNext;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> pNode1;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="已知有环，求入环后第一个节点"><a href="#已知有环，求入环后第一个节点" class="headerlink" title="已知有环，求入环后第一个节点"></a>已知有环，求入环后第一个节点</h4><p>这题将<strong>判断链表是否有环</strong>和<strong>求两个单链表相交的第一个节点</strong>相结合，在快慢指针相遇点断开成两条新的链表，之后两个链表相交的第一个节点就是两个单链表相交的第一个节点。</p>
+<p>参考图</p>
+<p><img src="http://oygov02sc.bkt.clouddn.com/%E9%93%BE%E8%A1%A8%E8%80%83%E7%82%B9%E5%89%96%E6%9E%90-1.png" alt=""></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">ListNode * <span class="title">GetFirstNodeInCycle</span><span class="params">(ListNode *pHead)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (pHead == <span class="literal">NULL</span> || pHead-&gt;m_pNext == <span class="literal">NULL</span>)</span><br><span class="line">		<span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">	ListNode *pFast = pHead;</span><br><span class="line">	ListNode *pSlow = pHead;</span><br><span class="line">	<span class="keyword">while</span> (pFast != <span class="literal">NULL</span>&amp;&amp;pFast-&gt;m_pNext != <span class="literal">NULL</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		pFast = pFast-&gt;m_pNext-&gt;m_pNext;</span><br><span class="line">		pSlow = pSlow-&gt;m_pNext;</span><br><span class="line">		<span class="keyword">if</span> (pFast == pSlow)</span><br><span class="line">			<span class="keyword">break</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span> (pFast == <span class="literal">NULL</span> || pFast-&gt;m_pNext == <span class="literal">NULL</span>)</span><br><span class="line">		<span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">	ListNode *pAssumedTail = pFast;</span><br><span class="line">	ListNode *pHead1 = pHead;</span><br><span class="line">	ListNode *pHead2 = pAssumedTail-&gt;m_pNext;</span><br><span class="line">	ListNode *pNode1 = pHead1;</span><br><span class="line">	<span class="keyword">int</span> len1 = <span class="number">1</span>;</span><br><span class="line">	<span class="keyword">while</span> (pNode1 != pAssumedTail)</span><br><span class="line">	&#123;</span><br><span class="line">		len1++;</span><br><span class="line">		pNode1 = pNode1-&gt;m_pNext;</span><br><span class="line">	&#125;</span><br><span class="line">	ListNode *pNode2 = pHead2;</span><br><span class="line">	<span class="keyword">int</span> len2 = <span class="number">1</span>;</span><br><span class="line">	<span class="keyword">while</span> (pNode2 != pAssumedTail)</span><br><span class="line">	&#123;</span><br><span class="line">		len2++;</span><br><span class="line">		pNode1 = pNode2-&gt;m_pNext;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span> (len1 &gt; len2)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">int</span> k = len1 - len2;</span><br><span class="line">		<span class="keyword">while</span> (k--)</span><br><span class="line">			pNode1 = pNode1-&gt;m_pNext;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">int</span> k = len2 - len1;</span><br><span class="line">		<span class="keyword">while</span> (k--)</span><br><span class="line">			pNode2 = pNode2-&gt;m_pNext;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">while</span> (pNode1 != pNode2)</span><br><span class="line">	&#123;</span><br><span class="line">		pNode1 = pNode1-&gt;m_pNext;</span><br><span class="line">		pNode2 = pNode2-&gt;m_pNext;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> pNode1;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="O-1-删除一个节点"><a href="#O-1-删除一个节点" class="headerlink" title="O(1)删除一个节点"></a>O(1)删除一个节点</h4><p>一般来说删除一个节点的时间复杂度是O(n)，此处的删除是一种投机的方法，将待删除的节点的下一个节点的值赋予当前节点，然后删除下一个节点。当然如果需要删除的节点是尾节点，还是需要遍历才能删除。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">DeleteNode</span><span class="params">(ListNode *pHead, ListNode *pToBeDeleted)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (pToBeDeleted == <span class="literal">NULL</span>)</span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line">	<span class="keyword">if</span> (pToBeDeleted-&gt;m_pNext != <span class="literal">NULL</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		ListNode *pNext = pToBeDeleted-&gt;m_pNext;</span><br><span class="line">		pToBeDeleted-&gt;m_nKey = pNext-&gt;m_nKey;</span><br><span class="line">		pToBeDeleted-&gt;m_pNext = pNext-&gt;m_pNext;</span><br><span class="line">		<span class="keyword">delete</span> pNext;</span><br><span class="line">		pNext = <span class="literal">NULL</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span> (pHead == pToBeDeleted)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">delete</span> pToBeDeleted;</span><br><span class="line">			pHead = <span class="literal">NULL</span>;</span><br><span class="line">			pToBeDeleted = <span class="literal">NULL</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span></span><br><span class="line">		&#123;</span><br><span class="line">			ListNode *pTemp = pHead;</span><br><span class="line">			<span class="keyword">while</span> (pTemp-&gt;m_pNext != pToBeDeleted)</span><br><span class="line">				pTemp = pTemp-&gt;m_pNext;</span><br><span class="line">			<span class="keyword">delete</span> pToBeDeleted;</span><br><span class="line">			pTemp-&gt;m_pNext = <span class="literal">NULL</span>;</span><br><span class="line">			pToBeDeleted = <span class="literal">NULL</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="考点"><a href="#考点" class="headerlink" title="考点"></a>考点</h3><p>考点多集中在双指针，快慢指针，遍历等方面。在设计链表题目时，切记要考虑空链表，遍历跳出点以及该链表是否存在哑结点。在做题前需要向面试官询问，并在代码中恰当处理，否则很容易出错。</p>
+<h3 id="附录"><a href="#附录" class="headerlink" title="附录"></a>附录</h3><p>全部代码</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br><span class="line">261</span><br><span class="line">262</span><br><span class="line">263</span><br><span class="line">264</span><br><span class="line">265</span><br><span class="line">266</span><br><span class="line">267</span><br><span class="line">268</span><br><span class="line">269</span><br><span class="line">270</span><br><span class="line">271</span><br><span class="line">272</span><br><span class="line">273</span><br><span class="line">274</span><br><span class="line">275</span><br><span class="line">276</span><br><span class="line">277</span><br><span class="line">278</span><br><span class="line">279</span><br><span class="line">280</span><br><span class="line">281</span><br><span class="line">282</span><br><span class="line">283</span><br><span class="line">284</span><br><span class="line">285</span><br><span class="line">286</span><br><span class="line">287</span><br><span class="line">288</span><br><span class="line">289</span><br><span class="line">290</span><br><span class="line">291</span><br><span class="line">292</span><br><span class="line">293</span><br><span class="line">294</span><br><span class="line">295</span><br><span class="line">296</span><br><span class="line">297</span><br><span class="line">298</span><br><span class="line">299</span><br><span class="line">300</span><br><span class="line">301</span><br><span class="line">302</span><br><span class="line">303</span><br><span class="line">304</span><br><span class="line">305</span><br><span class="line">306</span><br><span class="line">307</span><br><span class="line">308</span><br><span class="line">309</span><br><span class="line">310</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stack&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">ListNode</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">	<span class="keyword">int</span> m_nKey;</span><br><span class="line">	ListNode * m_pNext;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//求节点个数</span></span><br><span class="line"><span class="function"><span class="keyword">unsigned</span> <span class="keyword">int</span> <span class="title">GetThisLength</span><span class="params">(ListNode *pHead)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (pHead == <span class="literal">NULL</span>)</span><br><span class="line">		<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">	ListNode *pCurrent = pHead;</span><br><span class="line">	<span class="keyword">unsigned</span> <span class="keyword">int</span> nlength = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">while</span> (pCurrent != <span class="literal">NULL</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		nlength++;</span><br><span class="line">		pCurrent = pCurrent-&gt;m_pNext;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> nlength;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//反转链表</span></span><br><span class="line"><span class="function">ListNode * <span class="title">ReverseList</span><span class="params">(ListNode *pHead)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (pHead == <span class="literal">NULL</span> || pHead-&gt;m_pNext == <span class="literal">NULL</span>)</span><br><span class="line">		<span class="keyword">return</span> pHead;</span><br><span class="line">	ListNode *pReverseHead = <span class="literal">NULL</span>;</span><br><span class="line">	ListNode *pCurrent = pHead;</span><br><span class="line">	<span class="keyword">while</span> (pCurrent != <span class="literal">NULL</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		ListNode *temp = pCurrent;</span><br><span class="line">		pCurrent = pCurrent-&gt;m_pNext;</span><br><span class="line">		temp-&gt;m_pNext = pReverseHead;</span><br><span class="line">		pReverseHead = temp;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> pReverseHead;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function">ListNode * <span class="title">ReverseList</span><span class="params">(ListNode *pHead)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (pHead == <span class="literal">NULL</span> || pHead-&gt;m_pNext == <span class="literal">NULL</span>)</span><br><span class="line">		<span class="keyword">return</span> pHead;</span><br><span class="line">	ListNode *newHead = ReverseList(pHead-&gt;next);</span><br><span class="line">  	pHead-&gt;next-&gt;next = newHead-&gt;next;</span><br><span class="line">  	pHead-&gt;next = <span class="literal">NULL</span>;</span><br><span class="line">	<span class="keyword">return</span> pReverseHead;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//找倒数第k个节点</span></span><br><span class="line"><span class="function">ListNode * <span class="title">RGetKthNode</span><span class="params">(ListNode * pHead, <span class="keyword">unsigned</span> <span class="keyword">int</span> k)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (k == <span class="number">0</span> || pHead == <span class="literal">NULL</span>)</span><br><span class="line">		<span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">	ListNode *pAhead = pHead;</span><br><span class="line">	ListNode *pBehind = pHead;</span><br><span class="line">	<span class="keyword">while</span> (pAhead != <span class="literal">NULL</span>&amp;&amp;k &gt; <span class="number">1</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		pAhead = pAhead-&gt;m_pNext;</span><br><span class="line">		k--;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span> (k &gt; <span class="number">1</span> || pAhead == <span class="literal">NULL</span>)</span><br><span class="line">		<span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">	<span class="keyword">while</span> (pAhead-&gt;m_pNext != <span class="literal">NULL</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		pAhead = pAhead-&gt;m_pNext;</span><br><span class="line">		pBehind = pBehind-&gt;m_pNext;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//查找中间结点</span></span><br><span class="line"><span class="function">ListNode * <span class="title">GetMiddleNode</span><span class="params">(ListNode * pHead)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (pHead == <span class="literal">NULL</span> || pHead-&gt;m_pNext == <span class="literal">NULL</span>)</span><br><span class="line">		<span class="keyword">return</span> pHead;</span><br><span class="line">	ListNode *pAhead = pHead;</span><br><span class="line">	ListNode *pBehind = pHead;</span><br><span class="line">	<span class="keyword">while</span> (pAhead-&gt;m_pNext != <span class="literal">NULL</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		pAhead = pAhead-&gt;m_pNext;</span><br><span class="line">		pBehind = pBehind-&gt;m_pNext;</span><br><span class="line">		<span class="keyword">if</span> (pAhead-&gt;m_pNext != <span class="literal">NULL</span>)</span><br><span class="line">			pAhead = pAhead-&gt;m_pNext;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> pBehind;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//倒序打印链表</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">PrintList</span><span class="params">(ListNode *pHead)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="built_in">stack</span>&lt;ListNode *&gt; s;</span><br><span class="line">	<span class="keyword">while</span> (pHead != <span class="literal">NULL</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		s.push(pHead);</span><br><span class="line">		pHead = pHead-&gt;m_pNext;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">while</span> (!s.empty())</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">cout</span> &lt;&lt; s.top() &lt;&lt; <span class="string">"\t"</span>;</span><br><span class="line">		s.pop();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//合并两个链表</span></span><br><span class="line"><span class="function">ListNode *<span class="title">MergeSortedLit</span><span class="params">(ListNode *pHead1, ListNode *pHead2)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (pHead1 == <span class="literal">NULL</span>)</span><br><span class="line">		<span class="keyword">return</span> pHead1;</span><br><span class="line">	<span class="keyword">if</span> (pHead2 == <span class="literal">NULL</span>)</span><br><span class="line">		<span class="keyword">return</span> pHead2;</span><br><span class="line">	ListNode *pHeadMerged = <span class="literal">NULL</span>;</span><br><span class="line">	<span class="keyword">if</span> (pHead1-&gt;m_nKey &lt; pHead2-&gt;m_nKey)</span><br><span class="line">	&#123;</span><br><span class="line">		pHeadMerged = pHead1;</span><br><span class="line">		<span class="comment">//pHeadMerged-&gt;m_pNext = NULL;</span></span><br><span class="line">		pHead1 = pHead1-&gt;m_pNext;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">	&#123;</span><br><span class="line">		pHeadMerged = pHead2;</span><br><span class="line">		<span class="comment">//pHeadMerged-&gt;m_pNext = NULL;</span></span><br><span class="line">		pHead2 = pHead2-&gt;m_pNext;</span><br><span class="line">	&#125;</span><br><span class="line">	ListNode *pTemp = pHeadMerged;</span><br><span class="line">	<span class="keyword">while</span> (pHead1 != <span class="literal">NULL</span> &amp;&amp; pHead2 != <span class="literal">NULL</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span> (pHead1-&gt;m_nKey &lt; pHead2-&gt;m_nKey)</span><br><span class="line">		&#123;</span><br><span class="line">			pTemp-&gt;m_pNext = pHead1;</span><br><span class="line">			pHead1 = pHead1-&gt;m_pNext;</span><br><span class="line">			pTemp = pTemp-&gt;m_pNext;</span><br><span class="line">			<span class="comment">//pTemp-&gt;m_pNext = NULL;</span></span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span></span><br><span class="line">		&#123;</span><br><span class="line">			pTemp-&gt;m_pNext = pHead2;</span><br><span class="line">			pHead2 = pHead2-&gt;m_pNext;</span><br><span class="line">			pTemp = pTemp-&gt;m_pNext;</span><br><span class="line">			<span class="comment">//pTemp-&gt;m_pNext = NULL;</span></span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span> (pHead1 != <span class="literal">NULL</span>)</span><br><span class="line">		pTemp-&gt;m_pNext = pHead1;</span><br><span class="line">	<span class="keyword">else</span> <span class="keyword">if</span> (pHead2 != <span class="literal">NULL</span>)</span><br><span class="line">		pTemp-&gt;m_pNext = pHead2;</span><br><span class="line">	<span class="keyword">return</span> pHeadMerged;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//判断单链表是否有环</span></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">HasCircle</span><span class="params">(ListNode *pHead)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	ListNode *pFast = pHead;</span><br><span class="line">	ListNode *pSlow = pHead;</span><br><span class="line">	<span class="keyword">while</span> (pFast != <span class="literal">NULL</span>&amp;&amp;pFast-&gt;m_pNext != <span class="literal">NULL</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		pFast = pFast-&gt;m_pNext-&gt;m_pNext;</span><br><span class="line">		pSlow = pSlow-&gt;m_pNext;</span><br><span class="line">		<span class="keyword">if</span> (pFast == pSlow)</span><br><span class="line">			<span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//判断两个链表是否相交</span></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">IsIntersected</span><span class="params">(ListNode *pHead1, ListNode *pHead2)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (pHead1 == <span class="literal">NULL</span>&amp;&amp;pHead2 == <span class="literal">NULL</span>)</span><br><span class="line">		<span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">	<span class="keyword">while</span> (pHead1-&gt;m_pNext != <span class="literal">NULL</span>)</span><br><span class="line">		pHead1 = pHead1-&gt;m_pNext;</span><br><span class="line">	<span class="keyword">while</span> (pHead2-&gt;m_pNext != <span class="literal">NULL</span>)</span><br><span class="line">		pHead2 = pHead2-&gt;m_pNext;</span><br><span class="line">	<span class="keyword">return</span> pHead1 == pHead2;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//求两个单链表相交的第一个节点</span></span><br><span class="line"><span class="function">ListNode * <span class="title">GetFirstCommonNode</span><span class="params">(ListNode *pHead1, ListNode *pHead2)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (pHead1 == <span class="literal">NULL</span> || pHead2 == <span class="literal">NULL</span>)</span><br><span class="line">		<span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">	<span class="keyword">int</span> len1 = <span class="number">1</span>;</span><br><span class="line">	ListNode *pTail1 = pHead1;</span><br><span class="line">	<span class="keyword">while</span> (pTail1-&gt;m_pNext != <span class="literal">NULL</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		len1++;</span><br><span class="line">		pTail1 = pTail1-&gt;m_pNext;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">int</span> len2 = <span class="number">1</span>;</span><br><span class="line">	ListNode *pTail2 = pHead2;</span><br><span class="line">	<span class="keyword">while</span> (pTail1-&gt;m_pNext != <span class="literal">NULL</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		len2++;</span><br><span class="line">		pTail2 = pTail2-&gt;m_pNext;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span> (pTail1 != pTail2)</span><br><span class="line">		<span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">	ListNode * pNode1 = pHead1;</span><br><span class="line">	ListNode * pNode2 = pHead2;</span><br><span class="line">	<span class="keyword">if</span> (len1 &gt; len2)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">int</span> k = len1 - len2;</span><br><span class="line">		<span class="keyword">while</span> (k--)</span><br><span class="line">			pNode1 = pNode1-&gt;m_pNext;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">int</span> k = len1 - len2;</span><br><span class="line">		<span class="keyword">while</span> (k--)</span><br><span class="line">			pNode1 = pNode1-&gt;m_pNext;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">while</span> (pNode1!=pNode2)</span><br><span class="line">	&#123;</span><br><span class="line">		pNode1 = pNode1-&gt;m_pNext;</span><br><span class="line">		pNode2 = pNode2-&gt;m_pNext;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> pNode1;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//已知有环，求入环后第一个节点</span></span><br><span class="line"><span class="function">ListNode * <span class="title">GetFirstNodeInCycle</span><span class="params">(ListNode *pHead)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (pHead == <span class="literal">NULL</span> || pHead-&gt;m_pNext == <span class="literal">NULL</span>)</span><br><span class="line">		<span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">	ListNode *pFast = pHead;</span><br><span class="line">	ListNode *pSlow = pHead;</span><br><span class="line">	<span class="keyword">while</span> (pFast != <span class="literal">NULL</span>&amp;&amp;pFast-&gt;m_pNext != <span class="literal">NULL</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		pFast = pFast-&gt;m_pNext-&gt;m_pNext;</span><br><span class="line">		pSlow = pSlow-&gt;m_pNext;</span><br><span class="line">		<span class="keyword">if</span> (pFast == pSlow)</span><br><span class="line">			<span class="keyword">break</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span> (pFast == <span class="literal">NULL</span> || pFast-&gt;m_pNext == <span class="literal">NULL</span>)</span><br><span class="line">		<span class="keyword">return</span> <span class="literal">NULL</span>;</span><br><span class="line">	ListNode *pAssumedTail = pFast;</span><br><span class="line">	ListNode *pHead1 = pHead;</span><br><span class="line">	ListNode *pHead2 = pAssumedTail-&gt;m_pNext;</span><br><span class="line">	ListNode *pNode1 = pHead1;</span><br><span class="line">	<span class="keyword">int</span> len1 = <span class="number">1</span>;</span><br><span class="line">	<span class="keyword">while</span> (pNode1 != pAssumedTail)</span><br><span class="line">	&#123;</span><br><span class="line">		len1++;</span><br><span class="line">		pNode1 = pNode1-&gt;m_pNext;</span><br><span class="line">	&#125;</span><br><span class="line">	ListNode *pNode2 = pHead2;</span><br><span class="line">	<span class="keyword">int</span> len2 = <span class="number">1</span>;</span><br><span class="line">	<span class="keyword">while</span> (pNode2 != pAssumedTail)</span><br><span class="line">	&#123;</span><br><span class="line">		len2++;</span><br><span class="line">		pNode1 = pNode2-&gt;m_pNext;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span> (len1 &gt; len2)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">int</span> k = len1 - len2;</span><br><span class="line">		<span class="keyword">while</span> (k--)</span><br><span class="line">			pNode1 = pNode1-&gt;m_pNext;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">int</span> k = len2 - len1;</span><br><span class="line">		<span class="keyword">while</span> (k--)</span><br><span class="line">			pNode2 = pNode2-&gt;m_pNext;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">while</span> (pNode1 != pNode2)</span><br><span class="line">	&#123;</span><br><span class="line">		pNode1 = pNode1-&gt;m_pNext;</span><br><span class="line">		pNode2 = pNode2-&gt;m_pNext;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> pNode1;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//O(1)删除一个节点</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">DeleteNode</span><span class="params">(ListNode *pHead, ListNode *pToBeDeleted)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (pToBeDeleted == <span class="literal">NULL</span>)</span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line">	<span class="keyword">if</span> (pToBeDeleted-&gt;m_pNext != <span class="literal">NULL</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		ListNode *pNext = pToBeDeleted-&gt;m_pNext;</span><br><span class="line">		pToBeDeleted-&gt;m_nKey = pNext-&gt;m_nKey;</span><br><span class="line">		pToBeDeleted-&gt;m_pNext = pNext-&gt;m_pNext;</span><br><span class="line">		<span class="keyword">delete</span> pNext;</span><br><span class="line">		pNext = <span class="literal">NULL</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span> (pHead == pToBeDeleted)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">delete</span> pToBeDeleted;</span><br><span class="line">			pHead = <span class="literal">NULL</span>;</span><br><span class="line">			pToBeDeleted = <span class="literal">NULL</span>;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span></span><br><span class="line">		&#123;</span><br><span class="line">			ListNode *pTemp = pHead;</span><br><span class="line">			<span class="keyword">while</span> (pTemp-&gt;m_pNext != pToBeDeleted)</span><br><span class="line">				pTemp = pTemp-&gt;m_pNext;</span><br><span class="line">			<span class="keyword">delete</span> pToBeDeleted;</span><br><span class="line">			pTemp-&gt;m_pNext = <span class="literal">NULL</span>;</span><br><span class="line">			pToBeDeleted = <span class="literal">NULL</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/面试/" rel="tag"># 面试</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/10/27/java类与成员访问控制/" rel="next" title="java类与成员访问控制">
+                <i class="fa fa-chevron-left"></i> java类与成员访问控制
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/12/24/google-map-比例尺算法分析/" rel="prev" title="google map 比例尺算法分析">
+                google map 比例尺算法分析 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8zMTUxMS84MDc1"></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.png"
+                alt="尹小贱" />
+            
+              <p class="site-author-name" itemprop="name">尹小贱</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/yinxiaojian" target="_blank" title="GitHub">
+                    
+                      <i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="mailto:jianwen_yin@163.com" target="_blank" title="E-Mail">
+                    
+                      <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#定义"><span class="nav-number">1.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#题目"><span class="nav-number">2.</span> <span class="nav-text">题目</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#求节点数目"><span class="nav-number">2.1.</span> <span class="nav-text">求节点数目</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#反转链表"><span class="nav-number">2.2.</span> <span class="nav-text">反转链表</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#找倒数第k个节点"><span class="nav-number">2.3.</span> <span class="nav-text">找倒数第k个节点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#查找中间节点"><span class="nav-number">2.4.</span> <span class="nav-text">查找中间节点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#倒序打印链表"><span class="nav-number">2.5.</span> <span class="nav-text">倒序打印链表</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#合并两个链表"><span class="nav-number">2.6.</span> <span class="nav-text">合并两个链表</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#判断单链表是否有环"><span class="nav-number">2.7.</span> <span class="nav-text">判断单链表是否有环</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#判断两个链表是否相交"><span class="nav-number">2.8.</span> <span class="nav-text">判断两个链表是否相交</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#求两个单链表相交的第一个节点"><span class="nav-number">2.9.</span> <span class="nav-text">求两个单链表相交的第一个节点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#已知有环，求入环后第一个节点"><span class="nav-number">2.10.</span> <span class="nav-text">已知有环，求入环后第一个节点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#O-1-删除一个节点"><span class="nav-number">2.11.</span> <span class="nav-text">O(1)删除一个节点</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#考点"><span class="nav-number">3.</span> <span class="nav-text">考点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#附录"><span class="nav-number">4.</span> <span class="nav-text">附录</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">尹小贱</span>
+
+  
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("Idt9UfaAHK2DU2r9ElSW1HwX-gzGzoHsz", "vYIHlCkzoMmSOcG3GHAJafpd");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -7,7 +7,7 @@
 
 <html class="theme-next mist use-motion" lang="zh-Hans">
 <head>
-  <meta charset="UTF-8"/>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 <meta name="theme-color" content="#222">
@@ -128,7 +128,7 @@
 
 
 
-  <title>SpringMVC Controllers 说明文档 | 尹小贱的自留地</title>
+  <title>SpringMVC Controllers 说明文档 | 尹小贱的自留地</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
   
 
 
@@ -147,7 +147,7 @@
     
   
 
-  <div class="container sidebar-position-left page-post-detail">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -459,6 +459,7 @@
 <h3 id="3-Handler-Methods"><a href="#3-Handler-Methods" class="headerlink" title="3 Handler Methods"></a>3 Handler Methods</h3><h4 id="3-1-Method-Arguments"><a href="#3-1-Method-Arguments" class="headerlink" title="3.1 Method Arguments"></a>3.1 Method Arguments</h4><blockquote>
 <p>引用自官方文档</p>
 </blockquote>
+<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -569,9 +570,11 @@
 </tr>
 </tbody>
 </table>
+</div>
 <h4 id="3-2-Return-Values"><a href="#3-2-Return-Values" class="headerlink" title="3.2 Return Values"></a>3.2 Return Values</h4><blockquote>
 <p>引用自官方文档</p>
 </blockquote>
+<div class="table-container">
 <table>
 <thead>
 <tr>
@@ -642,6 +645,7 @@
 </tr>
 </tbody>
 </table>
+</div>
 <h4 id="3-3-RequestParam"><a href="#3-3-RequestParam" class="headerlink" title="3.3 @RequestParam"></a>3.3 @RequestParam</h4><p>使用 @RequestParam 绑定 HttpServletRequest 请求参数到控制器方法参数：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Controller</span></span><br><span class="line"><span class="meta">@RequestMapping</span>(<span class="string">"/pets"</span>)</span><br><span class="line"><span class="meta">@SessionAttributes</span>(<span class="string">"pet"</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">EditPetForm</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line"></span><br><span class="line">    <span class="meta">@GetMapping</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">setupForm</span><span class="params">(@RequestParam(<span class="string">"petId"</span>)</span> <span class="keyword">int</span> petId, ModelMap model) </span>&#123;</span><br><span class="line">        Pet pet = <span class="keyword">this</span>.clinic.loadPet(petId);</span><br><span class="line">        model.addAttribute(<span class="string">"pet"</span>, pet);</span><br><span class="line">        <span class="keyword">return</span> <span class="string">"petForm"</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>绑定的参数默认必须存在，可以通过required属性修改，如<code>@RequestParam(name=&quot;id&quot;, required=false)</code>。</p>
@@ -1511,6 +1515,28 @@
   
 
   
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  
+
 
   
 

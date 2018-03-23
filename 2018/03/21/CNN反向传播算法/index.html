@@ -81,19 +81,19 @@
 
 
 
-<meta name="description" content="全文翻译自 Notes on Convolutional Neural Networks  论文链接 释部分为自己的补充说明，可能存在错误  1 介绍本文档讨论CNN的推导和实现，并加上一些简单的扩展。相比权值，卷积神经网络涉及到更多的连接。其架构本身实现了正则化。此外，CNN在某种程度上实现了平移不变性。这种特殊的神经网络假设我们希望通过数据驱动的方式学习过滤器，用来提取输入特征。推导是在二维">
+<meta name="description" content="全文翻译自 Notes on Convolutional Neural Networks  论文链接 释部分为自己的补充说明，可能存在错误">
 <meta name="keywords" content="深度学习">
 <meta property="og:type" content="article">
 <meta property="og:title" content="CNN反向传播算法">
 <meta property="og:url" content="http://blog.yinjianwen.site/2018/03/21/CNN反向传播算法/index.html">
 <meta property="og:site_name" content="尹小贱的自留地">
-<meta property="og:description" content="全文翻译自 Notes on Convolutional Neural Networks  论文链接 释部分为自己的补充说明，可能存在错误  1 介绍本文档讨论CNN的推导和实现，并加上一些简单的扩展。相比权值，卷积神经网络涉及到更多的连接。其架构本身实现了正则化。此外，CNN在某种程度上实现了平移不变性。这种特殊的神经网络假设我们希望通过数据驱动的方式学习过滤器，用来提取输入特征。推导是在二维">
+<meta property="og:description" content="全文翻译自 Notes on Convolutional Neural Networks  论文链接 释部分为自己的补充说明，可能存在错误">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://blog.yinjianwen.site/Users/yinxiaojian/Desktop/CNN_02.gif">
-<meta property="og:updated_time" content="2018-03-23T08:40:30.793Z">
+<meta property="og:updated_time" content="2018-03-23T08:42:17.080Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CNN反向传播算法">
-<meta name="twitter:description" content="全文翻译自 Notes on Convolutional Neural Networks  论文链接 释部分为自己的补充说明，可能存在错误  1 介绍本文档讨论CNN的推导和实现，并加上一些简单的扩展。相比权值，卷积神经网络涉及到更多的连接。其架构本身实现了正则化。此外，CNN在某种程度上实现了平移不变性。这种特殊的神经网络假设我们希望通过数据驱动的方式学习过滤器，用来提取输入特征。推导是在二维">
+<meta name="twitter:description" content="全文翻译自 Notes on Convolutional Neural Networks  论文链接 释部分为自己的补充说明，可能存在错误">
 <meta name="twitter:image" content="http://blog.yinjianwen.site/Users/yinxiaojian/Desktop/CNN_02.gif">
 
 
@@ -396,6 +396,7 @@
 <p><a href="http://web.mit.edu/jvb/www/papers/cnn_tutorial.pdf" target="_blank" rel="noopener">论文链接</a></p>
 <p>释部分为自己的补充说明，可能存在错误</p>
 </blockquote>
+<a id="more"></a>
 <h3 id="1-介绍"><a href="#1-介绍" class="headerlink" title="1 介绍"></a>1 介绍</h3><p>本文档讨论CNN的推导和实现，并加上一些简单的扩展。相比权值，卷积神经网络涉及到更多的连接。其架构本身实现了正则化。此外，CNN在某种程度上实现了平移不变性。这种特殊的神经网络假设我们希望通过数据驱动的方式学习过滤器，用来提取输入特征。推导是在二维的数据和卷积的基础上展开的，但可以很容易的推广到任意维度。</p>
 <p>我们先对经典的BP算法做一个描述，然后推导2D卷积神经网络中卷积层和子采样层（池化层）的BP权值更新方法。在整个过程中，我们强调了视线的效率，给出MATLAB代码片段配合方程讲解。然后讨论如何自动组合前一层的feature map，最后是feature map的稀疏组合。</p>
 <p>免责声明：这个笔记可能有错误。</p>

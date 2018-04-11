@@ -4,6 +4,26 @@
 
     
   <url>
+    <loc>http://blog.yinjianwen.site/2018/04/11/Softmax-and-Cross-Entropy-Loss/</loc>
+    <lastmod>2018-04-11T08:09:17.800Z</lastmod>
+    <data>
+        <display>
+        <title>Softmax and Cross Entropy Loss</title>
+        <pubTime>2018-04-11T03:01:08.000Z</pubTime>
+        
+        <tag>softmax</tag>
+         
+         
+           
+             
+              <breadCrumb title="deep learning" url="http://blog.yinjianwen.site/categories/deep-learning/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://blog.yinjianwen.site/2018/03/21/CNN%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD%E7%AE%97%E6%B3%95/</loc>
     <lastmod>2018-03-23T08:49:18.089Z</lastmod>
     <data>
@@ -125,6 +145,26 @@
     </url>
 
     
+  <url>
+    <loc>http://blog.yinjianwen.site/2017/10/27/java%E7%B1%BB%E4%B8%8E%E6%88%90%E5%91%98%E8%AE%BF%E9%97%AE%E6%8E%A7%E5%88%B6/</loc>
+    <lastmod>2018-01-03T16:03:11.046Z</lastmod>
+    <data>
+        <display>
+        <title>java类与成员访问控制</title>
+        <pubTime>2017-10-27T07:22:29.000Z</pubTime>
+        
+        <tag>java基础</tag>
+         
+         
+           
+             
+              <breadCrumb title="java" url="http://blog.yinjianwen.site/categories/java/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
     
     
   <url>
@@ -148,19 +188,19 @@
 
     
   <url>
-    <loc>http://blog.yinjianwen.site/2017/10/27/java%E7%B1%BB%E4%B8%8E%E6%88%90%E5%91%98%E8%AE%BF%E9%97%AE%E6%8E%A7%E5%88%B6/</loc>
-    <lastmod>2018-01-03T16:03:11.046Z</lastmod>
+    <loc>http://blog.yinjianwen.site/2017/12/24/google-map-%E6%AF%94%E4%BE%8B%E5%B0%BA%E7%AE%97%E6%B3%95%E5%88%86%E6%9E%90/</loc>
+    <lastmod>2018-01-03T16:03:11.045Z</lastmod>
     <data>
         <display>
-        <title>java类与成员访问控制</title>
-        <pubTime>2017-10-27T07:22:29.000Z</pubTime>
+        <title>google map 比例尺算法分析</title>
+        <pubTime>2017-12-24T05:26:14.000Z</pubTime>
         
-        <tag>java基础</tag>
+        <tag>google map</tag>
          
          
            
              
-              <breadCrumb title="java" url="http://blog.yinjianwen.site/categories/java/"/>
+              <breadCrumb title="前端" url="http://blog.yinjianwen.site/categories/%E5%89%8D%E7%AB%AF/"/>
           
         </display>
     </data>
@@ -181,26 +221,6 @@
            
              
               <breadCrumb title="技术分享" url="http://blog.yinjianwen.site/categories/%E6%8A%80%E6%9C%AF%E5%88%86%E4%BA%AB/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://blog.yinjianwen.site/2017/12/24/google-map-%E6%AF%94%E4%BE%8B%E5%B0%BA%E7%AE%97%E6%B3%95%E5%88%86%E6%9E%90/</loc>
-    <lastmod>2018-01-03T16:03:11.045Z</lastmod>
-    <data>
-        <display>
-        <title>google map 比例尺算法分析</title>
-        <pubTime>2017-12-24T05:26:14.000Z</pubTime>
-        
-        <tag>google map</tag>
-         
-         
-           
-             
-              <breadCrumb title="前端" url="http://blog.yinjianwen.site/categories/%E5%89%8D%E7%AB%AF/"/>
           
         </display>
     </data>

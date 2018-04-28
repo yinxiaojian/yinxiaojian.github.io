@@ -4,6 +4,26 @@
 
     
   <url>
+    <loc>http://blog.yinjianwen.site/2018/04/11/Softmax-and-Cross-Entropy-Loss/</loc>
+    <lastmod>2018-04-28T09:38:13.306Z</lastmod>
+    <data>
+        <display>
+        <title>Softmax and Cross Entropy Loss</title>
+        <pubTime>2018-04-11T03:01:08.000Z</pubTime>
+        
+        <tag>softmax</tag>
+         
+         
+           
+             
+              <breadCrumb title="artificial intelligence" url="http://blog.yinjianwen.site/categories/artificial-intelligence/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://blog.yinjianwen.site/2018/01/15/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0-%E5%86%B3%E7%AD%96%E6%A0%91/</loc>
     <lastmod>2018-04-28T09:35:36.644Z</lastmod>
     <data>
@@ -57,26 +77,6 @@
            
              
               <breadCrumb title="artificial intelligence" url="http://blog.yinjianwen.site/categories/artificial-intelligence/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://blog.yinjianwen.site/2018/04/11/Softmax-and-Cross-Entropy-Loss/</loc>
-    <lastmod>2018-04-11T08:09:17.800Z</lastmod>
-    <data>
-        <display>
-        <title>Softmax and Cross Entropy Loss</title>
-        <pubTime>2018-04-11T03:01:08.000Z</pubTime>
-        
-        <tag>softmax</tag>
-         
-         
-           
-             
-              <breadCrumb title="deep learning" url="http://blog.yinjianwen.site/categories/deep-learning/"/>
           
         </display>
     </data>

@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://blog.yinjianwen.site/2018/04/11/Softmax-and-Cross-Entropy-Loss/</loc>
+    
+    <lastmod>2018-04-28T09:38:13.306Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://blog.yinjianwen.site/2018/01/15/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0-%E5%86%B3%E7%AD%96%E6%A0%91/</loc>
     
     <lastmod>2018-04-28T09:35:36.644Z</lastmod>
@@ -19,13 +26,6 @@
     <loc>http://blog.yinjianwen.site/2018/03/21/CNN%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD%E7%AE%97%E6%B3%95/</loc>
     
     <lastmod>2018-04-28T09:34:51.088Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://blog.yinjianwen.site/2018/04/11/Softmax-and-Cross-Entropy-Loss/</loc>
-    
-    <lastmod>2018-04-11T08:09:17.800Z</lastmod>
     
   </url>
   

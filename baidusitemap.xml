@@ -4,6 +4,46 @@
 
     
   <url>
+    <loc>http://blog.yinjianwen.site/2018/06/14/Cost-Sensitive-Online-Classification/</loc>
+    <lastmod>2018-06-14T09:33:05.614Z</lastmod>
+    <data>
+        <display>
+        <title>Cost Sensitive Online Classification</title>
+        <pubTime>2018-06-14T06:38:47.000Z</pubTime>
+        
+        <tag>machine learning</tag>
+         
+         
+           
+             
+              <breadCrumb title="artificial intelligence" url="http://blog.yinjianwen.site/categories/artificial-intelligence/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://blog.yinjianwen.site/2018/04/25/robust-optimization-in-ML/</loc>
+    <lastmod>2018-06-14T09:33:04.157Z</lastmod>
+    <data>
+        <display>
+        <title>robust optimization in ML</title>
+        <pubTime>2018-04-25T05:25:41.000Z</pubTime>
+        
+        <tag>machine learning</tag>
+         
+         
+           
+             
+              <breadCrumb title="artificial intelligence" url="http://blog.yinjianwen.site/categories/artificial-intelligence/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://blog.yinjianwen.site/2018/04/11/Softmax-and-Cross-Entropy-Loss/</loc>
     <lastmod>2018-04-28T09:38:13.306Z</lastmod>
     <data>
@@ -32,26 +72,6 @@
         <pubTime>2018-01-15T01:23:13.000Z</pubTime>
         
         <tag>machine learing</tag>
-         
-         
-           
-             
-              <breadCrumb title="artificial intelligence" url="http://blog.yinjianwen.site/categories/artificial-intelligence/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://blog.yinjianwen.site/2018/04/25/robust-optimization-in-ML/</loc>
-    <lastmod>2018-04-28T09:34:57.351Z</lastmod>
-    <data>
-        <display>
-        <title>robust optimization in ML</title>
-        <pubTime>2018-04-25T05:25:41.000Z</pubTime>
-        
-        <tag>machine learning</tag>
          
          
            
@@ -206,26 +226,6 @@
     
     
   <url>
-    <loc>http://blog.yinjianwen.site/2017/10/27/hexo-%E5%8F%8C%E7%BA%BF%E9%83%A8%E7%BD%B2%E5%8F%8Aseo%E4%BC%98%E5%8C%96/</loc>
-    <lastmod>2018-01-03T16:03:11.045Z</lastmod>
-    <data>
-        <display>
-        <title>hexo 双线部署及seo优化</title>
-        <pubTime>2017-10-27T02:16:39.000Z</pubTime>
-        
-        <tag>hexo</tag>
-         
-         
-           
-             
-              <breadCrumb title="技术分享" url="http://blog.yinjianwen.site/categories/%E6%8A%80%E6%9C%AF%E5%88%86%E4%BA%AB/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
     <loc>http://blog.yinjianwen.site/2017/12/24/google-map-%E6%AF%94%E4%BE%8B%E5%B0%BA%E7%AE%97%E6%B3%95%E5%88%86%E6%9E%90/</loc>
     <lastmod>2018-01-03T16:03:11.045Z</lastmod>
     <data>
@@ -239,6 +239,26 @@
            
              
               <breadCrumb title="前端" url="http://blog.yinjianwen.site/categories/%E5%89%8D%E7%AB%AF/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://blog.yinjianwen.site/2017/10/27/hexo-%E5%8F%8C%E7%BA%BF%E9%83%A8%E7%BD%B2%E5%8F%8Aseo%E4%BC%98%E5%8C%96/</loc>
+    <lastmod>2018-01-03T16:03:11.045Z</lastmod>
+    <data>
+        <display>
+        <title>hexo 双线部署及seo优化</title>
+        <pubTime>2017-10-27T02:16:39.000Z</pubTime>
+        
+        <tag>hexo</tag>
+         
+         
+           
+             
+              <breadCrumb title="技术分享" url="http://blog.yinjianwen.site/categories/%E6%8A%80%E6%9C%AF%E5%88%86%E4%BA%AB/"/>
           
         </display>
     </data>

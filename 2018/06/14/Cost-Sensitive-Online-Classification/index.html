@@ -81,18 +81,18 @@
 
 
 
-<meta name="description" content="paper list: A Framework of Online Learning with Imbalanced Streaming Data">
+<meta name="description" content="paper list: A Framework of Online Learning with Imbalanced Streaming Data Online Asymmetric Active Learning with Imbalanced Data">
 <meta name="keywords" content="machine learning">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Cost Sensitive Online Classification">
 <meta property="og:url" content="http://blog.yinjianwen.site/2018/06/14/Cost-Sensitive-Online-Classification/index.html">
 <meta property="og:site_name" content="尹小贱的自留地">
-<meta property="og:description" content="paper list: A Framework of Online Learning with Imbalanced Streaming Data">
+<meta property="og:description" content="paper list: A Framework of Online Learning with Imbalanced Streaming Data Online Asymmetric Active Learning with Imbalanced Data">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-06-14T09:33:05.614Z">
+<meta property="og:updated_time" content="2018-06-15T08:44:01.749Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Cost Sensitive Online Classification">
-<meta name="twitter:description" content="paper list: A Framework of Online Learning with Imbalanced Streaming Data">
+<meta name="twitter:description" content="paper list: A Framework of Online Learning with Imbalanced Streaming Data Online Asymmetric Active Learning with Imbalanced Data">
 
 
 
@@ -391,6 +391,7 @@
       
         <p>paper list:</p>
 <p>A Framework of Online Learning with Imbalanced Streaming Data</p>
+<p>Online Asymmetric Active Learning with Imbalanced Data </p>
 <a id="more"></a>
 <h3 id="A-Framework-of-Online-Learning-with-Imbalanced-Streaming-Data"><a href="#A-Framework-of-Online-Learning-with-Imbalanced-Streaming-Data" class="headerlink" title="A Framework of Online Learning with Imbalanced Streaming Data"></a>A Framework of Online Learning with Imbalanced Streaming Data</h3><h4 id="Background"><a href="#Background" class="headerlink" title="Background"></a>Background</h4><p>Many previous works have considered cost-sensitive approaches in an online setting for streaming data, where <strong>fixed costs</strong> are assigned to different classes, or ad-hoc costs are adapted based on the distribution of data received so far. However, it is not necessary for them to achieve optimal performance in terms of the measures suited for imbalanced data, such as F-measure, area under ROC curve (AUROC), area under precision and recall curve (AUPRC).  </p>
 <h4 id="Contribution"><a href="#Contribution" class="headerlink" title="Contribution"></a>Contribution</h4><p><strong>Motivation:</strong> if multiple classifiers with a number of <strong>cost</strong> are learned simultaneously, there must exist one setting that is most appropriate to the data.  </p>
@@ -399,6 +400,22 @@
 <li>construct a pool of multiple values of <strong>cost</strong>-&gt;<strong>classifiers</strong>.</li>
 <li>choose the classifier with best (according to distribution) performance (F-measure, ROC, AUROC) on historical data to predict</li>
 <li>update classifiers and performance</li>
+</ul>
+<h3 id="Online-Asymmetric-Active-Learning-with-Imbalanced-Data"><a href="#Online-Asymmetric-Active-Learning-with-Imbalanced-Data" class="headerlink" title="Online Asymmetric Active Learning with Imbalanced Data"></a>Online Asymmetric Active Learning with Imbalanced Data</h3><h4 id="Background-1"><a href="#Background-1" class="headerlink" title="Background"></a>Background</h4><p>This paper considers online learning with <strong>imbalanced</strong> streaming data under a <strong>query budget</strong>: the act of querying for labels is constrained to a budget limit.</p>
+<h4 id="Contribution-1"><a href="#Contribution-1" class="headerlink" title="Contribution"></a>Contribution</h4><p><strong>Algorithm</strong></p>
+<ul>
+<li>Make decision about the binary label</li>
+<li>Query stage: decide whether to query the label and update the model<ul>
+<li>if reaches the budget limit, use the last updated model or averaged model</li>
+<li>else, use the output of <strong>query function</strong>{0, 1}, if output equal 1, update model</li>
+</ul>
+</li>
+</ul>
+<p>the key concern is the <strong>query model</strong>.</p>
+<p><strong>Query model</strong></p>
+<ul>
+<li>Compute $p_t = w_{t-1}x_t$</li>
+<li>if $p_t \ge 0$, the probability (output = 1) is $\frac{c_+}{|p_t|+c_+}$。else the probability is $\frac{c_-}{|p_t|+c_-}$.</li>
 </ul>
 
       
@@ -595,7 +612,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#A-Framework-of-Online-Learning-with-Imbalanced-Streaming-Data"><span class="nav-number">1.</span> <span class="nav-text">A Framework of Online Learning with Imbalanced Streaming Data</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Background"><span class="nav-number">1.1.</span> <span class="nav-text">Background</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Contribution"><span class="nav-number">1.2.</span> <span class="nav-text">Contribution</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#A-Framework-of-Online-Learning-with-Imbalanced-Streaming-Data"><span class="nav-number">1.</span> <span class="nav-text">A Framework of Online Learning with Imbalanced Streaming Data</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Background"><span class="nav-number">1.1.</span> <span class="nav-text">Background</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Contribution"><span class="nav-number">1.2.</span> <span class="nav-text">Contribution</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Online-Asymmetric-Active-Learning-with-Imbalanced-Data"><span class="nav-number">2.</span> <span class="nav-text">Online Asymmetric Active Learning with Imbalanced Data</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Background-1"><span class="nav-number">2.1.</span> <span class="nav-text">Background</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Contribution-1"><span class="nav-number">2.2.</span> <span class="nav-text">Contribution</span></a></li></ol></li></ol></div>
             
 
           </div>

@@ -81,13 +81,17 @@
 
 
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="尹小贱的自留地">
-<meta property="og:url" content="http://blog.yinjianwen.site/categories/杂谈/index.html">
+<meta name="description" content="ConvexityConvexity setA set C in a vector space is convex if for any two vector $\mathbf{u},\mathbf{v}$ in $C$, the line segment between $\mathbf{u}$ and $\mathbf{v}$ is contained in $C$. That is, for">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Convexity, Lipschitzness, and Smoothness">
+<meta property="og:url" content="http://blog.yinjianwen.site/2018/06/28/Convexity-Lipschitzness-and-Smoothness/index.html">
 <meta property="og:site_name" content="尹小贱的自留地">
+<meta property="og:description" content="ConvexityConvexity setA set C in a vector space is convex if for any two vector $\mathbf{u},\mathbf{v}$ in $C$, the line segment between $\mathbf{u}$ and $\mathbf{v}$ is contained in $C$. That is, for">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-07-08T15:33:14.387Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="尹小贱的自留地">
+<meta name="twitter:title" content="Convexity, Lipschitzness, and Smoothness">
+<meta name="twitter:description" content="ConvexityConvexity setA set C in a vector space is convex if for any two vector $\mathbf{u},\mathbf{v}$ in $C$, the line segment between $\mathbf{u}$ and $\mathbf{v}$ is contained in $C$. That is, for">
 
 
 
@@ -117,13 +121,13 @@
 
 
 
-  <link rel="canonical" href="http://blog.yinjianwen.site/categories/杂谈/"/>
+  <link rel="canonical" href="http://blog.yinjianwen.site/2018/06/28/Convexity-Lipschitzness-and-Smoothness/"/>
 
 
 
 
 
-  <title>分类: 杂谈 | 尹小贱的自留地</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  <title>Convexity, Lipschitzness, and Smoothness | 尹小贱的自留地</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
   
 
 
@@ -142,7 +146,7 @@
     
   
 
-  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left ">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -270,55 +274,188 @@
           <div id="content" class="content">
             
 
-  
-  
-  
-  <div class="post-block category">
+  <div id="posts" class="posts-expand">
+    
 
-    <div id="posts" class="posts-collapse">
-      <div class="collection-title">
-        <h1>杂谈<small>分类</small>
-        </h1>
-      </div>
+  
 
-      
-        
+  
+  
+  
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://blog.yinjianwen.site/2018/06/28/Convexity-Lipschitzness-and-Smoothness/">
 
-      <h2 class="post-title">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="尹小贱">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="尹小贱的自留地">
+    </span>
+
+    
+      <header class="post-header">
+
         
-            <a class="post-title-link" href="/2018/03/19/ZELDA-男人的浪漫/" itemprop="url">
-              
-                <span itemprop="name">ZELDA-男人的浪漫</span>
-              
-            </a>
         
-      </h2>
+          <h1 class="post-title" itemprop="name headline">Convexity, Lipschitzness, and Smoothness</h1>
+        
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2018-03-19T15:34:32+08:00"
-              content="2018-03-19" >
-          03-19
-        </time>
-      </div>
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-28T10:44:50+08:00">
+                2018-06-28
+              </time>
+            
 
-    </header>
-  </article>
+            
 
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2018/06/28/Convexity-Lipschitzness-and-Smoothness/" class="leancloud_visitors" data-flag-title="Convexity, Lipschitzness, and Smoothness">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="Convexity"><a href="#Convexity" class="headerlink" title="Convexity"></a>Convexity</h2><h3 id="Convexity-set"><a href="#Convexity-set" class="headerlink" title="Convexity set"></a>Convexity set</h3><p>A set C in a vector space is convex if for any two vector $\mathbf{u},\mathbf{v}$ in $C$, the line segment between $\mathbf{u}$ and $\mathbf{v}$ is contained in $C$. That is, for any $a\in[0,1]$ we have that $\alpha \mathbf{u}+(1-\alpha)\mathbf{v} \in C$.</p>
+<h3 id="Convexity-function"><a href="#Convexity-function" class="headerlink" title="Convexity function"></a>Convexity function</h3><p>Let $C$ be a convex set. A function $f:C \rightarrow \mathbb{R}$ is convex for every $\mathbf{u},\mathbf{v}\in C$ and $\alpha\in[0,1]$,</p>
+<script type="math/tex; mode=display">
+f(\alpha \mathbf{u} + (1-\alpha)\mathbf{v}) \le \alpha f(\mathbf{u}) + (1-\alpha) f(\mathbf{v}).</script><p><strong>Important property</strong></p>
+<ul>
+<li>Every local minimum of the function is also a global minimum. </li>
+<li>For every $\mathbf{w}$ we can construct a tangent to $f$ at $\mathbf{w}$ that lies below $f$ everywhere, that is for convex differentiable function,</li>
+</ul>
+<script type="math/tex; mode=display">
+\forall \mathbf{u}, f(\mathbf{u}) \ge f(\mathbf{w}) + \langle \nabla f(\mathbf{w}), \mathbf{u} - \mathbf{w} \rangle.</script><p><strong>LEMMA</strong></p>
+<p>Let $f:\mathbb{R} \rightarrow \mathbb{R}$ be a scalar twice diffrential function, and Let $f’,f’’$ be its first and second derivatives, respectively. Then, the following are equivalent:</p>
+<ol>
+<li>$f$ is convex </li>
+<li>$f’$ is monotonically nondecreasing</li>
+<li>$f’’$ is nonnegative</li>
+</ol>
+<p><strong>CLAIM</strong></p>
+<ul>
+<li><p>Assume that $f:\mathbb{R}^d \rightarrow \mathbb{R}$can be written as $f(\mathbf{w}) = g(\langle \mathbf{w}, \mathbf{x}) + y)$, for some $\mathbf{x} \in \mathbb{R}^d, y\in \mathbb{R}$. Then, <strong>convexity of $g$ implies the convexity of $f$</strong>.</p>
+<p><strong>Meaning</strong>: The composition of a convex scalar function with a linear function yields a convex vector-valued function.</p>
+</li>
+<li><p>For $i=1,…,r,let f_i : \mathbb{R}^d \rightarrow \mathbb{R}$ be a convex function. The following functions $g(x)$from $\mathbb{R}$ to $\mathbb{R}$ are also convex.</p>
+<p>$g(x)=max_{i\in[r]} f_i(x)$</p>
+<p>$g(x)=\sum_{i=1}^r w_i f_i(x)$, where for all $i,w_i \ge 0$.</p>
+<p><strong>Meaning</strong>:The maximum of convex functions is convex and that a weighted sum of convex functions, with nonnegative weights, is also convex.</p>
+</li>
+</ul>
+<h2 id="Lipschitzness"><a href="#Lipschitzness" class="headerlink" title="Lipschitzness"></a>Lipschitzness</h2><p><strong>DEFINITION</strong>: Let $C \subset \mathbb{R}^d$. A function $f:\mathbb{R}^d\rightarrow\mathbb{R}^k$ is $\rho$-Lipschitz over $C$ if for every $\mathbf{w}_1,\mathbf{w}_2 \in C$ we have $|f(\mathbb{w_1})-f(\mathbb{w_2}) | \le \rho|\mathbf{w_1}-\mathbf{w_2}|$.</p>
+<p>MEANING: if $f$ is everywhere bounded (in absolute value) by $\rho$, then the function is $\rho$-Lipschitz.</p>
+<p><strong>CLAIM</strong>: Let $f(x) = g_1(g_2(\mathbf{x}))$, where $g_1$ is $\rho_1$-Lipschitz and $g_2$ is $\rho_2$-Lipschitz. Then, $f \space is \space(\rho_1\rho_2)-Lipschitz$. In particular, if $g_2$ is the linear function, $g_2(\mathbf{x})=\langle \mathbf{v},\mathbf{x}\rangle+b$, for some $\mathbf{v} \in \mathbb{R}^d, b\in \mathbb{R},then \space f \space (\rho_1|\mathbf{v}|)-Lipschitz$.</p>
+<h2 id="Smoothness"><a href="#Smoothness" class="headerlink" title="Smoothness"></a>Smoothness</h2><p><strong>DEFINITION</strong>: A differentiable function $f$: $\mathbb{R}^d \rightarrow \mathbb{R}$ is $\beta$-smooth if its gradient is $\beta$-Lipschitz; namely, for all $\mathbf{v},\mathbf{w}$ we have $|\nabla f(\mathbf{v}) - \nabla f(\mathbf{w}) | \le \beta|\mathbf{v} - \mathbf{w} |$.</p>
+<p><strong>CLAIM</strong>: Let $f(\mathbf{w}) = g(\langle \mathbf{w} , \mathbf{x} \rangle + b), where \space g:\mathbb{R} \rightarrow \mathbb{R}​$ is a $\beta​$-smooth function, $\mathbf{x} \in \mathbb{R}^d​$, and $b \in \mathbb{R}​$. Then, $f \space is  \space (\beta |\mathbf{x}|)​$-smooth.</p>
+<p>实际上，凸性要求一个函数在局部增长得比线性函数要快，而强凸性则要求其增长得比一个二次函数（二次项系数为m/2）快。</p>
 
       
     </div>
+    
+    
+    
 
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/06/14/Cost-Sensitive-Online-Classification/" rel="next" title="Cost Sensitive Online Classification">
+                <i class="fa fa-chevron-left"></i> Cost Sensitive Online Classification
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/08/15/Fast-Matrix-Factorization-for-Online-Recommendation-with-Implicit-Feedback/" rel="prev" title="Fast Matrix Factorization for Online Recommendation with Implicit Feedback">
+                Fast Matrix Factorization for Online Recommendation with Implicit Feedback <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
 
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -326,6 +463,15 @@
 
 
           
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8zMTUxMS84MDc1"></div>
+    </div>
+
+  
+
+
 
         </div>
         
@@ -346,8 +492,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -427,6 +582,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Convexity"><span class="nav-number">1.</span> <span class="nav-text">Convexity</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Convexity-set"><span class="nav-number">1.1.</span> <span class="nav-text">Convexity set</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Convexity-function"><span class="nav-number">1.2.</span> <span class="nav-text">Convexity function</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Lipschitzness"><span class="nav-number">2.</span> <span class="nav-text">Lipschitzness</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Smoothness"><span class="nav-number">3.</span> <span class="nav-text">Smoothness</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -566,6 +737,10 @@
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
 
   
 
@@ -594,6 +769,17 @@
 
 
 
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
   
 
 

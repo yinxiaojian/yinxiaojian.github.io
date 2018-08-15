@@ -2,16 +2,30 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://blog.yinjianwen.site/2018/06/14/Cost-Sensitive-Online-Classification/</loc>
+    <loc>http://blog.yinjianwen.site/2018/08/15/Fast-Matrix-Factorization-for-Online-Recommendation-with-Implicit-Feedback/</loc>
     
-    <lastmod>2018-06-15T08:44:01.749Z</lastmod>
+    <lastmod>2018-08-15T11:21:33.318Z</lastmod>
     
   </url>
   
   <url>
     <loc>http://blog.yinjianwen.site/2018/04/25/robust-optimization-in-ML/</loc>
     
-    <lastmod>2018-06-14T09:33:04.157Z</lastmod>
+    <lastmod>2018-08-15T11:16:06.521Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://blog.yinjianwen.site/2018/06/28/Convexity-Lipschitzness-and-Smoothness/</loc>
+    
+    <lastmod>2018-07-08T15:33:14.387Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://blog.yinjianwen.site/2018/06/14/Cost-Sensitive-Online-Classification/</loc>
+    
+    <lastmod>2018-06-26T10:54:58.425Z</lastmod>
     
   </url>
   

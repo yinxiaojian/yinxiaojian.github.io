@@ -4,8 +4,48 @@
 
     
   <url>
+    <loc>http://blog.yinjianwen.site/2018/06/28/Convexity-Lipschitzness-and-Smoothness/</loc>
+    <lastmod>2018-08-15T12:37:30.789Z</lastmod>
+    <data>
+        <display>
+        <title>Convexity, Lipschitzness, and Smoothness</title>
+        <pubTime>2018-06-28T02:44:50.000Z</pubTime>
+        
+        <tag>machine learning</tag>
+         
+         
+           
+             
+              <breadCrumb title="artificial intelligence" url="http://blog.yinjianwen.site/categories/artificial-intelligence/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://blog.yinjianwen.site/2018/07/15/Boosting-Moving-Average-Reversion-Strategy-for-Online-Portfolio-Selection-A-Meta-Learning-Approach/</loc>
+    <lastmod>2018-08-15T12:35:02.828Z</lastmod>
+    <data>
+        <display>
+        <title>Boosting Moving Average Reversion Strategy for Online Portfolio Selection: A Meta-Learning Approach</title>
+        <pubTime>2018-07-15T12:30:17.000Z</pubTime>
+        
+        <tag>machine learning</tag>
+         
+         
+           
+             
+              <breadCrumb title="paper notes" url="http://blog.yinjianwen.site/categories/paper-notes/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://blog.yinjianwen.site/2018/08/15/Fast-Matrix-Factorization-for-Online-Recommendation-with-Implicit-Feedback/</loc>
-    <lastmod>2018-08-15T11:21:33.318Z</lastmod>
+    <lastmod>2018-08-15T12:28:00.779Z</lastmod>
     <data>
         <display>
         <title>Fast Matrix Factorization for Online Recommendation with Implicit Feedback</title>
@@ -38,21 +78,6 @@
              
               <breadCrumb title="artificial intelligence" url="http://blog.yinjianwen.site/categories/artificial-intelligence/"/>
           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://blog.yinjianwen.site/2018/06/28/Convexity-Lipschitzness-and-Smoothness/</loc>
-    <lastmod>2018-07-08T15:33:14.387Z</lastmod>
-    <data>
-        <display>
-        <title>Convexity, Lipschitzness, and Smoothness</title>
-        <pubTime>2018-06-28T02:44:50.000Z</pubTime>
-        
-         
-           
         </display>
     </data>
     </url>
@@ -159,26 +184,6 @@
 
     
   <url>
-    <loc>http://blog.yinjianwen.site/2018/01/31/optimize-load-time-of-google-map-with-larger-number-of-markers/</loc>
-    <lastmod>2018-03-14T07:08:24.847Z</lastmod>
-    <data>
-        <display>
-        <title>optimize load time of google map with large number of markers</title>
-        <pubTime>2018-01-31T06:22:50.000Z</pubTime>
-        
-        <tag>google map</tag>
-         
-         
-           
-             
-              <breadCrumb title="前端" url="http://blog.yinjianwen.site/categories/%E5%89%8D%E7%AB%AF/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
     <loc>http://blog.yinjianwen.site/2018/02/21/2017%E5%B9%B4%E5%BA%A6%E6%80%BB%E7%BB%93/</loc>
     <lastmod>2018-02-21T09:29:07.942Z</lastmod>
     <data>
@@ -217,8 +222,6 @@
     </data>
     </url>
 
-    
-    
     
   <url>
     <loc>http://blog.yinjianwen.site/2017/10/27/java%E7%B1%BB%E4%B8%8E%E6%88%90%E5%91%98%E8%AE%BF%E9%97%AE%E6%8E%A7%E5%88%B6/</loc>
@@ -259,6 +262,8 @@
     </data>
     </url>
 
+    
+    
     
   <url>
     <loc>http://blog.yinjianwen.site/2017/10/27/hexo-%E5%8F%8C%E7%BA%BF%E9%83%A8%E7%BD%B2%E5%8F%8Aseo%E4%BC%98%E5%8C%96/</loc>

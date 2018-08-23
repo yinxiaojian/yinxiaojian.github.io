@@ -4,6 +4,26 @@
 
     
   <url>
+    <loc>http://blog.yinjianwen.site/2018/08/23/Neural-Collaborative-Filtering/</loc>
+    <lastmod>2018-08-23T15:44:32.144Z</lastmod>
+    <data>
+        <display>
+        <title>Neural Collaborative Filtering</title>
+        <pubTime>2018-08-23T08:11:54.000Z</pubTime>
+        
+        <tag>machine learning</tag>
+         
+         
+           
+             
+              <breadCrumb title="paper notes" url="http://blog.yinjianwen.site/categories/paper-notes/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://blog.yinjianwen.site/2018/08/21/Implicit-Feedback/</loc>
     <lastmod>2018-08-23T03:57:50.598Z</lastmod>
     <data>

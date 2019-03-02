@@ -2,16 +2,37 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>http://blog.yinjianwen.site/2018/10/21/meta-learning-notes/</loc>
+    <loc>http://blog.yinjianwen.site/2019/03/02/WebRTC%E4%B8%8ENAT%E7%A9%BF%E9%80%8F/</loc>
     
-    <lastmod>2018-11-01T16:20:09.093Z</lastmod>
+    <lastmod>2019-03-02T15:54:44.352Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://blog.yinjianwen.site/2019/03/02/STUN%E5%92%8CTURN%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA/</loc>
+    
+    <lastmod>2019-03-02T15:54:36.791Z</lastmod>
     
   </url>
   
   <url>
     <loc>http://blog.yinjianwen.site/2018/11/02/session-based-recommendation/</loc>
     
-    <lastmod>2018-11-01T16:11:24.478Z</lastmod>
+    <lastmod>2018-11-07T11:19:30.481Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://blog.yinjianwen.site/2018/11/02/Adversarial-Machine-Learning/</loc>
+    
+    <lastmod>2018-11-04T13:34:52.504Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://blog.yinjianwen.site/2018/10/21/meta-learning-notes/</loc>
+    
+    <lastmod>2018-11-01T16:20:09.093Z</lastmod>
     
   </url>
   

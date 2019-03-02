@@ -1,0 +1,1372 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+  <meta name="google-site-verification" content="kMp7W67ZsoZmUmTEvZo3J4IevBIXHG_yNoR7bnCSZpw" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/logo.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.png?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="WebRTC," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="WebRTC支持点对点通信（P2P），但是其建立通讯仍需要两类服务器。  信令服务器：用于客户端交换元信息以协调通讯。 STUN/TURN服务器：应对网络地址转换器（NAT）和防火墙。">
+<meta name="keywords" content="WebRTC">
+<meta property="og:type" content="article">
+<meta property="og:title" content="WebRTC与NAT穿透">
+<meta property="og:url" content="http://blog.yinjianwen.site/2019/03/02/WebRTC与NAT穿透/index.html">
+<meta property="og:site_name" content="尹小贱的自留地">
+<meta property="og:description" content="WebRTC支持点对点通信（P2P），但是其建立通讯仍需要两类服务器。  信令服务器：用于客户端交换元信息以协调通讯。 STUN/TURN服务器：应对网络地址转换器（NAT）和防火墙。">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://www.html5rocks.com/en/tutorials/webrtc/infrastructure/p2p.png">
+<meta property="og:image" content="https://www.html5rocks.com/en/tutorials/webrtc/infrastructure/nat.png">
+<meta property="og:image" content="https://www.html5rocks.com/en/tutorials/webrtc/infrastructure/stun.png">
+<meta property="og:image" content="https://www.html5rocks.com/en/tutorials/webrtc/infrastructure/turn.png">
+<meta property="og:updated_time" content="2019-03-02T15:54:44.352Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="WebRTC与NAT穿透">
+<meta name="twitter:description" content="WebRTC支持点对点通信（P2P），但是其建立通讯仍需要两类服务器。  信令服务器：用于客户端交换元信息以协调通讯。 STUN/TURN服务器：应对网络地址转换器（NAT）和防火墙。">
+<meta name="twitter:image" content="https://www.html5rocks.com/en/tutorials/webrtc/infrastructure/p2p.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":true,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://blog.yinjianwen.site/2019/03/02/WebRTC与NAT穿透/"/>
+
+
+
+
+
+  <title>WebRTC与NAT穿透 | 尹小贱的自留地</title><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">尹小贱的自留地</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">coding forever</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://blog.yinjianwen.site/2019/03/02/WebRTC与NAT穿透/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="尹小贱">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="尹小贱的自留地">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">WebRTC与NAT穿透</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-02T23:53:08+08:00">
+                2019-03-02
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/技术分析/" itemprop="url" rel="index">
+                    <span itemprop="name">技术分析</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+             <span id="/2019/03/02/WebRTC与NAT穿透/" class="leancloud_visitors" data-flag-title="WebRTC与NAT穿透">
+               <span class="post-meta-divider">|</span>
+               <span class="post-meta-item-icon">
+                 <i class="fa fa-eye"></i>
+               </span>
+               
+                 <span class="post-meta-item-text">阅读次数&#58;</span>
+               
+                 <span class="leancloud-visitors-count"></span>
+             </span>
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>WebRTC支持点对点通信（P2P），但是其建立通讯仍需要两类服务器。</p>
+<ul>
+<li>信令服务器：用于客户端交换元信息以协调通讯。</li>
+<li>STUN/TURN服务器：应对网络地址转换器（NAT）和防火墙。</li>
+</ul>
+<a id="more"></a>
+<blockquote>
+<p>以下客户端指进行通话的用户</p>
+</blockquote>
+<h3 id="信令服务器"><a href="#信令服务器" class="headerlink" title="信令服务器"></a>信令服务器</h3><p>信令就是协调通讯的过程，为了建立一个webRTC的通讯过程，客户端需要交换如下信息：</p>
+<ul>
+<li>用于打开或关闭通信的会话控制消息。</li>
+<li>错误消息。</li>
+<li>媒体元数据，例如编解码器和编解码器设置，带宽和媒体类型。</li>
+<li>密钥数据，用于建立安全连接。</li>
+<li>网络数据，例如客户端的外网IP地址和端口。</li>
+</ul>
+<h3 id="STUN-TURN服务器"><a href="#STUN-TURN服务器" class="headerlink" title="STUN/TURN服务器"></a>STUN/TURN服务器</h3><p>对于建立连接所需的元数据信息，WebRTC通过信令服务器进行转发。但是对于实际的媒体和数据流，一旦建立会话，首先尝试直接连接客户端，即客户端点对点通信。也就是说，每个客户端都有一个唯一的IP地址，他能用来和其他客户端进行直接通讯。</p>
+<p><img src="https://www.html5rocks.com/en/tutorials/webrtc/infrastructure/p2p.png" alt="没有NAT和防火墙的理想情况"></p>
+<center><i>没有NAT和防火墙的理想情况</i></center>
+
+<p>但是现实中，大多数设备都位于一层或多层NAT之后，有些设备具有阻止某些端口和协议的防病毒软件，而且许多设备都在代理和企业防火墙之后。 防火墙和NAT也可以由相同的设备实现，例如家庭wifi路由器。</p>
+<p><img src="https://www.html5rocks.com/en/tutorials/webrtc/infrastructure/nat.png" alt=""></p>
+<center><i>现实世界</i></center>
+
+<p>WebRTC可以使用ICE框架来克服现实网络的复杂性。 在连接过程中，ICE将试图找到最佳的连接路径，通过尝试所有可能的选项,然后选择最合适的方案。ICE首先尝试使用从设备的操作系统和网卡获得的主机地址建立连接；如果失败（设备位于NAT后），ICE将使用STUN服务器获取设备外网地址；如果失败，则使用TURN服务器作为中继转发流量（媒体和数据流）。</p>
+<p>也就是说：</p>
+<ul>
+<li>STUN服务器用于获取设备的外网地址。</li>
+<li>TURN服务器用于转发流量，在P2P连接失败的情况下发挥作用。</li>
+</ul>
+<p>STUN和或TURN服务器的URL（可选）由iceServers配置对象中的WebRTC应用程序指定，该对象是RTCPeerConnection构造函数的第一个参数：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="string">'iceServers'</span>: [</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="string">'urls'</span>: <span class="string">'stun:stun.l.google.com:19302'</span></span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="string">'urls'</span>: <span class="string">'turn:192.158.29.39:3478?transport=udp'</span>,</span><br><span class="line">      <span class="string">'credential'</span>: <span class="string">'JZEOEt2V3Qb0y27GRntt2u2PAYA='</span>,</span><br><span class="line">      <span class="string">'username'</span>: <span class="string">'28224511:1379330808'</span></span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="string">'urls'</span>: <span class="string">'turn:192.158.29.39:3478?transport=tcp'</span>,</span><br><span class="line">      <span class="string">'credential'</span>: <span class="string">'JZEOEt2V3Qb0y27GRntt2u2PAYA='</span>,</span><br><span class="line">      <span class="string">'username'</span>: <span class="string">'28224511:1379330808'</span></span><br><span class="line">    &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="STUN服务器"><a href="#STUN服务器" class="headerlink" title="STUN服务器"></a>STUN服务器</h4><p>NAT为设备提供IP地址，以便在内网中使用，但此地址不能在外部使用。如果没有公共地址，WebRTC对等方就无法进行通信。为了解决这个问题，WebRTC使用STUN服务器。</p>
+<p>STUN服务器位于<strong>公网</strong>上，其工作非常简单：检查传入请求的IP:port，并将该地址作为响应发回。也就是说，应用程序使用STUN服务器从外网是脚下发现其IP:Port。此过程使WebRTC客户端获取自己的公网地址，然后通过信令机制将其传递给另一个苦护短，以便建立P2P连接。</p>
+<p><strong>STUN服务器的工作非常简单，因此可以处理大量请求</strong>，这也是有很多免费的STUN服务器提供的原因。</p>
+<blockquote>
+<p>根据webrtcstats.com，WebRTC使用STUN成功建立连接的概率为：86％</p>
+</blockquote>
+<p><img src="https://www.html5rocks.com/en/tutorials/webrtc/infrastructure/stun.png" alt=""></p>
+<center><i>使用STUN服务器获取公网地址</i></center>
+
+<h4 id="TURN服务器"><a href="#TURN服务器" class="headerlink" title="TURN服务器"></a>TURN服务器</h4><p>在P2P连接失败后，WebRTC会利用TURN服务器作为中继进行通信。需要强调的是：<strong>TURN在不同客户端之间中转的是音频/视频/数据流，而不是信令数据。</strong></p>
+<p>TURN服务器具有公网地址，因此即使客户端位于防火墙或代理之后，也可以与其进行联系。 TURN服务器需要中转大量的视频音频等数据，因此相对STUN服务器，它们需要消耗大量带宽。</p>
+<p><img src="https://www.html5rocks.com/en/tutorials/webrtc/infrastructure/turn.png" alt=""></p>
+<center><i>完整的框架：STUN、TURN、SIGNALING</i></center>
+
+<p>在上图中，若使用STUN无法建立连接，将会使用TURN进行中继。</p>
+<h3 id="附录：NAT分类与STUN-TURN"><a href="#附录：NAT分类与STUN-TURN" class="headerlink" title="附录：NAT分类与STUN/TURN"></a>附录：NAT分类与STUN/TURN</h3><h4 id="基础概念"><a href="#基础概念" class="headerlink" title="基础概念"></a>基础概念</h4><p>一个IP连接由两个IP组成的连接“四元组”决定：</p>
+<ul>
+<li>(Source IP address, source port number)</li>
+<li>(Destination IP address, destination port number)</li>
+</ul>
+<p>即（源地址，源端口）和（目标地址，目标端口），可视化如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(SRC_ADDR, SRC_PORT) -&gt; (DST_ADDR, DST_PORT)</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>NOTE</p>
+<ul>
+<li><code>-&gt;</code> 表示连接的方向</li>
+<li><code>(ADDR, PORT)</code> 表示一个（IP地址，IP端口）元组</li>
+<li><code>(SRC_ADDR, SRC_PORT)</code> 表示发起连接的机器的IP</li>
+<li><code>(DST_ADDR, DST_PORT)</code> 表示接收连接的机器的IP</li>
+</ul>
+</blockquote>
+<p>NAT(Network Address Translation) 是一种广泛应用的解决IP 短缺的有效方法， NAT 将内网地址转和端口号换成合法的公网地址和端口号，建立一个会话，与公网主机进行通信。可视化如下：</p>
+<p>NAT分为两大类：锥型和对称型，而锥型又分为三种类型，分类如下：</p>
+<ul>
+<li>锥形 cone NAT<ul>
+<li>全锥形 Full Cone NAT</li>
+<li>地址受限锥形 Address-Restricted Cone NAT</li>
+<li>端口受限锥形 Port-Restricted Cone NAT</li>
+</ul>
+</li>
+<li>对称形 Symmetric NAT</li>
+</ul>
+<h4 id="全锥形-Full-Cone-NAT"><a href="#全锥形-Full-Cone-NAT" class="headerlink" title="全锥形 Full Cone NAT"></a>全锥形 Full Cone NAT</h4><p>全锥NAT 把所有来自相同内部IP地址和端口的请求映射到相同的外部IP 地址和端口。任何一个外部主机均可通过该映射发送数据包到该内部主机，可视化如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">    &#123;NAT internal side&#125;  |    &#123;NAT external side&#125;  |  &#123;Remote machine&#125;</span><br><span class="line">                         |                         |</span><br><span class="line">1. (INT_ADDR, INT_PORT) =&gt; [ (EXT_ADDR, INT_PORT) -&gt; (REM_ADDR, REM_PORT) ]</span><br><span class="line">2. (INT_ADDR, INT_PORT) &lt;= [ (EXT_ADDR, INT_PORT) &lt;- (   *    ,    *    ) ]</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><code>*</code>表示所有值都可以使用，任何一个外部主机都可以通过该映射建立连接。</p>
+</blockquote>
+<h4 id="地址受限锥形-Address-Restricted-Cone-NAT"><a href="#地址受限锥形-Address-Restricted-Cone-NAT" class="headerlink" title="地址受限锥形 Address-Restricted Cone NAT"></a>地址受限锥形 Address-Restricted Cone NAT</h4><p>地址受限锥形NAT 把所有来自相同内部IP 地址和端口的请求映射到相同的外部IP 地址和端口。但是, 和全锥NAT 不同的是：只有当内部主机先给外部主机发送数据包, 该外部主机才能向该内部主机发送数据包，可视化如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">    &#123;NAT internal side&#125;  |    &#123;NAT external side&#125;  |  &#123;Remote machine&#125;</span><br><span class="line">                         |                         |</span><br><span class="line">1. (INT_ADDR, INT_PORT) =&gt; [ (EXT_ADDR, INT_PORT) -&gt; (REM_ADDR, REM_PORT) ]</span><br><span class="line">2. (INT_ADDR, INT_PORT) &lt;= [ (EXT_ADDR, INT_PORT) &lt;- (REM_ADDR,    *    ) ]</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>在第二步中，REM_ADDR必须和第一步中相同，但是REM_PORT没有限制。</p>
+</blockquote>
+<h4 id="端口受限锥形-Port-Restricted-Cone-NAT"><a href="#端口受限锥形-Port-Restricted-Cone-NAT" class="headerlink" title="端口受限锥形 Port-Restricted Cone NAT"></a>端口受限锥形 Port-Restricted Cone NAT</h4><p>端口受限锥形NAT 与地址受限锥形NAT 类似, 只是多了端口号的限制, 即只有内部主机先向外部地址和端口号元组发送数据包, 该外部主机才能使用特定的端口号向内部主机发送数据包，可视化如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">    &#123;NAT internal side&#125;  |    &#123;NAT external side&#125;  |  &#123;Remote machine&#125;</span><br><span class="line">                         |                         |</span><br><span class="line">1. (INT_ADDR, INT_PORT) =&gt; [ (EXT_ADDR, INT_PORT) -&gt; (REM_ADDR, REM_PORT) ]</span><br><span class="line">2. (INT_ADDR, INT_PORT) &lt;= [ (EXT_ADDR, INT_PORT) &lt;- (REM_ADDR, REM_PORT) ]</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>在第二步中，REM_ADDR和REM_PORT都要和第一步相同。</p>
+</blockquote>
+<h4 id="对称形-Symmetric-NAT"><a href="#对称形-Symmetric-NAT" class="headerlink" title="对称形 Symmetric NAT"></a>对称形 Symmetric NAT</h4><p>对称形NAT 与上述3 种锥类都不同，当同一内部主机使用相同的端口与不同地址的外部主机进行通信时, 对称NAT 会重新建立一个Session ，为这个Session 分配新的外部端口号，或许还会改变IP 地址。 这意味着从同一本地端口到两个不同远程计算机的两个连续连接将具有两个不同的外部端口，即使是同一内部主机，可视化如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">    &#123;NAT internal side&#125;  |    &#123;NAT external side&#125;  |  &#123;Remote machine&#125;</span><br><span class="line">                         |                         |</span><br><span class="line">1. (INT_ADDR, INT_PORT) =&gt; [ (EXT_ADDR, EXT_PORT1) -&gt; (REM_ADDR, REM_PORT1) ]</span><br><span class="line">2. (INT_ADDR, INT_PORT) &lt;= [ (EXT_ADDR, EXT_PORT1) &lt;- (REM_ADDR, REM_PORT1) ]</span><br><span class="line">...</span><br><span class="line">3. (INT_ADDR, INT_PORT) =&gt; [ (EXT_ADDR, EXT_PORT2) -&gt; (REM_ADDR, REM_PORT2) ]</span><br><span class="line">4. (INT_ADDR, INT_PORT) &lt;= [ (EXT_ADDR, EXT_PORT2) &lt;- (REM_ADDR, REM_PORT2) ]</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>在第一步中建立连接，分配的外部端口号为EXT_PORT1</p>
+<p>在第三步中建立新的连接，分配的外部端口号为EXT_PORT2，<strong>外部端口号发生变化</strong>。</p>
+</blockquote>
+<h4 id="STUN-TURN与NAT的关系"><a href="#STUN-TURN与NAT的关系" class="headerlink" title="STUN/TURN与NAT的关系"></a>STUN/TURN与NAT的关系</h4><p>假设客户端A和客户端B需要建立P2P连接，在锥形NAT中，由于<code>(EXT_ADDR, EXT_PORT)</code>是不会发生变化的，所以我们可以通过STUN获取该客户段A和B的外部IP和端口，然后让两者建立连接。</p>
+<p>在对称形NAT中，由于<code>(EXT_ADDR, EXT_PORT)</code>中的端口会发生变化，当客户端A和B与STUN服务器建立连接，获取外部IP和端口后。两者利用该外部IP和端口建立P2P连接，对称NAT会为A和B分配新的外部端口，因此无法建立连接。所以，对于对称形NAT，我们需要通过TURN服务器进行信息转发。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/WebRTC/" rel="tag"># WebRTC</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/03/02/STUN和TURN服务器搭建/" rel="next" title="STUN和TURN服务器搭建">
+                <i class="fa fa-chevron-left"></i> STUN和TURN服务器搭建
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8zMTUxMS84MDc1"></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.png"
+                alt="尹小贱" />
+            
+              <p class="site-author-name" itemprop="name">尹小贱</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">22</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/yinxiaojian" target="_blank" title="GitHub">
+                    
+                      <i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="mailto:jianwen_yin@163.com" target="_blank" title="E-Mail">
+                    
+                      <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#信令服务器"><span class="nav-number">1.</span> <span class="nav-text">信令服务器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#STUN-TURN服务器"><span class="nav-number">2.</span> <span class="nav-text">STUN/TURN服务器</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#STUN服务器"><span class="nav-number">2.1.</span> <span class="nav-text">STUN服务器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#TURN服务器"><span class="nav-number">2.2.</span> <span class="nav-text">TURN服务器</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#附录：NAT分类与STUN-TURN"><span class="nav-number">3.</span> <span class="nav-text">附录：NAT分类与STUN/TURN</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#基础概念"><span class="nav-number">3.1.</span> <span class="nav-text">基础概念</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#全锥形-Full-Cone-NAT"><span class="nav-number">3.2.</span> <span class="nav-text">全锥形 Full Cone NAT</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#地址受限锥形-Address-Restricted-Cone-NAT"><span class="nav-number">3.3.</span> <span class="nav-text">地址受限锥形 Address-Restricted Cone NAT</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#端口受限锥形-Port-Restricted-Cone-NAT"><span class="nav-number">3.4.</span> <span class="nav-text">端口受限锥形 Port-Restricted Cone NAT</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#对称形-Symmetric-NAT"><span class="nav-number">3.5.</span> <span class="nav-text">对称形 Symmetric NAT</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#STUN-TURN与NAT的关系"><span class="nav-number">3.6.</span> <span class="nav-text">STUN/TURN与NAT的关系</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">尹小贱</span>
+
+  
+</div>
+
+        
+<div class="busuanzi-count">
+  <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i>
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+  <script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
+  <script>AV.initialize("Idt9UfaAHK2DU2r9ElSW1HwX-gzGzoHsz", "vYIHlCkzoMmSOcG3GHAJafpd");</script>
+  <script>
+    function showTime(Counter) {
+      var query = new AV.Query(Counter);
+      var entries = [];
+      var $visitors = $(".leancloud_visitors");
+
+      $visitors.each(function () {
+        entries.push( $(this).attr("id").trim() );
+      });
+
+      query.containedIn('url', entries);
+      query.find()
+        .done(function (results) {
+          var COUNT_CONTAINER_REF = '.leancloud-visitors-count';
+
+          if (results.length === 0) {
+            $visitors.find(COUNT_CONTAINER_REF).text(0);
+            return;
+          }
+
+          for (var i = 0; i < results.length; i++) {
+            var item = results[i];
+            var url = item.get('url');
+            var time = item.get('time');
+            var element = document.getElementById(url);
+
+            $(element).find(COUNT_CONTAINER_REF).text(time);
+          }
+          for(var i = 0; i < entries.length; i++) {
+            var url = entries[i];
+            var element = document.getElementById(url);
+            var countSpan = $(element).find(COUNT_CONTAINER_REF);
+            if( countSpan.text() == '') {
+              countSpan.text(0);
+            }
+          }
+        })
+        .fail(function (object, error) {
+          console.log("Error: " + error.code + " " + error.message);
+        });
+    }
+
+    function addCount(Counter) {
+      var $visitors = $(".leancloud_visitors");
+      var url = $visitors.attr('id').trim();
+      var title = $visitors.attr('data-flag-title').trim();
+      var query = new AV.Query(Counter);
+
+      query.equalTo("url", url);
+      query.find({
+        success: function(results) {
+          if (results.length > 0) {
+            var counter = results[0];
+            counter.fetchWhenSave(true);
+            counter.increment("time");
+            counter.save(null, {
+              success: function(counter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(counter.get('time'));
+              },
+              error: function(counter, error) {
+                console.log('Failed to save Visitor num, with error message: ' + error.message);
+              }
+            });
+          } else {
+            var newcounter = new Counter();
+            /* Set ACL */
+            var acl = new AV.ACL();
+            acl.setPublicReadAccess(true);
+            acl.setPublicWriteAccess(true);
+            newcounter.setACL(acl);
+            /* End Set ACL */
+            newcounter.set("title", title);
+            newcounter.set("url", url);
+            newcounter.set("time", 1);
+            newcounter.save(null, {
+              success: function(newcounter) {
+                var $element = $(document.getElementById(url));
+                $element.find('.leancloud-visitors-count').text(newcounter.get('time'));
+              },
+              error: function(newcounter, error) {
+                console.log('Failed to create');
+              }
+            });
+          }
+        },
+        error: function(error) {
+          console.log('Error:' + error.code + " " + error.message);
+        }
+      });
+    }
+
+    $(function() {
+      var Counter = AV.Object.extend("Counter");
+      if ($('.leancloud_visitors').length == 1) {
+        addCount(Counter);
+      } else if ($('.post-title-link').length > 1) {
+        showTime(Counter);
+      }
+    });
+  </script>
+
+
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  
+
+
+  
+
+  
+
+</body>
+</html>

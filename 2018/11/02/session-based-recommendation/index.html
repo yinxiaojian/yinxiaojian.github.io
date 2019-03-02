@@ -90,8 +90,8 @@
 <meta property="og:description" content="Definitionsession is a mechanism used by website to identify users. A typical scenario is shopping cat of e-commerce website. It creates a specific session for the user and track the user’s click beha">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://oygov02sc.bkt.clouddn.com/SESSION-BASED%20RECOMMENDATIONS-structure">
-<meta property="og:image" content="http://oygov02sc.bkt.clouddn.com/WX20181101-224005@2x.png">
-<meta property="og:updated_time" content="2018-11-01T16:11:24.478Z">
+<meta property="og:image" content="http://blog.yinjianwen.site/Users/yinxiaojian/Desktop/WX20181101-224005@2x.png">
+<meta property="og:updated_time" content="2018-11-07T11:19:30.481Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="session-based recommendation">
 <meta name="twitter:description" content="Definitionsession is a mechanism used by website to identify users. A typical scenario is shopping cat of e-commerce website. It creates a specific session for the user and track the user’s click beha">
@@ -425,7 +425,7 @@ L_s = \frac{1}{N_S} \cdot \sum_{j=1}^{N_S} \sigma (\hat{r}_{s,j} - \hat{r}_{s,i}
 </ul>
 </blockquote>
 <h5 id="Network-Structure-1"><a href="#Network-Structure-1" class="headerlink" title="Network Structure"></a>Network Structure</h5><p>The network architecture is as follows</p>
-<p><img src="http://oygov02sc.bkt.clouddn.com/WX20181101-224005@2x.png" alt=""></p>
+<p><img src="/Users/yinxiaojian/Desktop/WX20181101-224005@2x.png" alt=""></p>
 <p><strong>Embedding Look-up</strong>: Caser captures sequence features in the latent space by feeding<br>the embeddings of previous $L$ items into the neural network. After embedding look-up, we get a matrix $\mathbf{E}^{(u,t)} \in \mathbb{R}^{L \times d}$ for user $u$ at time step $t$.we also have an embedding $\mathbf{P}_u \in \mathbb{R}^d$.<br>Rd for a user $u$, representing user features in latent space. </p>
 <p><strong>Convolutional Layers</strong>: <em>Horizontal filters</em> are $h \times d$ matrix with different height $h$, which pick up signals for sequential patterns by sliding over the rows of $\mathbf{E}$. <em>Vertical filter</em> is a $L \times 1$ matrix, which capture point-level sequential patterns by sliding over the columns of $\mathbf{E}$.</p>
 <p><strong>Fully-connected Layers</strong>: The outputs of the two convolutional layers are fed into a fully-connected neural network layer to get <em>convolutional sequence embedding</em>  $\mathbf{z} \in \mathbb{R}^d$, which has more high-level and abstract features. To capture user’s general preferences, This network look-up $\mathbf{P}_u$, then concatenate  $\mathbf{P}_u$ and $\mathbf{z}$ together and project them to an output layer. valuey $\mathbf{y}^{(u, t)}$in the output layer is associated with the probability over the next element in the session.</p>
@@ -475,6 +475,10 @@ p(\mathcal{S}|\Theta) = \prod_u \prod_{t\in \mathcal{C}^u} \sigma(\mathbf{y}_{\m
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/11/02/Adversarial-Machine-Learning/" rel="prev" title="Adversarial Machine Learning">
+                Adversarial Machine Learning <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -560,7 +564,7 @@ p(\mathcal{S}|\Theta) = \prod_u \prod_{t\in \mathcal{C}^u} \sigma(\mathbf{y}_{\m
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-count">22</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -571,7 +575,7 @@ p(\mathcal{S}|\Theta) = \prod_u \prod_{t\in \mathcal{C}^u} \sigma(\mathbf{y}_{\m
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-count">10</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -582,7 +586,7 @@ p(\mathcal{S}|\Theta) = \prod_u \prod_{t\in \mathcal{C}^u} \sigma(\mathbf{y}_{\m
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-count">12</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -651,7 +655,7 @@ p(\mathcal{S}|\Theta) = \prod_u \prod_{t\in \mathcal{C}^u} \sigma(\mathbf{y}_{\m
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>

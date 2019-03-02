@@ -4,12 +4,52 @@
 
     
   <url>
-    <loc>http://blog.yinjianwen.site/2018/10/21/meta-learning-notes/</loc>
-    <lastmod>2018-11-01T16:20:09.093Z</lastmod>
+    <loc>http://blog.yinjianwen.site/2019/03/02/WebRTC%E4%B8%8ENAT%E7%A9%BF%E9%80%8F/</loc>
+    <lastmod>2019-03-02T15:54:44.352Z</lastmod>
     <data>
         <display>
-        <title>meta learning notes</title>
-        <pubTime>2018-10-21T14:06:17.000Z</pubTime>
+        <title>WebRTC与NAT穿透</title>
+        <pubTime>2019-03-02T15:53:08.000Z</pubTime>
+        
+        <tag>WebRTC</tag>
+         
+         
+           
+             
+              <breadCrumb title="技术分析" url="http://blog.yinjianwen.site/categories/%E6%8A%80%E6%9C%AF%E5%88%86%E6%9E%90/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://blog.yinjianwen.site/2019/03/02/STUN%E5%92%8CTURN%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA/</loc>
+    <lastmod>2019-03-02T15:54:36.791Z</lastmod>
+    <data>
+        <display>
+        <title>STUN和TURN服务器搭建</title>
+        <pubTime>2019-03-02T15:35:49.000Z</pubTime>
+        
+        <tag>WebRTC</tag>
+         
+         
+           
+             
+              <breadCrumb title="技术分析" url="http://blog.yinjianwen.site/categories/%E6%8A%80%E6%9C%AF%E5%88%86%E6%9E%90/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://blog.yinjianwen.site/2018/11/02/session-based-recommendation/</loc>
+    <lastmod>2018-11-07T11:19:30.481Z</lastmod>
+    <data>
+        <display>
+        <title>session-based recommendation</title>
+        <pubTime>2018-11-01T16:06:57.000Z</pubTime>
         
         <tag>machine learning</tag>
          
@@ -26,12 +66,27 @@
 
     
   <url>
-    <loc>http://blog.yinjianwen.site/2018/11/02/session-based-recommendation/</loc>
-    <lastmod>2018-11-01T16:11:24.478Z</lastmod>
+    <loc>http://blog.yinjianwen.site/2018/11/02/Adversarial-Machine-Learning/</loc>
+    <lastmod>2018-11-04T13:34:52.504Z</lastmod>
     <data>
         <display>
-        <title>session-based recommendation</title>
-        <pubTime>2018-11-01T16:06:57.000Z</pubTime>
+        <title>Adversarial Machine Learning</title>
+        <pubTime>2018-11-02T11:22:48.000Z</pubTime>
+        
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://blog.yinjianwen.site/2018/10/21/meta-learning-notes/</loc>
+    <lastmod>2018-11-01T16:20:09.093Z</lastmod>
+    <data>
+        <display>
+        <title>meta learning notes</title>
+        <pubTime>2018-10-21T14:06:17.000Z</pubTime>
         
         <tag>machine learning</tag>
          

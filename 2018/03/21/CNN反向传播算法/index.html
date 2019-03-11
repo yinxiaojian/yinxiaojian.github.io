@@ -89,12 +89,12 @@
 <meta property="og:site_name" content="尹小贱的自留地">
 <meta property="og:description" content="全文翻译自 Notes on Convolutional Neural Networks  论文链接 释部分为自己的补充说明，可能存在错误">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://oygov02sc.bkt.clouddn.com/CNN_02.gif">
-<meta property="og:updated_time" content="2018-04-28T09:34:51.088Z">
+<meta property="og:image" content="https://ws3.sinaimg.cn/large/005PPQ5Ily1g0ymwrjv8jg30m50iqaob.gif">
+<meta property="og:updated_time" content="2019-03-11T02:14:35.810Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CNN反向传播算法">
 <meta name="twitter:description" content="全文翻译自 Notes on Convolutional Neural Networks  论文链接 释部分为自己的补充说明，可能存在错误">
-<meta name="twitter:image" content="http://oygov02sc.bkt.clouddn.com/CNN_02.gif">
+<meta name="twitter:image" content="https://ws3.sinaimg.cn/large/005PPQ5Ily1g0ymwrjv8jg30m50iqaob.gif">
 
 
 
@@ -438,7 +438,7 @@ x^l=f(u^l), with \space u^l=W^lx^{l-1}+b^l\tag{2}</script><p>输出激活函数$
 x_j^l=f\left(\sum_{i\in M_j}x_i^{l-1}*k_{ij}^{l}+b_j^l\right)</script><p>$M_j$表示输入maps的集合，在MATLAB中卷积的运算需采用”valid”模式。通常情况下，输入maps选择一对或者三个。后面我们会讨论如何自动选择需要组合的特征map。每一个输出map都会加上一个偏执项$b$，但是对于一个特定的输出map，输入maps会和相同的卷积核进行卷积运算，也就是说，如果输出map $j$ 和 $k$ 都是由map $i$通过卷积运算的结果，那么对应的卷积核是不同的。</p>
 <blockquote>
 <p>一张图片有RGB三个颜色通道，则对应的卷积核也是三维的，输出的feature map就是三个卷积结果的结合</p>
-<p><img src="http://oygov02sc.bkt.clouddn.com/CNN_02.gif" alt="CNN_02"></p>
+<p><img src="https://ws3.sinaimg.cn/large/005PPQ5Ily1g0ymwrjv8jg30m50iqaob.gif" alt="CNN_02"></p>
 </blockquote>
 <p>3.1.1 Computing the Gradients</p>
 <p>我们假设每个卷积层$l$后面都接一个子采样层 $l+1$。在使用BP算法计算 $l$ 层每个节点的敏感度时，我们需要先对下一层（$l+1$层）连接当前层（$l$层）的节点的敏感度求和，再乘以这些连接对应的权值（连接$l$层和$l+1$层的权值），最后乘以当前层$l$的该神经元节点的输入$u$的激活函数$f$的导数值。因为下采样的存在，采样层的一个像素（神经元）对应的灵敏度$\delta$对应于卷积层（上一层）的输出map的一块像素（采样窗口大小）。因此，$l$层中的map的每个节点只与$l+1$层中相应map的一个节点连接。为了有效计算$l$层的敏感度，我们可以对下采样层的敏感，度map进行“上采样(upsample)”操作，这样可以使下采样层的敏感度map的大小和卷积层的map大小相同，然后将$l$层的激活值偏导map和$l+1$层的上采样敏感度map对应元素相乘。因为下采样层map的权值均是一个常数$\beta$（见3.2节），所以我们只需要将上一步得到的结果乘以 $ \beta$ 就可以得到$l$层的敏感度map $\delta^l$。我们可以在卷积层的每个feature map进行相同的计算过程：</p>

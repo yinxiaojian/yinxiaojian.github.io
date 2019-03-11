@@ -89,13 +89,13 @@
 <meta property="og:site_name" content="尹小贱的自留地">
 <meta property="og:description" content="机器学习——周志华 读书笔记 第四章——决策树">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://oygov02sc.bkt.clouddn.com/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0-%E5%86%B3%E7%AD%96%E6%A0%91-1.png">
-<meta property="og:image" content="http://oygov02sc.bkt.clouddn.com/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0-%E5%86%B3%E7%AD%96%E6%A0%91-2.png">
-<meta property="og:updated_time" content="2018-04-28T09:35:36.644Z">
+<meta property="og:image" content="https://ws3.sinaimg.cn/large/005PPQ5Ily1g0ymxx39wkj313q0u2tex.jpg">
+<meta property="og:image" content="https://wx2.sinaimg.cn/large/005PPQ5Ily1g0ymxxcoa4j30hw0d8wf1.jpg">
+<meta property="og:updated_time" content="2019-03-11T02:15:55.714Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="机器学习-决策树">
 <meta name="twitter:description" content="机器学习——周志华 读书笔记 第四章——决策树">
-<meta name="twitter:image" content="http://oygov02sc.bkt.clouddn.com/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0-%E5%86%B3%E7%AD%96%E6%A0%91-1.png">
+<meta name="twitter:image" content="https://ws3.sinaimg.cn/large/005PPQ5Ily1g0ymxx39wkj313q0u2tex.jpg">
 
 
 
@@ -397,7 +397,7 @@
 <p>第四章——决策树</p>
 <a id="more"></a>
 <h3 id="4-1-基本流程"><a href="#4-1-基本流程" class="headerlink" title="4.1 基本流程"></a>4.1 基本流程</h3><p>基本思想：分而治之，每次选择最优属性进行划分</p>
-<p><img src="http://oygov02sc.bkt.clouddn.com/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0-%E5%86%B3%E7%AD%96%E6%A0%91-1.png" alt="算法"></p>
+<p><img src="https://ws3.sinaimg.cn/large/005PPQ5Ily1g0ymxx39wkj313q0u2tex.jpg" alt="算法"></p>
 <h3 id="4-2-划分选择"><a href="#4-2-划分选择" class="headerlink" title="4.2 划分选择"></a>4.2 划分选择</h3><p>目标：随着划分过程的不断进行，决策树的分支结点所包含的样本尽可能属于同一类别，即结点的纯度（purity）越来越高。</p>
 <h4 id="4-2-1-信息增益（information-gain"><a href="#4-2-1-信息增益（information-gain" class="headerlink" title="4.2.1 信息增益（information gain)"></a>4.2.1 信息增益（information gain)</h4><p>信息熵（information entropy）：度量样本集合纯度常用指标，熵越小，纯度越高，假定当前集合D中第k类样本所占的比例为 $p_k(k=1,2,…,|y|)$，则D的信息熵定义为</p>
 <script type="math/tex; mode=display">
@@ -477,7 +477,7 @@ Ent(\widetilde{D}) = -\sum_{k=1}^{|y|}\widetilde{p}_klog_2\widetilde{p}_k</scrip
 <p>C4.5 算法采用了上述解决方案[Quinlan,1993].</p>
 <h3 id="4-5-多变量决策树"><a href="#4-5-多变量决策树" class="headerlink" title="4.5 多变量决策树"></a>4.5 多变量决策树</h3><p>将每个属性视为坐标空间中的一个坐标轴，则 d 个属性描述的样本就对应了 d 维空间的一个数据点，对样本分类就相当于在这个坐标空间寻找不同类样本的分类边界。传统的单变量决策树形成的分类边界有一个明显的特点：轴平行（axis-parallel），即分类边界是由若干个与坐标轴平行的分段组成。</p>
 <p>若采用斜的划分边界，则决策树模型将会简化，这就是多变量决策树（multivariate decision tree），每个非叶节点就是一个线性分类器。如下图</p>
-<p><img src="http://oygov02sc.bkt.clouddn.com/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0-%E5%86%B3%E7%AD%96%E6%A0%91-2.png" alt="斜划分边界"></p>
+<p><img src="https://wx2.sinaimg.cn/large/005PPQ5Ily1g0ymxxcoa4j30hw0d8wf1.jpg" alt="斜划分边界"></p>
 <h3 id="个人总结"><a href="#个人总结" class="headerlink" title="个人总结"></a>个人总结</h3><h4 id="ID3-ID4-5-CART对比"><a href="#ID3-ID4-5-CART对比" class="headerlink" title="ID3\ID4.5\CART对比"></a>ID3\ID4.5\CART对比</h4><p>ID3缺点</p>
 <ul>
 <li>ID3算法不能处理具有连续值的属性（由于ID3以信息增益为准则选择划分属性，对可取值多的属性有所偏好，这样一来，用二分法进行连续属性的离散化处理时，可取值多的属性就越有可能成为分裂属性，而这样其实是没有意义的）</li>

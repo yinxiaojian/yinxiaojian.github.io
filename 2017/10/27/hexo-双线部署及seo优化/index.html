@@ -89,16 +89,16 @@
 <meta property="og:site_name" content="尹小贱的自留地">
 <meta property="og:description" content="前言断断续续大概半个月，终于把个人博客搭建好，整个过程虽然简单，但是也有很多”坑“。在查询资料的过程中，阅读的博文质量参差不齐，因此想细致的写出我搭建的过程，供大家参考。文章重点在于双线部署及seo，最开始的部署和搭建将简要略过。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://oygov02sc.bkt.clouddn.com/1.png">
-<meta property="og:image" content="http://oygov02sc.bkt.clouddn.com/2.png">
-<meta property="og:image" content="http://oygov02sc.bkt.clouddn.com/3.png">
-<meta property="og:image" content="http://oygov02sc.bkt.clouddn.com/4.png">
-<meta property="og:image" content="http://oygov02sc.bkt.clouddn.com/5.png">
-<meta property="og:updated_time" content="2018-01-03T16:03:11.045Z">
+<meta property="og:image" content="https://ws2.sinaimg.cn/large/005PPQ5Ily1g0ympyj8vyj311h0it0ux.jpg">
+<meta property="og:image" content="https://ws2.sinaimg.cn/large/005PPQ5Ily1g0ympz924yj31140isq4j.jpg">
+<meta property="og:image" content="https://ws3.sinaimg.cn/large/005PPQ5Ily1g0ymq0auwpj311e0h8409.jpg">
+<meta property="og:image" content="https://wx1.sinaimg.cn/large/005PPQ5Ily1g0ymq132h5j311f0irgmx.jpg">
+<meta property="og:image" content="https://wx2.sinaimg.cn/large/005PPQ5Ily1g0ymq25iiej311b0iuq54.jpg">
+<meta property="og:updated_time" content="2019-03-11T02:10:11.174Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="hexo 双线部署及seo优化">
 <meta name="twitter:description" content="前言断断续续大概半个月，终于把个人博客搭建好，整个过程虽然简单，但是也有很多”坑“。在查询资料的过程中，阅读的博文质量参差不齐，因此想细致的写出我搭建的过程，供大家参考。文章重点在于双线部署及seo，最开始的部署和搭建将简要略过。">
-<meta name="twitter:image" content="http://oygov02sc.bkt.clouddn.com/1.png">
+<meta name="twitter:image" content="https://ws2.sinaimg.cn/large/005PPQ5Ily1g0ympyj8vyj311h0it0ux.jpg">
 
 
 
@@ -404,16 +404,16 @@
 <p><a href="http://theme-next.iissnan.com/" target="_blank" rel="noopener">http://theme-next.iissnan.com/</a></p>
 <h3 id="双线部署"><a href="#双线部署" class="headerlink" title="双线部署"></a>双线部署</h3><p>由于大部分人使用hexo都是将其部署在github上，省去了服务器的钱。由于“国情”原因，github的访问速度较慢，所以才有了双线部署得必要性。将国内访问流量导向coding（国内类似github的网站），国外流量导向github，从而提高访问质量。</p>
 <h4 id="域名申请"><a href="#域名申请" class="headerlink" title="域名申请"></a>域名申请</h4><p>在部署之前，我们必须申请一个域名，便宜的域名1元/年，我的域名是在阿里云买的。进入阿里云官网，点击图片中的域名注册，根据自己的需求选择想要的域名。我的域名为yinjianwen.site，在部署得时候我将博客部署在该域名的二级域名blog下，因此以后访问地址为<strong>blog.yinjianwen.site</strong>。当然你也可以直接部署在主站。</p>
-<p><img src="http://oygov02sc.bkt.clouddn.com/1.png" alt=""></p>
+<p><img src="https://ws2.sinaimg.cn/large/005PPQ5Ily1g0ympyj8vyj311h0it0ux.jpg" alt=""></p>
 <h4 id="coding"><a href="#coding" class="headerlink" title="coding"></a>coding</h4><p>进入官网<a href="https://coding.net/" target="_blank" rel="noopener">coding</a>，注册账号并登录。配置好SSH公钥，这里默认你会使用git，如果不会，可以查询相关资料。</p>
 <p>新建一个项目，名字格式为yourname.coding.me，其中yourname即为你的用户名。</p>
-<p><img src="http://oygov02sc.bkt.clouddn.com/2.png" alt=""></p>
+<p><img src="https://ws2.sinaimg.cn/large/005PPQ5Ily1g0ympz924yj31140isq4j.jpg" alt=""></p>
 <p>选择该项目，进入代码-&gt;pages服务，绑定你之前注册的域名。</p>
-<p><img src="http://oygov02sc.bkt.clouddn.com/3.png" alt=""></p>
+<p><img src="https://ws3.sinaimg.cn/large/005PPQ5Ily1g0ymq0auwpj311e0h8409.jpg" alt=""></p>
 <h4 id="github"><a href="#github" class="headerlink" title="github"></a>github</h4><p>与上述过程类似，登陆之后，点击页面右上角的加号，选择New repository，在Repository name下填写yourname.github.io，其中yourname即为你的用户名。</p>
-<p><img src="http://oygov02sc.bkt.clouddn.com/4.png" alt=""></p>
+<p><img src="https://wx1.sinaimg.cn/large/005PPQ5Ily1g0ymq132h5j311f0irgmx.jpg" alt=""></p>
 <h4 id="域名解析配置"><a href="#域名解析配置" class="headerlink" title="域名解析配置"></a>域名解析配置</h4><p>进入阿里云官网，在控制台选择域名服务，进入解析页面。然后即可进行配置。</p>
-<p><img src="http://oygov02sc.bkt.clouddn.com/5.png" alt=""></p>
+<p><img src="https://wx2.sinaimg.cn/large/005PPQ5Ily1g0ymq25iiej311b0iuq54.jpg" alt=""></p>
 <p>配置的意思是，blog子域名下的世界流量（国外）访问yinxiaojian.github.io，而国内流量访问yinxiaojian.coding.me。</p>
 <h4 id="hexo配置"><a href="#hexo配置" class="headerlink" title="hexo配置"></a>hexo配置</h4><p>最后我们需要在本地的hexo项目中进行相关配置，打开主项目下的_config.yml文件，在其中任意位置添加如下代码</p>
 <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">deploy:</span><br><span class="line">  type: git</span><br><span class="line">  repo: </span><br><span class="line">    github: https:<span class="comment">//github.com/yinxiaojian/yinxiaojian.github.io.git,master</span></span><br><span class="line">    coding: https:<span class="comment">//coding.net/yinxiaojian/yinxiaojian.coding.me.git,master</span></span><br></pre></td></tr></table></figure>

@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://blog.yinjianwen.site/2019/03/02/STUN%E5%92%8CTURN%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA/</loc>
+    
+    <lastmod>2019-03-12T06:07:21.176Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://blog.yinjianwen.site/2018/10/21/meta-learning-notes/</loc>
     
     <lastmod>2019-03-11T02:20:05.350Z</lastmod>
@@ -68,13 +75,6 @@
     <loc>http://blog.yinjianwen.site/2019/03/02/WebRTC%E4%B8%8ENAT%E7%A9%BF%E9%80%8F/</loc>
     
     <lastmod>2019-03-02T15:54:44.352Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://blog.yinjianwen.site/2019/03/02/STUN%E5%92%8CTURN%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA/</loc>
-    
-    <lastmod>2019-03-02T15:54:36.791Z</lastmod>
     
   </url>
   

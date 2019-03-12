@@ -14,7 +14,7 @@
   <entry>
     <title><![CDATA[STUN和TURN服务器搭建]]></title>
     <url>%2F2019%2F03%2F02%2FSTUN%E5%92%8CTURN%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA%2F</url>
-    <content type="text"><![CDATA[使用CoTurn自建STUN和TURN服务。 下载 CoTurn下载指定版本的CoTurn并解压 12wegt https://coturn.net/turnserver/v4.5.0.8/turnserver-4.5.0.8.tar.gztar -zxvf turnserver-4.5.0.8.tar.gz 安装安装编译所需依赖 1234apt-get updateapt-get install -y libssl-dev libevent-dev libpq-dev mysql-client libmysqlclient-dev libhiredis-dev opensslapt-get install gdebi-core -yapt-get install sqlite libsqlite3-dev -y 编译安装CoTurn 1234cd turnserver-4.5.0.8./configuremakemake install 查看是否安装成功 1which turnserver 配置添加用户 1turnadmin -a –u 用户名 -r 域名 -p 密码 例如：添加用户sccs，密码为123456，域名fongda.com（域名可以随意填写） 1turnadmin -a -u sccs -r fongda.com -p 123456 输入turnadmin -l检查是否添加用户成功 启动前台启动 1turnserver -L 公网IP -a -f -r 域名 或者在后台运行 1$ turnserver -L 公网IP -o -a -f -r 域名 验证使用webrtc官方提供的网址进行验证：https://webrtc.github.io/samples/src/content/peerconnection/trickle-ice/ 输入要验证的STUN和TURN服务器 出现Done时表示服务正常运行]]></content>
+    <content type="text"><![CDATA[使用CoTurn自建STUN和TURN服务。 下载 CoTurn下载指定版本的CoTurn并解压 12wegt https://coturn.net/turnserver/v4.5.0.8/turnserver-4.5.0.8.tar.gztar -zxvf turnserver-4.5.0.8.tar.gz 安装安装编译所需依赖 1234apt-get updateapt-get install -y libssl-dev libevent-dev libpq-dev mysql-client libmysqlclient-dev libhiredis-dev opensslapt-get install gdebi-core -yapt-get install sqlite libsqlite3-dev -y 编译安装CoTurn 1234cd turnserver-4.5.0.8./configuremakemake install 查看是否安装成功 1which turnserver 配置添加用户 1turnadmin -a –u 用户名 -r 域名 -p 密码 例如：添加用户sccs，密码为123456，域名fongda.com（域名可以随意填写） 1turnadmin -a -u sccs -r fongda.com -p 123456 输入turnadmin -l检查是否添加用户成功 启动前台启动 1turnserver -L 公网IP -a -f -r 域名 或者在后台运行 1$ turnserver -L 公网IP -o -a -f -r 域名 验证使用webrtc官方提供的网址进行验证： https://webrtc.github.io/samples/src/content/peerconnection/trickle-ice/ 输入要验证的STUN和TURN服务器 出现Done时表示服务正常运行]]></content>
       <categories>
         <category>技术分析</category>
       </categories>
@@ -30,8 +30,8 @@
         <category>paper notes</category>
       </categories>
       <tags>
-        <tag>deep learning</tag>
         <tag>machine learning</tag>
+        <tag>deep learning</tag>
       </tags>
   </entry>
   <entry>
@@ -42,8 +42,8 @@
         <category>paper notes</category>
       </categories>
       <tags>
-        <tag>deep learning</tag>
         <tag>machine learning</tag>
+        <tag>deep learning</tag>
       </tags>
   </entry>
   <entry>

@@ -12,9 +12,7 @@ categories: 前端
 
 ### 什么是比例尺
 
-比例尺是表示[图上距离](http://baike.baidu.com/view/5454725.htm)比实地距离缩小的程度，因此也叫[缩尺](http://baike.baidu.com/view/1559050.htm)。用公式表示为：比例尺=[图上距离](http://baike.baidu.com/view/5454725.htm)/实地距离。在Google map上比例尺显示在右下角，如下图
-
-![](http://oygov02sc.bkt.clouddn.com/google%20map%20%E6%AF%94%E4%BE%8B%E5%B0%BA%E7%AE%97%E6%B3%95%E5%88%86%E6%9E%90-1.png)
+比例尺是表示[图上距离](http://baike.baidu.com/view/5454725.htm)比实地距离缩小的程度，因此也叫[缩尺](http://baike.baidu.com/view/1559050.htm)。用公式表示为：比例尺=[图上距离](http://baike.baidu.com/view/5454725.htm)/实地距离。在Google map上比例尺显示在右下角。
 
 在创建地图时只需增加设置项
 

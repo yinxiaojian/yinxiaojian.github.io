@@ -33,7 +33,7 @@ http://theme-next.iissnan.com/
 
 在部署之前，我们必须申请一个域名，便宜的域名1元/年，我的域名是在阿里云买的。进入阿里云官网，点击图片中的域名注册，根据自己的需求选择想要的域名。我的域名为yinjianwen.site，在部署得时候我将博客部署在该域名的二级域名blog下，因此以后访问地址为**blog.yinjianwen.site**。当然你也可以直接部署在主站。
 
-![](http://oygov02sc.bkt.clouddn.com/1.png)
+![](https://ws2.sinaimg.cn/large/005PPQ5Ily1g0ympyj8vyj311h0it0ux.jpg)
 
 #### coding
 
@@ -41,23 +41,23 @@ http://theme-next.iissnan.com/
 
 新建一个项目，名字格式为yourname.coding.me，其中yourname即为你的用户名。
 
-![](http://oygov02sc.bkt.clouddn.com/2.png)
+![](https://ws2.sinaimg.cn/large/005PPQ5Ily1g0ympz924yj31140isq4j.jpg)
 
 选择该项目，进入代码->pages服务，绑定你之前注册的域名。
 
-![](http://oygov02sc.bkt.clouddn.com/3.png)
+![](https://ws3.sinaimg.cn/large/005PPQ5Ily1g0ymq0auwpj311e0h8409.jpg)
 
 #### github
 
 与上述过程类似，登陆之后，点击页面右上角的加号，选择New repository，在Repository name下填写yourname.github.io，其中yourname即为你的用户名。
 
-![](http://oygov02sc.bkt.clouddn.com/4.png)
+![](https://wx1.sinaimg.cn/large/005PPQ5Ily1g0ymq132h5j311f0irgmx.jpg)
 
 #### 域名解析配置
 
 进入阿里云官网，在控制台选择域名服务，进入解析页面。然后即可进行配置。
 
-![](http://oygov02sc.bkt.clouddn.com/5.png)
+![](https://wx2.sinaimg.cn/large/005PPQ5Ily1g0ymq25iiej311b0iuq54.jpg)
 
 配置的意思是，blog子域名下的世界流量（国外）访问yinxiaojian.github.io，而国内流量访问yinxiaojian.coding.me。
 

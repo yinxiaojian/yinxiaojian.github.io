@@ -4,6 +4,26 @@
 
     
   <url>
+    <loc>http://blog.yinjianwen.site/2020/05/11/Deep-Interest-Network/</loc>
+    <lastmod>2020-05-16T15:53:25.810Z</lastmod>
+    <data>
+        <display>
+        <title>Deep Interest Network</title>
+        <pubTime>2020-05-11T11:09:44.000Z</pubTime>
+        
+        <tag>machine learning</tag>
+         
+         
+           
+             
+              <breadCrumb title="paper notes" url="http://blog.yinjianwen.site/categories/paper-notes/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://blog.yinjianwen.site/2019/03/02/STUN%E5%92%8CTURN%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA/</loc>
     <lastmod>2019-03-12T06:07:21.176Z</lastmod>
     <data>
@@ -31,9 +51,9 @@
         <title>meta learning notes</title>
         <pubTime>2018-10-21T14:06:17.000Z</pubTime>
         
-        <tag>machine learning</tag>
-         
         <tag>deep learning</tag>
+         
+        <tag>machine learning</tag>
          
          
            
@@ -73,9 +93,9 @@
         <title>session-based recommendation</title>
         <pubTime>2018-11-01T16:06:57.000Z</pubTime>
         
-        <tag>machine learning</tag>
-         
         <tag>deep learning</tag>
+         
+        <tag>machine learning</tag>
          
          
            

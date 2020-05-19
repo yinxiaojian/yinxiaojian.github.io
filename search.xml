@@ -1,38 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>Boosting Moving Average Reversion Strategy for Online Portfolio Selection: A Meta-Learning Approach</title>
-    <url>/2018/07/15/Boosting-Moving-Average-Reversion-Strategy-for-Online-Portfolio-Selection-A-Meta-Learning-Approach/</url>
-    <content><![CDATA[<blockquote>
-<p><a href="https://link.springer.com/chapter/10.1007/978-3-319-55699-4_30" target="_blank" rel="noopener">Boosting Moving Average Reversion Strategy for Online Portfolio Selection: A Meta-Learning Approach</a></p>
-</blockquote>
-<a id="more"></a>
-<h4 id="Background"><a href="#Background" class="headerlink" title="Background"></a>Background</h4><ul>
-<li>All existing mean reversion strategies do not fully consider the noisy data and outliers </li>
-<li>the assumption of single-period prediction leads to estimation error</li>
-<li>RMR (Robust Mean Reversion) and OLMAR uses multi-period prediction, but the algorithm sees each period equally, which ignores the temporal heterogeneity of historical price relatives and causes inaccuracy of predictions. </li>
-</ul>
-<h4 id="Contribution"><a href="#Contribution" class="headerlink" title="Contribution"></a>Contribution</h4><p>We utilize meta learning to exploit the benefit of multi-period prediction and the periods are assigned with weights according to their performances. Moreover, this alleviates the impact of noisy data and outliers. </p>
-<p><strong>first phase</strong>: predict the price relative at next period based on historical data.</p>
-<p><strong>second phase: </strong>compute the optimal portfolio given the prediction of price relative. </p>
-<p>use Passive-Aggressive algorithm.</p>
-<h3 id="Algorithm"><a href="#Algorithm" class="headerlink" title="Algorithm"></a>Algorithm</h3><ol>
-<li>generate a set of experts and each expert is a predictor of the price relative following a mean reversion policy.  </li>
-<li>In each period, each expert first makes its predictions on the price relatives in next period.</li>
-<li>compute the cumulated losses induced by each expert from their historical predictions and the true past price relatives.  </li>
-<li>With the cumulated losses, we compute the weights assigned to each expert.</li>
-<li>make prediction.</li>
-<li>use <strong>Online Passive-Aggressive learning method </strong>to compute an optimized portfolio with the final prediction of price relatives in next period. </li>
-</ol>
-]]></content>
-      <categories>
-        <category>paper notes</category>
-      </categories>
-      <tags>
-        <tag>machine learning</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Convexity, Lipschitzness, and Smoothness</title>
     <url>/2018/06/28/Convexity-Lipschitzness-and-Smoothness/</url>
     <content><![CDATA[<p>introduction from “understandingmachine learning theory algorithms”</p>
@@ -73,6 +41,38 @@ f(\alpha \mathbf{u} + (1-\alpha)\mathbf{v}) \le \alpha f(\mathbf{u}) + (1-\alpha
 ]]></content>
       <categories>
         <category>artificial intelligence</category>
+      </categories>
+      <tags>
+        <tag>machine learning</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Boosting Moving Average Reversion Strategy for Online Portfolio Selection: A Meta-Learning Approach</title>
+    <url>/2018/07/15/Boosting-Moving-Average-Reversion-Strategy-for-Online-Portfolio-Selection-A-Meta-Learning-Approach/</url>
+    <content><![CDATA[<blockquote>
+<p><a href="https://link.springer.com/chapter/10.1007/978-3-319-55699-4_30" target="_blank" rel="noopener">Boosting Moving Average Reversion Strategy for Online Portfolio Selection: A Meta-Learning Approach</a></p>
+</blockquote>
+<a id="more"></a>
+<h4 id="Background"><a href="#Background" class="headerlink" title="Background"></a>Background</h4><ul>
+<li>All existing mean reversion strategies do not fully consider the noisy data and outliers </li>
+<li>the assumption of single-period prediction leads to estimation error</li>
+<li>RMR (Robust Mean Reversion) and OLMAR uses multi-period prediction, but the algorithm sees each period equally, which ignores the temporal heterogeneity of historical price relatives and causes inaccuracy of predictions. </li>
+</ul>
+<h4 id="Contribution"><a href="#Contribution" class="headerlink" title="Contribution"></a>Contribution</h4><p>We utilize meta learning to exploit the benefit of multi-period prediction and the periods are assigned with weights according to their performances. Moreover, this alleviates the impact of noisy data and outliers. </p>
+<p><strong>first phase</strong>: predict the price relative at next period based on historical data.</p>
+<p><strong>second phase: </strong>compute the optimal portfolio given the prediction of price relative. </p>
+<p>use Passive-Aggressive algorithm.</p>
+<h3 id="Algorithm"><a href="#Algorithm" class="headerlink" title="Algorithm"></a>Algorithm</h3><ol>
+<li>generate a set of experts and each expert is a predictor of the price relative following a mean reversion policy.  </li>
+<li>In each period, each expert first makes its predictions on the price relatives in next period.</li>
+<li>compute the cumulated losses induced by each expert from their historical predictions and the true past price relatives.  </li>
+<li>With the cumulated losses, we compute the weights assigned to each expert.</li>
+<li>make prediction.</li>
+<li>use <strong>Online Passive-Aggressive learning method </strong>to compute an optimized portfolio with the final prediction of price relatives in next period. </li>
+</ol>
+]]></content>
+      <categories>
+        <category>paper notes</category>
       </categories>
       <tags>
         <tag>machine learning</tag>
@@ -341,30 +341,37 @@ a_{ij}=\frac{exp(c_{ij})}{\sum_kexp(c_{kj})}</script><p>因为对于固定的 $j
       </tags>
   </entry>
   <entry>
-    <title>Deep Interest Network</title>
-    <url>/2020/05/11/Deep-Interest-Network/</url>
+    <title>Fast Matrix Factorization for Online Recommendation with Implicit Feedback</title>
+    <url>/2018/08/15/Fast-Matrix-Factorization-for-Online-Recommendation-with-Implicit-Feedback/</url>
     <content><![CDATA[<blockquote>
-<p>Deep Interest Network for Click-Through Rate Prediction</p>
-<p>Deep Interest Evolution Network for Click-Through Rate Prediction</p>
-<p>Deep Session Interest Network for Click-Through Rate Prediction</p>
+<p><a href="https://www.comp.nus.edu.sg/~xiangnan/papers/sigir16-eals-cm.pdf" target="_blank" rel="noopener">Fast Matrix Factorization for Online Recommendation with Implicit Feedback</a></p>
 </blockquote>
 <a id="more"></a>
-<p>最近阅读了阿里的经典论文：DIN，并对后续的DIEN和DSIN进行了了解，此处做一个简单的记录。</p>
-<h4 id="DIN"><a href="#DIN" class="headerlink" title="DIN"></a>DIN</h4><p>对于DIN来说，核心在于如何更好的从用户的历史行为中提取合适的兴趣，简单的sum/average pooling是不符合实际场景的。用户在浏览的过程中，可能会对多种类型的商品感兴趣，其兴趣也是多种多样。比如说女生的浏览历史中存在服饰和电子产品，那么在预测裤子这件商品的点击时，历史行为中的服饰和电子产品的重要程度显然是不同的。DIN尝试通过注意力机制为历史行为中的商品赋予不同的权重，从而生成最符合当前预测商品的兴趣。</p>
-<p><img src="https://raw.githubusercontent.com/yinxiaojian/blog-img/master/20200516230137.png" alt=""></p>
-<h4 id="DIEN"><a href="#DIEN" class="headerlink" title="DIEN"></a>DIEN</h4><p>DIEN考虑到了两个问题：第一个问题是DIN直接使用行为去表示最终的兴趣，这是很困难的。我们需要去挖掘行为背后潜藏的兴趣。第二个问题在于用户某一方面的兴趣是睡着时间变化而变化的，因此我们需要考虑兴趣的动态变化，从而更好的进行预测。</p>
-<blockquote>
-<p>个人理解：DIEN提出的这两个问题都是很符合实际场景的，首先用户的行为是一个序列，有前后之分。直接使用赋予行为权重并求和，很难体现这一序列信息。论文里将其包装为hidden interest。其次，兴趣本身也是变化的，这里我们可以讲行为作为原始信息，兴趣作为一阶信息，那么兴趣的变化本质上就是二阶信息。</p>
-<p>因此论文也采用了GRU去捕捉一阶信息，在此基础上在使用一个GRU去捕捉二阶信息。</p>
-</blockquote>
-<p>针对问题一，DIEN采用GRU去捕捉行为背后隐藏的兴趣，在此基础上，使用DIN的attention机制获取最符合目标的兴趣，然后使用AUGRU去捕捉兴趣随着时间瓷都的变化。</p>
-<p><img src="https://raw.githubusercontent.com/yinxiaojian/blog-img/master/20200516231053.png" alt=""></p>
-<h4 id="DSIN"><a href="#DSIN" class="headerlink" title="DSIN"></a>DSIN</h4><p>DSIN从实际场景出发，提出用户的行为序列往往是由一个个的session组成的，每个session内部较为相似，同时不同session之间可能存在关联，并且在时间尺度上存在先后关系。</p>
-<p>因此DSIN讲用户的行为序列在时间尺度上切成一个个session（按照相邻行为时间差切割），然后使用Self-Attention去模拟单个session。在获取单个session的表示后，使用Bi-LSTM去模拟不同session之间的关系。同时其采用了DIN中的attention机制去为不同session赋予不同的权重。</p>
-<blockquote>
-<p>实际上，DSIN是讲单个session当作一个兴趣或者一个类别去模拟，然后再模拟session与session之间的关系，而attention机制则只是用来求和的。总的来说，DSIN从session尺度考虑问题，并非是很新鲜的想法，而且既然每个session之间差别较大，那么再使用LSTM去模拟session之间的时序关系是否可行？个人认为其不如DIN和DIEN合理。</p>
-</blockquote>
-<p><img src="https://raw.githubusercontent.com/yinxiaojian/blog-img/master/20200516234211.png" alt=""></p>
+<h3 id="Background"><a href="#Background" class="headerlink" title="Background"></a>Background</h3><p>User Personalization has become prevalent in modern recommender system. Among its various methods, MF is important. Early work on MF have largely focused explicit feedback. (introduction of explict feedback and MF methods).</p>
+<p>However, explicit fimplictit ratings are not always avaliable in many applications: <strong>implicit feedback</strong>. (introduction of implicit feedback).</p>
+<p>(introduction of algorithm to solve implicit feedback). two challenging problem: <strong>implicit feedback</strong> and <strong>online  learning</strong>.</p>
+<p>introduction of our algorithm, summarize key contributions.</p>
+<h3 id="Contribution"><a href="#Contribution" class="headerlink" title="Contribution"></a>Contribution</h3><ul>
+<li>propose an <strong>item popularity-aware weighting</strong> scheme on the full missing data that effectively tailors the MF model for learning from implicit feedback.  </li>
+<li>develop a new algorithm for learning model parameters efficiently and devise an incremental update strategy to support real-time <strong>online learning</strong>.</li>
+<li>conduct extensive experiments with both offline and online protocols on two real-world datasets, showing that our method consistently <strong>outperforms</strong> state-of-the-art implicit MF methods</li>
+</ul>
+<h3 id="Algorithm"><a href="#Algorithm" class="headerlink" title="Algorithm"></a>Algorithm</h3><h4 id="1-Item-Oriented-Weighting-on-Missing-Data"><a href="#1-Item-Oriented-Weighting-on-Missing-Data" class="headerlink" title="1 Item-Oriented Weighting on Missing Data"></a>1 Item-Oriented Weighting on Missing Data</h4><p><strong>Intution</strong>: a popular item is more likely to be known by users, thus a missing on it is more probably that the user is not interested with it. </p>
+<p>Old design : Uniform weight</p>
+<script type="math/tex; mode=display">
+L = \sum_{(u,i) \in R} w(r_{ui} - \hat{r}_{ui})^2
++ \sum_{(u,i)\notin R}\hat{r}_{ui}^2
++ \lambda(\sum_{u=1}^{M}\|\mathbb{p}_u\|^2 + \sum_{i=1}^N \|\mathbb{q}_i\|^2)</script><p>New design: Non-uniform weighing </p>
+<script type="math/tex; mode=display">
+L = \sum_{(u,i) \in R} w(r_{ui} - \hat{r}_{ui})^2
++ \sum_{u=1}^M \sum_{i\notin R_u}c_i \hat{r}_{ui}^2
++ \lambda(\sum_{u=1}^{M}\|\mathbb{p}_u\|^2 + \sum_{i=1}^N \|\mathbb{q}_i\|^2)</script><p> where $c_i = c_0 \frac{f_i^a}{\sum_{j=1}^N f_j^a}$,  $f_i$ denotes the popularity of item $i$, given by its frequency in the implicit feedback data: $|R_i|/\sum_{j=1}^N|R_j|$.</p>
+<h4 id="2-Fast-eALS-Learning-Algorithm"><a href="#2-Fast-eALS-Learning-Algorithm" class="headerlink" title="2 Fast eALS Learning Algorithm"></a>2 Fast eALS Learning Algorithm</h4><p>develop a Coordinate Descent learner to optimize the whole-data based MF </p>
+<ul>
+<li>Element-wise Alternating Least Squares Learner (eALS)</li>
+<li>Optimize one latent factor with others fixed (greedy exact optimization) </li>
+</ul>
+<h4 id="3-Online-Incremental-Learning"><a href="#3-Online-Incremental-Learning" class="headerlink" title="3 Online Incremental Learning"></a>3 Online Incremental Learning</h4><p>new interaction should changel the <strong>local features</strong>, while the global reamain largely unchanged.</p>
 ]]></content>
       <categories>
         <category>paper notes</category>
@@ -409,46 +416,6 @@ HR@N=\frac{Number\ of \ Hits@N}{M}</script><p><strong>Normalized Discounted Cumu
 NDCG@N = Z_N \sum_{i=1}^N \frac{2^{r_i}-1}{log_2 (i+1)}</script><p>where $Z_K$ is the normalizer to ensure the ideal ranking has a value of 1; $r_i$ is the graded relevance of item at position $i$. In implicit feedback, $r_i$ are binary value. if the user interact with item: $r_i = 1$, and 0 otherwise. Lager NDCG indicates better performance.</p>
 <p>Here is simple implementation of NDCG:</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># ref: https://gist.github.com/bwhite/3726239</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">dcg_at_k</span><span class="params">(r, k, method=<span class="number">0</span>)</span>:</span></span><br><span class="line">    <span class="string">"""Score is discounted cumulative gain (dcg)</span></span><br><span class="line"><span class="string">    Relevance is positive real values.  Can use binary</span></span><br><span class="line"><span class="string">    as the previous methods.</span></span><br><span class="line"><span class="string">    Args:</span></span><br><span class="line"><span class="string">        r: Relevance scores (list or numpy) in rank order</span></span><br><span class="line"><span class="string">            (first element is the first item)</span></span><br><span class="line"><span class="string">        k: Number of results to consider</span></span><br><span class="line"><span class="string">        method: If 0 then weights are [1.0, 1.0, 0.6309, 0.5, 0.4307, ...]</span></span><br><span class="line"><span class="string">                If 1 then weights are [1.0, 0.6309, 0.5, 0.4307, ...]</span></span><br><span class="line"><span class="string">    Returns:</span></span><br><span class="line"><span class="string">        Discounted cumulative gain</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    r = np.asfarray(r)[:k]</span><br><span class="line">    <span class="keyword">if</span> r.size:</span><br><span class="line">        <span class="keyword">if</span> method == <span class="number">0</span>:</span><br><span class="line">            <span class="keyword">return</span> r[<span class="number">0</span>] + np.sum(r[<span class="number">1</span>:] / np.log2(np.arange(<span class="number">2</span>, r.size + <span class="number">1</span>)))</span><br><span class="line">        <span class="keyword">elif</span> method == <span class="number">1</span>:</span><br><span class="line">            <span class="keyword">return</span> np.sum(r / np.log2(np.arange(<span class="number">2</span>, r.size + <span class="number">2</span>)))</span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">raise</span> ValueError(<span class="string">'method must be 0 or 1.'</span>)</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0.</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">ndcg_at_k</span><span class="params">(r, k, method=<span class="number">0</span>)</span>:</span></span><br><span class="line">    <span class="string">"""Score is normalized discounted cumulative gain (ndcg)</span></span><br><span class="line"><span class="string">    Relevance is positive real values.  Can use binary</span></span><br><span class="line"><span class="string">    as the previous methods.</span></span><br><span class="line"><span class="string">    Args:</span></span><br><span class="line"><span class="string">        r: Relevance scores (list or numpy) in rank order</span></span><br><span class="line"><span class="string">            (first element is the first item)</span></span><br><span class="line"><span class="string">        k: Number of results to consider</span></span><br><span class="line"><span class="string">        method: If 0 then weights are [1.0, 1.0, 0.6309, 0.5, 0.4307, ...]</span></span><br><span class="line"><span class="string">                If 1 then weights are [1.0, 0.6309, 0.5, 0.4307, ...]</span></span><br><span class="line"><span class="string">    Returns:</span></span><br><span class="line"><span class="string">        Normalized discounted cumulative gain</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    dcg_max = dcg_at_k(sorted(r, reverse=<span class="literal">True</span>), k, method)</span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> dcg_max:</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0.</span></span><br><span class="line">    <span class="keyword">return</span> dcg_at_k(r, k, method) / dcg_max</span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>paper notes</category>
-      </categories>
-      <tags>
-        <tag>machine learning</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Fast Matrix Factorization for Online Recommendation with Implicit Feedback</title>
-    <url>/2018/08/15/Fast-Matrix-Factorization-for-Online-Recommendation-with-Implicit-Feedback/</url>
-    <content><![CDATA[<blockquote>
-<p><a href="https://www.comp.nus.edu.sg/~xiangnan/papers/sigir16-eals-cm.pdf" target="_blank" rel="noopener">Fast Matrix Factorization for Online Recommendation with Implicit Feedback</a></p>
-</blockquote>
-<a id="more"></a>
-<h3 id="Background"><a href="#Background" class="headerlink" title="Background"></a>Background</h3><p>User Personalization has become prevalent in modern recommender system. Among its various methods, MF is important. Early work on MF have largely focused explicit feedback. (introduction of explict feedback and MF methods).</p>
-<p>However, explicit fimplictit ratings are not always avaliable in many applications: <strong>implicit feedback</strong>. (introduction of implicit feedback).</p>
-<p>(introduction of algorithm to solve implicit feedback). two challenging problem: <strong>implicit feedback</strong> and <strong>online  learning</strong>.</p>
-<p>introduction of our algorithm, summarize key contributions.</p>
-<h3 id="Contribution"><a href="#Contribution" class="headerlink" title="Contribution"></a>Contribution</h3><ul>
-<li>propose an <strong>item popularity-aware weighting</strong> scheme on the full missing data that effectively tailors the MF model for learning from implicit feedback.  </li>
-<li>develop a new algorithm for learning model parameters efficiently and devise an incremental update strategy to support real-time <strong>online learning</strong>.</li>
-<li>conduct extensive experiments with both offline and online protocols on two real-world datasets, showing that our method consistently <strong>outperforms</strong> state-of-the-art implicit MF methods</li>
-</ul>
-<h3 id="Algorithm"><a href="#Algorithm" class="headerlink" title="Algorithm"></a>Algorithm</h3><h4 id="1-Item-Oriented-Weighting-on-Missing-Data"><a href="#1-Item-Oriented-Weighting-on-Missing-Data" class="headerlink" title="1 Item-Oriented Weighting on Missing Data"></a>1 Item-Oriented Weighting on Missing Data</h4><p><strong>Intution</strong>: a popular item is more likely to be known by users, thus a missing on it is more probably that the user is not interested with it. </p>
-<p>Old design : Uniform weight</p>
-<script type="math/tex; mode=display">
-L = \sum_{(u,i) \in R} w(r_{ui} - \hat{r}_{ui})^2
-+ \sum_{(u,i)\notin R}\hat{r}_{ui}^2
-+ \lambda(\sum_{u=1}^{M}\|\mathbb{p}_u\|^2 + \sum_{i=1}^N \|\mathbb{q}_i\|^2)</script><p>New design: Non-uniform weighing </p>
-<script type="math/tex; mode=display">
-L = \sum_{(u,i) \in R} w(r_{ui} - \hat{r}_{ui})^2
-+ \sum_{u=1}^M \sum_{i\notin R_u}c_i \hat{r}_{ui}^2
-+ \lambda(\sum_{u=1}^{M}\|\mathbb{p}_u\|^2 + \sum_{i=1}^N \|\mathbb{q}_i\|^2)</script><p> where $c_i = c_0 \frac{f_i^a}{\sum_{j=1}^N f_j^a}$,  $f_i$ denotes the popularity of item $i$, given by its frequency in the implicit feedback data: $|R_i|/\sum_{j=1}^N|R_j|$.</p>
-<h4 id="2-Fast-eALS-Learning-Algorithm"><a href="#2-Fast-eALS-Learning-Algorithm" class="headerlink" title="2 Fast eALS Learning Algorithm"></a>2 Fast eALS Learning Algorithm</h4><p>develop a Coordinate Descent learner to optimize the whole-data based MF </p>
-<ul>
-<li>Element-wise Alternating Least Squares Learner (eALS)</li>
-<li>Optimize one latent factor with others fixed (greedy exact optimization) </li>
-</ul>
-<h4 id="3-Online-Incremental-Learning"><a href="#3-Online-Incremental-Learning" class="headerlink" title="3 Online Incremental Learning"></a>3 Online Incremental Learning</h4><p>new interaction should changel the <strong>local features</strong>, while the global reamain largely unchanged.</p>
 ]]></content>
       <categories>
         <category>paper notes</category>
@@ -551,6 +518,39 @@ y_{ui}log\hat{y}_{ui} + (1-y_{ui})log(1-\hat{y}_{ui})</script><p>Optimization: S
       </categories>
       <tags>
         <tag>WebRTC</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Deep Interest Network</title>
+    <url>/2020/05/11/Deep-Interest-Network/</url>
+    <content><![CDATA[<blockquote>
+<p>Deep Interest Network for Click-Through Rate Prediction</p>
+<p>Deep Interest Evolution Network for Click-Through Rate Prediction</p>
+<p>Deep Session Interest Network for Click-Through Rate Prediction</p>
+</blockquote>
+<a id="more"></a>
+<p>最近阅读了阿里的经典论文：DIN，并对后续的DIEN和DSIN进行了了解，此处做一个简单的记录。</p>
+<h4 id="DIN"><a href="#DIN" class="headerlink" title="DIN"></a>DIN</h4><p>对于DIN来说，核心在于如何更好的从用户的历史行为中提取合适的兴趣，简单的sum/average pooling是不符合实际场景的。用户在浏览的过程中，可能会对多种类型的商品感兴趣，其兴趣也是多种多样。比如说女生的浏览历史中存在服饰和电子产品，那么在预测裤子这件商品的点击时，历史行为中的服饰和电子产品的重要程度显然是不同的。DIN尝试通过注意力机制为历史行为中的商品赋予不同的权重，从而生成最符合当前预测商品的兴趣。</p>
+<p><img src="https://raw.githubusercontent.com/yinxiaojian/blog-img/master/20200516230137.png" alt=""></p>
+<h4 id="DIEN"><a href="#DIEN" class="headerlink" title="DIEN"></a>DIEN</h4><p>DIEN考虑到了两个问题：第一个问题是DIN直接使用行为去表示最终的兴趣，这是很困难的。我们需要去挖掘行为背后潜藏的兴趣。第二个问题在于用户某一方面的兴趣是睡着时间变化而变化的，因此我们需要考虑兴趣的动态变化，从而更好的进行预测。</p>
+<blockquote>
+<p>个人理解：DIEN提出的这两个问题都是很符合实际场景的，首先用户的行为是一个序列，有前后之分。直接使用赋予行为权重并求和，很难体现这一序列信息。论文里将其包装为hidden interest。其次，兴趣本身也是变化的，这里我们可以讲行为作为原始信息，兴趣作为一阶信息，那么兴趣的变化本质上就是二阶信息。</p>
+<p>因此论文也采用了GRU去捕捉一阶信息，在此基础上在使用一个GRU去捕捉二阶信息。</p>
+</blockquote>
+<p>针对问题一，DIEN采用GRU去捕捉行为背后隐藏的兴趣，在此基础上，使用DIN的attention机制获取最符合目标的兴趣，然后使用AUGRU去捕捉兴趣随着时间瓷都的变化。</p>
+<p><img src="https://raw.githubusercontent.com/yinxiaojian/blog-img/master/20200516231053.png" alt=""></p>
+<h4 id="DSIN"><a href="#DSIN" class="headerlink" title="DSIN"></a>DSIN</h4><p>DSIN从实际场景出发，提出用户的行为序列往往是由一个个的session组成的，每个session内部较为相似，同时不同session之间可能存在关联，并且在时间尺度上存在先后关系。</p>
+<p>因此DSIN讲用户的行为序列在时间尺度上切成一个个session（按照相邻行为时间差切割），然后使用Self-Attention去模拟单个session。在获取单个session的表示后，使用Bi-LSTM去模拟不同session之间的关系。同时其采用了DIN中的attention机制去为不同session赋予不同的权重。</p>
+<blockquote>
+<p>实际上，DSIN是讲单个session当作一个兴趣或者一个类别去模拟，然后再模拟session与session之间的关系，而attention机制则只是用来求和的。总的来说，DSIN从session尺度考虑问题，并非是很新鲜的想法，而且既然每个session之间差别较大，那么再使用LSTM去模拟session之间的时序关系是否可行？个人认为其不如DIN和DIEN合理。</p>
+</blockquote>
+<p><img src="https://raw.githubusercontent.com/yinxiaojian/blog-img/master/20200516234211.png" alt=""></p>
+]]></content>
+      <categories>
+        <category>paper notes</category>
+      </categories>
+      <tags>
+        <tag>machine learning</tag>
       </tags>
   </entry>
   <entry>
@@ -838,65 +838,6 @@ y_{ui}log\hat{y}_{ui} + (1-y_{ui})log(1-\hat{y}_{ui})</script><p>Optimization: S
       </tags>
   </entry>
   <entry>
-    <title>Softmax and Cross Entropy Loss</title>
-    <url>/2018/04/11/Softmax-and-Cross-Entropy-Loss/</url>
-    <content><![CDATA[<p>introduction and derivative of Softmax and Cross Entropy Loss.</p>
-<a id="more"></a>
-<h3 id="Softmax-function"><a href="#Softmax-function" class="headerlink" title="Softmax function"></a>Softmax function</h3><p>the softmax function takes N-dimensional vector of real numbers and transforms it into a vector of real number in range of (0,1) which means the probability of each classification.</p>
-<script type="math/tex; mode=display">
-p_i=\frac{e^{a_i}}{\sum_{k=1}^Ne^{a_k}}</script><p>it is easy to know  $\sum_{k=1}^Np_i=1$ .</p>
-<p>the code of softmax function in python:</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">softmax</span><span class="params">(X)</span>:</span></span><br><span class="line">    exps = np.exp(X)</span><br><span class="line">    <span class="keyword">return</span> exps / np.sum(exps)</span><br></pre></td></tr></table></figure>
-<p>sometimes the exp operation can overshot the limit of the floating point numbers in python, so we need to normalize the value by multiply a constant C.</p>
-<script type="math/tex; mode=display">
-p_i=\frac{e^{a_i}}{\sum_{k=1}^Ne^{a_k}}
-=\frac{Ce^{a_i}}{C\sum_{k=1}^Ne^{a_k}}
-=\frac{e^{a_i+log(C)}}{\sum_{k=1}^Ne^{a_k+log(C)}}</script><p>Generally, we max $log(C)=-max(a)$, so we need make a little change of our code:</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">softmax</span><span class="params">(X)</span>:</span></span><br><span class="line">    exps = np.exp(X-np.max(X))</span><br><span class="line">    <span class="keyword">return</span> exps / np.sum(exps)</span><br></pre></td></tr></table></figure>
-<h3 id="Cross-Entropy-Loss"><a href="#Cross-Entropy-Loss" class="headerlink" title="Cross Entropy Loss"></a>Cross Entropy Loss</h3><p>the defination of cross entropy loss is:</p>
-<script type="math/tex; mode=display">
-L=-\sum_iy_i log(p_i)</script><p>note: </p>
-<p>$p_i$ means the softmax value of  i-th neuron  in fully connected layer;</p>
-<p>if the true label of input sample is $j$,  then $y_{i=j}=1;y_{i\neq j}=0$.</p>
-<p>the code of loss function in python:</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">cross_entropy</span><span class="params">(X, y)</span>:</span></span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    X is the output of fully connected layer(N-dimensional vector)</span></span><br><span class="line"><span class="string">    y is true label(integer)</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    p = softmax(X)</span><br><span class="line">    loss = -np.log(p[y])</span><br><span class="line">    <span class="keyword">return</span> loss</span><br></pre></td></tr></table></figure>
-<h3 id="Backward-propagation"><a href="#Backward-propagation" class="headerlink" title="Backward propagation"></a>Backward propagation</h3><p>we need to compute the derivative of cross entropy loss:</p>
-<script type="math/tex; mode=display">
-\frac{\partial L}{\partial a_i}=\frac{\partial L}{\partial p_j}\frac{\partial p_j}{\partial a_i}</script><p>it is easy to compute $\frac{\partial L}{\partial p_i}$</p>
-<script type="math/tex; mode=display">
-\frac{\partial L}{\partial p_i}=-\sum_iy_i\frac{1}{p_i}\tag1</script><p>then compute $\frac{\partial p_j}{\partial a_i}$, we need to divide it into two situations：</p>
-<ol>
-<li>if $i=j$</li>
-</ol>
-<script type="math/tex; mode=display">
-\begin{align*}
-\frac{\partial p_j}{\partial a_i}&=\frac{\partial p_i}{\partial a_i}=\frac{\partial{\frac{e^{a_i}}{\sum_{k=1}^Ne^{a_k}}}}{\partial a_i}=\frac{\sum_{k=1}^{N}e^{a_i}e^{a_k}-(e^{a_i})^2}{(\sum_{k=1}^Ne^{a_k})^2}\\
-&=\frac{e^{a_i}}{\sum_{k=1}^Ne^{a_k}}\left(1-\frac{e^{a_i}}{\sum_{k=1}^Ne^{a_k}}\right)\\
-&=p_i(1-p_i)
-\end{align*}</script><ol>
-<li>If $i\neq j$</li>
-</ol>
-<script type="math/tex; mode=display">
-\frac{\partial p_j}{\partial a_i}=\frac{\partial{\frac{e^{a_j}}{\sum_{k=1}^Ne^{a_k}}}}{\partial a_i}=
--\frac{e^{a_j}}{\sum_{k=1}^Ne^{a_k}}\frac{e^{a_i}}{\sum_{k=1}^Ne^{a_k}}=-p_jp_i\tag2</script><p>combine the result of (1) and (2)</p>
-<script type="math/tex; mode=display">
-\begin{align*}
-\frac{\partial L}{\partial a_i}& = \left(-\sum_iy_i\frac{1}{p_i}\right)\frac{\partial p_i}{\partial a_i}\\
-&=-\frac{y_i}{p_i}p_i(1-p_i)+\sum_{i\neq j}\frac{y_i}{p_i}p_ip_j\\
-&=-y_i+y_ip_i+\sum_{i\neq j}y_ip_i\\
-&=-y_i+p_i\sum_iy_i\\
-&=p_i-y_i
-\end{align*}</script><p>code in python</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">delta_entropy</span><span class="params">(X,y)</span>:</span></span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    X is the output of fully connected layer(N-dimensional vector)</span></span><br><span class="line"><span class="string">    y is true labels(integer)</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    grad = softmax(X)</span><br><span class="line">    grad[y] -= <span class="number">1</span></span><br><span class="line">    <span class="keyword">return</span> grad</span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>artificial intelligence</category>
-      </categories>
-      <tags>
-        <tag>softmax</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>WebRTC与NAT穿透</title>
     <url>/2019/03/02/WebRTC%E4%B8%8ENAT%E7%A9%BF%E9%80%8F/</url>
     <content><![CDATA[<p>WebRTC支持点对点通信（P2P），但是其建立通讯仍需要两类服务器。</p>
@@ -1006,6 +947,88 @@ L=-\sum_iy_i log(p_i)</script><p>note: </p>
       </tags>
   </entry>
   <entry>
+    <title>Softmax and Cross Entropy Loss</title>
+    <url>/2018/04/11/Softmax-and-Cross-Entropy-Loss/</url>
+    <content><![CDATA[<p>introduction and derivative of Softmax and Cross Entropy Loss.</p>
+<a id="more"></a>
+<h3 id="Softmax-function"><a href="#Softmax-function" class="headerlink" title="Softmax function"></a>Softmax function</h3><p>the softmax function takes N-dimensional vector of real numbers and transforms it into a vector of real number in range of (0,1) which means the probability of each classification.</p>
+<script type="math/tex; mode=display">
+p_i=\frac{e^{a_i}}{\sum_{k=1}^Ne^{a_k}}</script><p>it is easy to know  $\sum_{k=1}^Np_i=1$ .</p>
+<p>the code of softmax function in python:</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">softmax</span><span class="params">(X)</span>:</span></span><br><span class="line">    exps = np.exp(X)</span><br><span class="line">    <span class="keyword">return</span> exps / np.sum(exps)</span><br></pre></td></tr></table></figure>
+<p>sometimes the exp operation can overshot the limit of the floating point numbers in python, so we need to normalize the value by multiply a constant C.</p>
+<script type="math/tex; mode=display">
+p_i=\frac{e^{a_i}}{\sum_{k=1}^Ne^{a_k}}
+=\frac{Ce^{a_i}}{C\sum_{k=1}^Ne^{a_k}}
+=\frac{e^{a_i+log(C)}}{\sum_{k=1}^Ne^{a_k+log(C)}}</script><p>Generally, we max $log(C)=-max(a)$, so we need make a little change of our code:</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">softmax</span><span class="params">(X)</span>:</span></span><br><span class="line">    exps = np.exp(X-np.max(X))</span><br><span class="line">    <span class="keyword">return</span> exps / np.sum(exps)</span><br></pre></td></tr></table></figure>
+<h3 id="Cross-Entropy-Loss"><a href="#Cross-Entropy-Loss" class="headerlink" title="Cross Entropy Loss"></a>Cross Entropy Loss</h3><p>the defination of cross entropy loss is:</p>
+<script type="math/tex; mode=display">
+L=-\sum_iy_i log(p_i)</script><p>note: </p>
+<p>$p_i$ means the softmax value of  i-th neuron  in fully connected layer;</p>
+<p>if the true label of input sample is $j$,  then $y_{i=j}=1;y_{i\neq j}=0$.</p>
+<p>the code of loss function in python:</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">cross_entropy</span><span class="params">(X, y)</span>:</span></span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    X is the output of fully connected layer(N-dimensional vector)</span></span><br><span class="line"><span class="string">    y is true label(integer)</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    p = softmax(X)</span><br><span class="line">    loss = -np.log(p[y])</span><br><span class="line">    <span class="keyword">return</span> loss</span><br></pre></td></tr></table></figure>
+<h3 id="Backward-propagation"><a href="#Backward-propagation" class="headerlink" title="Backward propagation"></a>Backward propagation</h3><p>we need to compute the derivative of cross entropy loss:</p>
+<script type="math/tex; mode=display">
+\frac{\partial L}{\partial a_i}=\frac{\partial L}{\partial p_j}\frac{\partial p_j}{\partial a_i}</script><p>it is easy to compute $\frac{\partial L}{\partial p_i}$</p>
+<script type="math/tex; mode=display">
+\frac{\partial L}{\partial p_i}=-\sum_iy_i\frac{1}{p_i}\tag1</script><p>then compute $\frac{\partial p_j}{\partial a_i}$, we need to divide it into two situations：</p>
+<ol>
+<li>if $i=j$</li>
+</ol>
+<script type="math/tex; mode=display">
+\begin{align*}
+\frac{\partial p_j}{\partial a_i}&=\frac{\partial p_i}{\partial a_i}=\frac{\partial{\frac{e^{a_i}}{\sum_{k=1}^Ne^{a_k}}}}{\partial a_i}=\frac{\sum_{k=1}^{N}e^{a_i}e^{a_k}-(e^{a_i})^2}{(\sum_{k=1}^Ne^{a_k})^2}\\
+&=\frac{e^{a_i}}{\sum_{k=1}^Ne^{a_k}}\left(1-\frac{e^{a_i}}{\sum_{k=1}^Ne^{a_k}}\right)\\
+&=p_i(1-p_i)
+\end{align*}</script><ol>
+<li>If $i\neq j$</li>
+</ol>
+<script type="math/tex; mode=display">
+\frac{\partial p_j}{\partial a_i}=\frac{\partial{\frac{e^{a_j}}{\sum_{k=1}^Ne^{a_k}}}}{\partial a_i}=
+-\frac{e^{a_j}}{\sum_{k=1}^Ne^{a_k}}\frac{e^{a_i}}{\sum_{k=1}^Ne^{a_k}}=-p_jp_i\tag2</script><p>combine the result of (1) and (2)</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+\frac{\partial L}{\partial a_i}& = \left(-\sum_iy_i\frac{1}{p_i}\right)\frac{\partial p_i}{\partial a_i}\\
+&=-\frac{y_i}{p_i}p_i(1-p_i)+\sum_{i\neq j}\frac{y_i}{p_i}p_ip_j\\
+&=-y_i+y_ip_i+\sum_{i\neq j}y_ip_i\\
+&=-y_i+p_i\sum_iy_i\\
+&=p_i-y_i
+\end{align*}</script><p>code in python</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">delta_entropy</span><span class="params">(X,y)</span>:</span></span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    X is the output of fully connected layer(N-dimensional vector)</span></span><br><span class="line"><span class="string">    y is true labels(integer)</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    grad = softmax(X)</span><br><span class="line">    grad[y] -= <span class="number">1</span></span><br><span class="line">    <span class="keyword">return</span> grad</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>artificial intelligence</category>
+      </categories>
+      <tags>
+        <tag>softmax</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>ZELDA-男人的浪漫</title>
+    <url>/2018/03/19/ZELDA-%E7%94%B7%E4%BA%BA%E7%9A%84%E6%B5%AA%E6%BC%AB/</url>
+    <content><![CDATA[<p>如果一款游戏，如果能让你回到儿时，你会去玩吗？</p>
+<a id="more"></a>
+<p>游戏时间 100 小时，四神兽和boss全灭，120神庙解锁一半，支线任务完成1/4。</p>
+<p>拿到游戏到现在过去了10天，除了实习时间，我几乎都在玩这款游戏，这段时间我没有看动漫，甚至连手机都懒得碰。直到现在，在天气晴朗的时候，登上海拉尔大陆的顶端远眺，留给我的依旧是无数秘密。</p>
+<p><img src="https://ws4.sinaimg.cn/large/005PPQ5Ily1g0ymv18a9mj30l60b4adc.jpg" alt="9c29d14f-ae6e-42b4-9c36-c1f81c9217af"></p>
+<p>我无法忘记游戏开始走出出生地的震撼，一个广阔的大陆等着你探索。作为一个普通玩家，或许无法从专业性的角度去阐述这款游戏的优秀，但是我可以慢慢的回想我在游戏中的故事。</p>
+<p>开放世界、沙盒玩法可以说是游戏界经常提到的概念，在我以前玩的游戏中，我按照游戏设计者设计好的路线去解锁游戏，在这个过程中，总是会有一种压迫感，游戏设计者在不停的推着我前进。终于，游戏主线支线结束，站在广阔的地图上，我却不知道干什么。</p>
+<p>荒野之息却完全不同，游戏剧情“老套”，主线就是打魔王救公主。在游戏的过程中，我却忘记了主线，沉迷于爬山，炸鱼，采矿，做菜等等等等。看到一座很高的山，我费劲力气爬上去，只为看到更好的风景。为发现隐藏在海拉尔大陆的120个神庙而惊喜，进入神庙后又是另一番体验。就连npc都设计的非常巧妙，记得有一个npc，她对我说：“别摸鱼了，快去拯救世界”，令人爆笑。如果这些还不够，还有900个“呀哈哈”等着你去寻找，可能在石头下，也可能在山顶上。</p>
+<p>在大概两天后，我终于想起了公主，于是我开始进入主线，四大神兽每个都有不同的故事和解谜方式，不会让人厌烦。打败四大神兽后，我又开始收集13个回忆，慢慢的找到了所有林克和公主的故事，一个傲娇的公主是怎么慢慢成长，怎么喜欢上我的（笑）。接着就是面对最终boss加农了，这时候我却不想推进了，我不想结束这段旅行，还有那么多神庙没有解锁，那么多支线没有做，现在打boss总有种半途而废的感觉。不过游戏总有分别，又过了两天，我带着全村最好的剑，最好的弓，最好的盾，最好的药冲到boss，然后boss就死了，一段回忆后游戏戛然而止······</p>
+<p>在这段时间，做梦的时候我总是会梦到游戏剧情，在室外的时候，看到高楼大厦，我也不经意的会思考怎么爬上去，爬上去会看到什么样的风景。现在我大概知道为什么会沉迷这款游戏了，大概是这款游戏满足了我所有的浪漫。</p>
+<p>在童年时候，我会为钓到小鱼小虾而激动，会为爬到大坝上而激动。那时候会做梦，觉得自己是个大侠、冒险家。和小伙伴们去野外（隔壁村）探险，会去招惹村口的凶狗，会骑姥姥家养的小花狗。实际上，直到现在我还想做这些事，还对其乐此不疲，只不过没人陪我了。是的，我长大了，虽然还在校园，但烦恼却不少。所以，我感谢这款游戏，让我找到了冒险的感觉，为游戏中每一个新事物，为前方而满怀期待！</p>
+<p>最后，塞尔达天下第一！</p>
+]]></content>
+      <categories>
+        <category>杂谈</category>
+      </categories>
+      <tags>
+        <tag>游戏</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>hexo 双线部署及seo优化</title>
     <url>/2017/10/27/hexo-%E5%8F%8C%E7%BA%BF%E9%83%A8%E7%BD%B2%E5%8F%8Aseo%E4%BC%98%E5%8C%96/</url>
     <content><![CDATA[<h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>断断续续大概半个月，终于把个人博客搭建好，整个过程虽然简单，但是也有很多”坑“。在查询资料的过程中，阅读的博文质量参差不齐，因此想细致的写出我搭建的过程，供大家参考。文章重点在于双线部署及seo，最开始的部署和搭建将简要略过。</p>
@@ -1067,29 +1090,6 @@ L=-\sum_iy_i log(p_i)</script><p>note: </p>
       </categories>
       <tags>
         <tag>google map</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>ZELDA-男人的浪漫</title>
-    <url>/2018/03/19/ZELDA-%E7%94%B7%E4%BA%BA%E7%9A%84%E6%B5%AA%E6%BC%AB/</url>
-    <content><![CDATA[<p>如果一款游戏，如果能让你回到儿时，你会去玩吗？</p>
-<a id="more"></a>
-<p>游戏时间 100 小时，四神兽和boss全灭，120神庙解锁一半，支线任务完成1/4。</p>
-<p>拿到游戏到现在过去了10天，除了实习时间，我几乎都在玩这款游戏，这段时间我没有看动漫，甚至连手机都懒得碰。直到现在，在天气晴朗的时候，登上海拉尔大陆的顶端远眺，留给我的依旧是无数秘密。</p>
-<p><img src="https://ws4.sinaimg.cn/large/005PPQ5Ily1g0ymv18a9mj30l60b4adc.jpg" alt="9c29d14f-ae6e-42b4-9c36-c1f81c9217af"></p>
-<p>我无法忘记游戏开始走出出生地的震撼，一个广阔的大陆等着你探索。作为一个普通玩家，或许无法从专业性的角度去阐述这款游戏的优秀，但是我可以慢慢的回想我在游戏中的故事。</p>
-<p>开放世界、沙盒玩法可以说是游戏界经常提到的概念，在我以前玩的游戏中，我按照游戏设计者设计好的路线去解锁游戏，在这个过程中，总是会有一种压迫感，游戏设计者在不停的推着我前进。终于，游戏主线支线结束，站在广阔的地图上，我却不知道干什么。</p>
-<p>荒野之息却完全不同，游戏剧情“老套”，主线就是打魔王救公主。在游戏的过程中，我却忘记了主线，沉迷于爬山，炸鱼，采矿，做菜等等等等。看到一座很高的山，我费劲力气爬上去，只为看到更好的风景。为发现隐藏在海拉尔大陆的120个神庙而惊喜，进入神庙后又是另一番体验。就连npc都设计的非常巧妙，记得有一个npc，她对我说：“别摸鱼了，快去拯救世界”，令人爆笑。如果这些还不够，还有900个“呀哈哈”等着你去寻找，可能在石头下，也可能在山顶上。</p>
-<p>在大概两天后，我终于想起了公主，于是我开始进入主线，四大神兽每个都有不同的故事和解谜方式，不会让人厌烦。打败四大神兽后，我又开始收集13个回忆，慢慢的找到了所有林克和公主的故事，一个傲娇的公主是怎么慢慢成长，怎么喜欢上我的（笑）。接着就是面对最终boss加农了，这时候我却不想推进了，我不想结束这段旅行，还有那么多神庙没有解锁，那么多支线没有做，现在打boss总有种半途而废的感觉。不过游戏总有分别，又过了两天，我带着全村最好的剑，最好的弓，最好的盾，最好的药冲到boss，然后boss就死了，一段回忆后游戏戛然而止······</p>
-<p>在这段时间，做梦的时候我总是会梦到游戏剧情，在室外的时候，看到高楼大厦，我也不经意的会思考怎么爬上去，爬上去会看到什么样的风景。现在我大概知道为什么会沉迷这款游戏了，大概是这款游戏满足了我所有的浪漫。</p>
-<p>在童年时候，我会为钓到小鱼小虾而激动，会为爬到大坝上而激动。那时候会做梦，觉得自己是个大侠、冒险家。和小伙伴们去野外（隔壁村）探险，会去招惹村口的凶狗，会骑姥姥家养的小花狗。实际上，直到现在我还想做这些事，还对其乐此不疲，只不过没人陪我了。是的，我长大了，虽然还在校园，但烦恼却不少。所以，我感谢这款游戏，让我找到了冒险的感觉，为游戏中每一个新事物，为前方而满怀期待！</p>
-<p>最后，塞尔达天下第一！</p>
-]]></content>
-      <categories>
-        <category>杂谈</category>
-      </categories>
-      <tags>
-        <tag>游戏</tag>
       </tags>
   </entry>
   <entry>
@@ -1195,50 +1195,6 @@ c_t = f_t \odot c_{t-1} + i_t \odot \tilde{c}_t,</script><p>if $f_t = 1$, $c_{t-
       </tags>
   </entry>
   <entry>
-    <title>robust optimization in ML</title>
-    <url>/2018/04/25/robust-optimization-in-ML/</url>
-    <content><![CDATA[<p>In real large application where the training data may have noise and outliers, general ML algorithm may be very sensitive to noise and outliers. algorithm with robust can overcome this situation. </p>
-<a id="more"></a>
-<h3 id="1-Robust-Factorization-Machines-for-User-Response-Prediction"><a href="#1-Robust-Factorization-Machines-for-User-Response-Prediction" class="headerlink" title="1. Robust Factorization Machines for User Response Prediction"></a>1. Robust Factorization Machines for User Response Prediction</h3><h4 id="contributions"><a href="#contributions" class="headerlink" title="contributions"></a>contributions</h4><p>the work aims at characterizing the environment-induced un- certainty in the user signals and reformulating the FM and FFM objective functions to be immune against data fluctuations.<br>main contributions:</p>
-<ul>
-<li>employ robust optimization principles to model the noise arising in online advertising signals as boundes box-type interval uncertainty sets.</li>
-<li>propose two novel algorithms: robust factorization machine (RFM) and robust field-aware factorization machine(RFFM).</li>
-<li>using parallel stochastic gradient decent.</li>
-<li>evaluate on three publicly available response prediction datasets from criteo and avazu. for classification robust version takes a slight performance hit in the standard setting but significantly outperforms the non-robust counterparts when subjected to noise.</li>
-<li>provide guidelines for selection of uncertainly sets.</li>
-<li>a general model</li>
-</ul>
-<h4 id="model"><a href="#model" class="headerlink" title="model"></a>model</h4><p>we associate uncertainty vector $\mu\in \mathbb{R}^d\space s.t. \space |\mu_j|\leq\eta_j,\forall j\in \{1,…,d\}$ for characterizing noise in linear interactions and matrix $\sum\in\mathbb{R}^{d\times d} \space s.t. \space \sum_{j,k}=\sigma_j\sigma_k,|\sigma_j|\le \rho_j,\forall j\in\{1,…,d\}$ for capturing noise induced by pairwise interaction terms. Define robust factorization machines as $\phi _{RFM}$：</p>
-<script type="math/tex; mode=display">
-\phi_{RFM}(\mathbf{x},\mathbf{w},\mathbf{V},\mathbf{x},\mathbf{\Sigma})=w_0+\sum_{j=1}^dw_j(x_j+\mu_j)+\frac{1}{2}\sum_{j=1}^{d}\sum_{k=j}^{d}\langle \mathbf{v}_j,\mathbf{v}_k\rangle(x_jx_k+\Sigma_{j,k})</script><p>after expanding:</p>
-<script type="math/tex; mode=display">
-\phi_{RFM}(\mathbf{x},\mathbf{w},\mathbf{V},\mathbf{x},\mathbf{\Sigma})=w_0+\sum_{j=1}^{d}w_jx_j+\sum_{j=1}^{d}w_j\mu_j+\frac{1}{2}\sum_{f=1}^{p}(\sum_{j=1}^{d}v_{j,f}x_j)^2+
-\\
-\frac{1}{2}\sum_{f=1}^{p}(\sum_{j=1}^{d}v_{j,f}\sigma_j)^2+
-+\frac{1}{2}\sum_{f=1}^{p}\sum_{j=1}^{d}v_{j,f}^2x_j^2+\frac{1}{2}\sum_{f=1}^{p}\sum_{j=1}^{d}v_{j,f}^2\sigma_j^2</script><h4 id="how-to-robust"><a href="#how-to-robust" class="headerlink" title="how to robust"></a>how to robust</h4><p>change the model, use uncertainty sets.</p>
-<h3 id="2-Robust-Top-k-Multiclass-SVM-for-Visual-Category-Recognition"><a href="#2-Robust-Top-k-Multiclass-SVM-for-Visual-Category-Recognition" class="headerlink" title="2. Robust Top-k Multiclass SVM for Visual Category Recognition"></a>2. Robust Top-k Multiclass SVM for Visual Category Recognition</h3><h4 id="contributions-1"><a href="#contributions-1" class="headerlink" title="contributions"></a>contributions</h4><p>The major limitation of the existing top-k extension is its sensitivity to abnormal observations, i.e., outliers, after all its loss is still convex. to overcome this problem, we proposed a robust multiclass SVM formulation that directly aims at minimizing a weighted and truncated combination of the ordered prediction score. the algorithm includes many previous multiclass SVMs as special cases.</p>
-<h4 id="model-1"><a href="#model-1" class="headerlink" title="model"></a>model</h4><p>Given a training sample $(x_i,y_i),i=1,…,n$, where $x_i\in\mathcal{X}\subseteq \mathbb{R}^d$ and $y_i \in \mathcal{Y}:=\{1,…,c\}$, loss function for the multiclass SVM:</p>
-<script type="math/tex; mode=display">
-\ell_i=\ell_i(W):=\max_{j\in\mathcal{Y}} \{\mathbb{I}_{j\neq y_i}+\langle\mathbf{w}_j,\mathbf{x}_i\rangle-\langle\mathbf{w}_{y_i},\mathbf{x}_i\rangle\}</script><p>We use $a_{[k]}$ to denote the k-th largest entry of the vector a, and the matrix $W_{\backslash y}\in \mathbb{R}^{(c-1)\times d}$ remove the y-th row of $W$. then loss function for top-k multiclass SVM:</p>
-<script type="math/tex; mode=display">
-\ell_i(W):=\max \{0,(W_{\backslash y_i}\mathbf{x}_i)_{[k]}+1-\langle\mathbf{w}_{y_i},\mathbf{x}_i\rangle\}
-\\
-=\max \{0, \left ( (W-\mathbf{1}\mathbf{w}_{y_i}^{T})\mathbf{x}_i+1-\mathbf{e}_{y_i}\right )_{[k]}\}</script><p>where $\mathbf{e}_j$ is the j-th canonical basis vector, and $\mathbf{1}$ is the all ones vector.</p>
-<p>the major limitation of the original nonconvex top-k loss equation is their sensitivity to abnormal observations, i.e. outliers. This is mostly due to the unboundedness of the corresponding losses. To overcome this limitation and make it more robust, change the loss function:</p>
-<script type="math/tex; mode=display">
-\ell_i(W):=\min \{ \max \{0,\sum_{j=1}^c \alpha_j s_{[j]}^i\},\tau \}</script><p>where we use the following abbreviations for the scores</p>
-<script type="math/tex; mode=display">
-s^i=(W-\mathbf{1}\mathbf{w}_{y_i}^T)\mathbf{x}_i+1-\mathbf{e}_{y_i}</script><p>and $\alpha \in \mathbb{R}^k$ is an arbitrary weight that choose to combine the ordered scores. $\tau &gt; 0$ is a hyperparameter that we use to cap the loss for any training pair.</p>
-<h4 id="how-to-robust-1"><a href="#how-to-robust-1" class="headerlink" title="how to robust"></a>how to robust</h4><p>change the loss function by use capped form, make algorithm can “give up” focusing any training pair that incurs an excessively large loss, namely, outliers. </p>
-]]></content>
-      <categories>
-        <category>artificial intelligence</category>
-      </categories>
-      <tags>
-        <tag>machine learning</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>session-based recommendation</title>
     <url>/2018/11/02/session-based-recommendation/</url>
     <content><![CDATA[<h3 id="Definition"><a href="#Definition" class="headerlink" title="Definition"></a>Definition</h3><p>session is a mechanism used by website to identify users. A typical scenario is shopping cat of e-commerce website. It creates a specific session for the user and track the user’s click behavior. In short, session is a an ordered collection of past items the user has interacted with.</p>
@@ -1290,6 +1246,50 @@ p(\mathcal{S}|\Theta) = \prod_u \prod_{t\in \mathcal{C}^u} \sigma(\mathbf{y}_{\m
       <tags>
         <tag>machine learning</tag>
         <tag>deep learning</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>robust optimization in ML</title>
+    <url>/2018/04/25/robust-optimization-in-ML/</url>
+    <content><![CDATA[<p>In real large application where the training data may have noise and outliers, general ML algorithm may be very sensitive to noise and outliers. algorithm with robust can overcome this situation. </p>
+<a id="more"></a>
+<h3 id="1-Robust-Factorization-Machines-for-User-Response-Prediction"><a href="#1-Robust-Factorization-Machines-for-User-Response-Prediction" class="headerlink" title="1. Robust Factorization Machines for User Response Prediction"></a>1. Robust Factorization Machines for User Response Prediction</h3><h4 id="contributions"><a href="#contributions" class="headerlink" title="contributions"></a>contributions</h4><p>the work aims at characterizing the environment-induced un- certainty in the user signals and reformulating the FM and FFM objective functions to be immune against data fluctuations.<br>main contributions:</p>
+<ul>
+<li>employ robust optimization principles to model the noise arising in online advertising signals as boundes box-type interval uncertainty sets.</li>
+<li>propose two novel algorithms: robust factorization machine (RFM) and robust field-aware factorization machine(RFFM).</li>
+<li>using parallel stochastic gradient decent.</li>
+<li>evaluate on three publicly available response prediction datasets from criteo and avazu. for classification robust version takes a slight performance hit in the standard setting but significantly outperforms the non-robust counterparts when subjected to noise.</li>
+<li>provide guidelines for selection of uncertainly sets.</li>
+<li>a general model</li>
+</ul>
+<h4 id="model"><a href="#model" class="headerlink" title="model"></a>model</h4><p>we associate uncertainty vector $\mu\in \mathbb{R}^d\space s.t. \space |\mu_j|\leq\eta_j,\forall j\in \{1,…,d\}$ for characterizing noise in linear interactions and matrix $\sum\in\mathbb{R}^{d\times d} \space s.t. \space \sum_{j,k}=\sigma_j\sigma_k,|\sigma_j|\le \rho_j,\forall j\in\{1,…,d\}$ for capturing noise induced by pairwise interaction terms. Define robust factorization machines as $\phi _{RFM}$：</p>
+<script type="math/tex; mode=display">
+\phi_{RFM}(\mathbf{x},\mathbf{w},\mathbf{V},\mathbf{x},\mathbf{\Sigma})=w_0+\sum_{j=1}^dw_j(x_j+\mu_j)+\frac{1}{2}\sum_{j=1}^{d}\sum_{k=j}^{d}\langle \mathbf{v}_j,\mathbf{v}_k\rangle(x_jx_k+\Sigma_{j,k})</script><p>after expanding:</p>
+<script type="math/tex; mode=display">
+\phi_{RFM}(\mathbf{x},\mathbf{w},\mathbf{V},\mathbf{x},\mathbf{\Sigma})=w_0+\sum_{j=1}^{d}w_jx_j+\sum_{j=1}^{d}w_j\mu_j+\frac{1}{2}\sum_{f=1}^{p}(\sum_{j=1}^{d}v_{j,f}x_j)^2+
+\\
+\frac{1}{2}\sum_{f=1}^{p}(\sum_{j=1}^{d}v_{j,f}\sigma_j)^2+
++\frac{1}{2}\sum_{f=1}^{p}\sum_{j=1}^{d}v_{j,f}^2x_j^2+\frac{1}{2}\sum_{f=1}^{p}\sum_{j=1}^{d}v_{j,f}^2\sigma_j^2</script><h4 id="how-to-robust"><a href="#how-to-robust" class="headerlink" title="how to robust"></a>how to robust</h4><p>change the model, use uncertainty sets.</p>
+<h3 id="2-Robust-Top-k-Multiclass-SVM-for-Visual-Category-Recognition"><a href="#2-Robust-Top-k-Multiclass-SVM-for-Visual-Category-Recognition" class="headerlink" title="2. Robust Top-k Multiclass SVM for Visual Category Recognition"></a>2. Robust Top-k Multiclass SVM for Visual Category Recognition</h3><h4 id="contributions-1"><a href="#contributions-1" class="headerlink" title="contributions"></a>contributions</h4><p>The major limitation of the existing top-k extension is its sensitivity to abnormal observations, i.e., outliers, after all its loss is still convex. to overcome this problem, we proposed a robust multiclass SVM formulation that directly aims at minimizing a weighted and truncated combination of the ordered prediction score. the algorithm includes many previous multiclass SVMs as special cases.</p>
+<h4 id="model-1"><a href="#model-1" class="headerlink" title="model"></a>model</h4><p>Given a training sample $(x_i,y_i),i=1,…,n$, where $x_i\in\mathcal{X}\subseteq \mathbb{R}^d$ and $y_i \in \mathcal{Y}:=\{1,…,c\}$, loss function for the multiclass SVM:</p>
+<script type="math/tex; mode=display">
+\ell_i=\ell_i(W):=\max_{j\in\mathcal{Y}} \{\mathbb{I}_{j\neq y_i}+\langle\mathbf{w}_j,\mathbf{x}_i\rangle-\langle\mathbf{w}_{y_i},\mathbf{x}_i\rangle\}</script><p>We use $a_{[k]}$ to denote the k-th largest entry of the vector a, and the matrix $W_{\backslash y}\in \mathbb{R}^{(c-1)\times d}$ remove the y-th row of $W$. then loss function for top-k multiclass SVM:</p>
+<script type="math/tex; mode=display">
+\ell_i(W):=\max \{0,(W_{\backslash y_i}\mathbf{x}_i)_{[k]}+1-\langle\mathbf{w}_{y_i},\mathbf{x}_i\rangle\}
+\\
+=\max \{0, \left ( (W-\mathbf{1}\mathbf{w}_{y_i}^{T})\mathbf{x}_i+1-\mathbf{e}_{y_i}\right )_{[k]}\}</script><p>where $\mathbf{e}_j$ is the j-th canonical basis vector, and $\mathbf{1}$ is the all ones vector.</p>
+<p>the major limitation of the original nonconvex top-k loss equation is their sensitivity to abnormal observations, i.e. outliers. This is mostly due to the unboundedness of the corresponding losses. To overcome this limitation and make it more robust, change the loss function:</p>
+<script type="math/tex; mode=display">
+\ell_i(W):=\min \{ \max \{0,\sum_{j=1}^c \alpha_j s_{[j]}^i\},\tau \}</script><p>where we use the following abbreviations for the scores</p>
+<script type="math/tex; mode=display">
+s^i=(W-\mathbf{1}\mathbf{w}_{y_i}^T)\mathbf{x}_i+1-\mathbf{e}_{y_i}</script><p>and $\alpha \in \mathbb{R}^k$ is an arbitrary weight that choose to combine the ordered scores. $\tau &gt; 0$ is a hyperparameter that we use to cap the loss for any training pair.</p>
+<h4 id="how-to-robust-1"><a href="#how-to-robust-1" class="headerlink" title="how to robust"></a>how to robust</h4><p>change the loss function by use capped form, make algorithm can “give up” focusing any training pair that incurs an excessively large loss, namely, outliers. </p>
+]]></content>
+      <categories>
+        <category>artificial intelligence</category>
+      </categories>
+      <tags>
+        <tag>machine learning</tag>
       </tags>
   </entry>
   <entry>

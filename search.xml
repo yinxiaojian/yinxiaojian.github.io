@@ -1,6 +1,52 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Convexity, Lipschitzness, and Smoothness</title>
+    <url>/2018/06/28/Convexity-Lipschitzness-and-Smoothness/</url>
+    <content><![CDATA[<p>introduction from “understandingmachine learning theory algorithms”</p>
+<a id="more"></a>
+<h2 id="Convexity"><a href="#Convexity" class="headerlink" title="Convexity"></a>Convexity</h2><h3 id="Convexity-set"><a href="#Convexity-set" class="headerlink" title="Convexity set"></a>Convexity set</h3><p>A set C in a vector space is convex if for any two vector $\mathbf{u},\mathbf{v}$ in $C$, the line segment between $\mathbf{u}$ and $\mathbf{v}$ is contained in $C$. That is, for any $a\in[0,1]$ we have that $\alpha \mathbf{u}+(1-\alpha)\mathbf{v} \in C$.</p>
+<h3 id="Convexity-function"><a href="#Convexity-function" class="headerlink" title="Convexity function"></a>Convexity function</h3><p>Let $C$ be a convex set. A function $f:C \rightarrow \mathbb{R}$ is convex for every $\mathbf{u},\mathbf{v}\in C$ and $\alpha\in[0,1]$,</p>
+<script type="math/tex; mode=display">
+f(\alpha \mathbf{u} + (1-\alpha)\mathbf{v}) \le \alpha f(\mathbf{u}) + (1-\alpha) f(\mathbf{v}).</script><p><strong>Important property</strong></p>
+<ul>
+<li>Every local minimum of the function is also a global minimum. </li>
+<li>For every $\mathbf{w}$ we can construct a tangent to $f$ at $\mathbf{w}$ that lies below $f$ everywhere, that is for convex differentiable function,</li>
+</ul>
+<script type="math/tex; mode=display">
+\forall \mathbf{u}, f(\mathbf{u}) \ge f(\mathbf{w}) + \langle \nabla f(\mathbf{w}), \mathbf{u} - \mathbf{w} \rangle.</script><p><strong>LEMMA</strong></p>
+<p>Let $f:\mathbb{R} \rightarrow \mathbb{R}$ be a scalar twice diffrential function, and Let $f’,f’’$ be its first and second derivatives, respectively. Then, the following are equivalent:</p>
+<ol>
+<li>$f$ is convex </li>
+<li>$f’$ is monotonically nondecreasing</li>
+<li>$f’’$ is nonnegative</li>
+</ol>
+<p><strong>CLAIM</strong></p>
+<ul>
+<li><p>Assume that $f:\mathbb{R}^d \rightarrow \mathbb{R}$can be written as $f(\mathbf{w}) = g(\langle \mathbf{w}, \mathbf{x}) + y)$, for some $\mathbf{x} \in \mathbb{R}^d, y\in \mathbb{R}$. Then, <strong>convexity of $g$ implies the convexity of $f$</strong>.</p>
+<p><strong>Meaning</strong>: The composition of a convex scalar function with a linear function yields a convex vector-valued function.</p>
+</li>
+<li><p>For $i=1,…,r,let f_i : \mathbb{R}^d \rightarrow \mathbb{R}$ be a convex function. The following functions $g(x)$from $\mathbb{R}$ to $\mathbb{R}$ are also convex.</p>
+<p>$g(x)=max_{i\in[r]} f_i(x)$</p>
+<p>$g(x)=\sum_{i=1}^r w_i f_i(x)$, where for all $i,w_i \ge 0$.</p>
+<p><strong>Meaning</strong>:The maximum of convex functions is convex and that a weighted sum of convex functions, with nonnegative weights, is also convex.</p>
+</li>
+</ul>
+<h2 id="Lipschitzness"><a href="#Lipschitzness" class="headerlink" title="Lipschitzness"></a>Lipschitzness</h2><p><strong>DEFINITION</strong>: Let $C \subset \mathbb{R}^d$. A function $f:\mathbb{R}^d\rightarrow\mathbb{R}^k$ is $\rho$-Lipschitz over $C$ if for every $\mathbf{w}_1,\mathbf{w}_2 \in C$ we have $|f(\mathbb{w_1})-f(\mathbb{w_2}) | \le \rho|\mathbf{w_1}-\mathbf{w_2}|$.</p>
+<p>MEANING: if $f$ is everywhere bounded (in absolute value) by $\rho$, then the function is $\rho$-Lipschitz.</p>
+<p><strong>CLAIM</strong>: Let $f(x) = g_1(g_2(\mathbf{x}))$, where $g_1$ is $\rho_1$-Lipschitz and $g_2$ is $\rho_2$-Lipschitz. Then, $f \space is \space(\rho_1\rho_2)-Lipschitz$. In particular, if $g_2$ is the linear function, $g_2(\mathbf{x})=\langle \mathbf{v},\mathbf{x}\rangle+b$, for some $\mathbf{v} \in \mathbb{R}^d, b\in \mathbb{R},then \space f \space (\rho_1|\mathbf{v}|)-Lipschitz$.</p>
+<h2 id="Smoothness"><a href="#Smoothness" class="headerlink" title="Smoothness"></a>Smoothness</h2><p><strong>DEFINITION</strong>: A differentiable function $f$: $\mathbb{R}^d \rightarrow \mathbb{R}$ is $\beta$-smooth if its gradient is $\beta$-Lipschitz; namely, for all $\mathbf{v},\mathbf{w}$ we have $|\nabla f(\mathbf{v}) - \nabla f(\mathbf{w}) | \le \beta|\mathbf{v} - \mathbf{w} |$.</p>
+<p><strong>CLAIM</strong>: Let $f(\mathbf{w}) = g(\langle \mathbf{w} , \mathbf{x} \rangle + b), where \space g:\mathbb{R} \rightarrow \mathbb{R}​$ is a $\beta​$-smooth function, $\mathbf{x} \in \mathbb{R}^d​$, and $b \in \mathbb{R}​$. Then, $f \space is  \space (\beta |\mathbf{x}|)​$-smooth.</p>
+<p>实际上，凸性要求一个函数在局部增长得比线性函数要快，而强凸性则要求其增长得比一个二次函数（二次项系数为m/2）快。</p>
+]]></content>
+      <categories>
+        <category>artificial intelligence</category>
+      </categories>
+      <tags>
+        <tag>machine learning</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>CNN反向传播算法</title>
     <url>/2018/03/21/CNN%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD%E7%AE%97%E6%B3%95/</url>
     <content><![CDATA[<blockquote>
@@ -222,49 +268,62 @@ a_{ij}=\frac{exp(c_{ij})}{\sum_kexp(c_{kj})}</script><p>因为对于固定的 $j
       </tags>
   </entry>
   <entry>
-    <title>Convexity, Lipschitzness, and Smoothness</title>
-    <url>/2018/06/28/Convexity-Lipschitzness-and-Smoothness/</url>
-    <content><![CDATA[<p>introduction from “understandingmachine learning theory algorithms”</p>
+    <title>Softmax and Cross Entropy Loss</title>
+    <url>/2018/04/11/Softmax-and-Cross-Entropy-Loss/</url>
+    <content><![CDATA[<p>introduction and derivative of Softmax and Cross Entropy Loss.</p>
 <a id="more"></a>
-<h2 id="Convexity"><a href="#Convexity" class="headerlink" title="Convexity"></a>Convexity</h2><h3 id="Convexity-set"><a href="#Convexity-set" class="headerlink" title="Convexity set"></a>Convexity set</h3><p>A set C in a vector space is convex if for any two vector $\mathbf{u},\mathbf{v}$ in $C$, the line segment between $\mathbf{u}$ and $\mathbf{v}$ is contained in $C$. That is, for any $a\in[0,1]$ we have that $\alpha \mathbf{u}+(1-\alpha)\mathbf{v} \in C$.</p>
-<h3 id="Convexity-function"><a href="#Convexity-function" class="headerlink" title="Convexity function"></a>Convexity function</h3><p>Let $C$ be a convex set. A function $f:C \rightarrow \mathbb{R}$ is convex for every $\mathbf{u},\mathbf{v}\in C$ and $\alpha\in[0,1]$,</p>
+<h3 id="Softmax-function"><a href="#Softmax-function" class="headerlink" title="Softmax function"></a>Softmax function</h3><p>the softmax function takes N-dimensional vector of real numbers and transforms it into a vector of real number in range of (0,1) which means the probability of each classification.</p>
 <script type="math/tex; mode=display">
-f(\alpha \mathbf{u} + (1-\alpha)\mathbf{v}) \le \alpha f(\mathbf{u}) + (1-\alpha) f(\mathbf{v}).</script><p><strong>Important property</strong></p>
-<ul>
-<li>Every local minimum of the function is also a global minimum. </li>
-<li>For every $\mathbf{w}$ we can construct a tangent to $f$ at $\mathbf{w}$ that lies below $f$ everywhere, that is for convex differentiable function,</li>
-</ul>
+p_i=\frac{e^{a_i}}{\sum_{k=1}^Ne^{a_k}}</script><p>it is easy to know  $\sum_{k=1}^Np_i=1$ .</p>
+<p>the code of softmax function in python:</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">softmax</span><span class="params">(X)</span>:</span></span><br><span class="line">    exps = np.exp(X)</span><br><span class="line">    <span class="keyword">return</span> exps / np.sum(exps)</span><br></pre></td></tr></table></figure>
+<p>sometimes the exp operation can overshot the limit of the floating point numbers in python, so we need to normalize the value by multiply a constant C.</p>
 <script type="math/tex; mode=display">
-\forall \mathbf{u}, f(\mathbf{u}) \ge f(\mathbf{w}) + \langle \nabla f(\mathbf{w}), \mathbf{u} - \mathbf{w} \rangle.</script><p><strong>LEMMA</strong></p>
-<p>Let $f:\mathbb{R} \rightarrow \mathbb{R}$ be a scalar twice diffrential function, and Let $f’,f’’$ be its first and second derivatives, respectively. Then, the following are equivalent:</p>
+p_i=\frac{e^{a_i}}{\sum_{k=1}^Ne^{a_k}}
+=\frac{Ce^{a_i}}{C\sum_{k=1}^Ne^{a_k}}
+=\frac{e^{a_i+log(C)}}{\sum_{k=1}^Ne^{a_k+log(C)}}</script><p>Generally, we max $log(C)=-max(a)$, so we need make a little change of our code:</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">softmax</span><span class="params">(X)</span>:</span></span><br><span class="line">    exps = np.exp(X-np.max(X))</span><br><span class="line">    <span class="keyword">return</span> exps / np.sum(exps)</span><br></pre></td></tr></table></figure>
+<h3 id="Cross-Entropy-Loss"><a href="#Cross-Entropy-Loss" class="headerlink" title="Cross Entropy Loss"></a>Cross Entropy Loss</h3><p>the defination of cross entropy loss is:</p>
+<script type="math/tex; mode=display">
+L=-\sum_iy_i log(p_i)</script><p>note: </p>
+<p>$p_i$ means the softmax value of  i-th neuron  in fully connected layer;</p>
+<p>if the true label of input sample is $j$,  then $y_{i=j}=1;y_{i\neq j}=0$.</p>
+<p>the code of loss function in python:</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">cross_entropy</span><span class="params">(X, y)</span>:</span></span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    X is the output of fully connected layer(N-dimensional vector)</span></span><br><span class="line"><span class="string">    y is true label(integer)</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    p = softmax(X)</span><br><span class="line">    loss = -np.log(p[y])</span><br><span class="line">    <span class="keyword">return</span> loss</span><br></pre></td></tr></table></figure>
+<h3 id="Backward-propagation"><a href="#Backward-propagation" class="headerlink" title="Backward propagation"></a>Backward propagation</h3><p>we need to compute the derivative of cross entropy loss:</p>
+<script type="math/tex; mode=display">
+\frac{\partial L}{\partial a_i}=\frac{\partial L}{\partial p_j}\frac{\partial p_j}{\partial a_i}</script><p>it is easy to compute $\frac{\partial L}{\partial p_i}$</p>
+<script type="math/tex; mode=display">
+\frac{\partial L}{\partial p_i}=-\sum_iy_i\frac{1}{p_i}\tag1</script><p>then compute $\frac{\partial p_j}{\partial a_i}$, we need to divide it into two situations：</p>
 <ol>
-<li>$f$ is convex </li>
-<li>$f’$ is monotonically nondecreasing</li>
-<li>$f’’$ is nonnegative</li>
+<li>if $i=j$</li>
 </ol>
-<p><strong>CLAIM</strong></p>
-<ul>
-<li><p>Assume that $f:\mathbb{R}^d \rightarrow \mathbb{R}$can be written as $f(\mathbf{w}) = g(\langle \mathbf{w}, \mathbf{x}) + y)$, for some $\mathbf{x} \in \mathbb{R}^d, y\in \mathbb{R}$. Then, <strong>convexity of $g$ implies the convexity of $f$</strong>.</p>
-<p><strong>Meaning</strong>: The composition of a convex scalar function with a linear function yields a convex vector-valued function.</p>
-</li>
-<li><p>For $i=1,…,r,let f_i : \mathbb{R}^d \rightarrow \mathbb{R}$ be a convex function. The following functions $g(x)$from $\mathbb{R}$ to $\mathbb{R}$ are also convex.</p>
-<p>$g(x)=max_{i\in[r]} f_i(x)$</p>
-<p>$g(x)=\sum_{i=1}^r w_i f_i(x)$, where for all $i,w_i \ge 0$.</p>
-<p><strong>Meaning</strong>:The maximum of convex functions is convex and that a weighted sum of convex functions, with nonnegative weights, is also convex.</p>
-</li>
-</ul>
-<h2 id="Lipschitzness"><a href="#Lipschitzness" class="headerlink" title="Lipschitzness"></a>Lipschitzness</h2><p><strong>DEFINITION</strong>: Let $C \subset \mathbb{R}^d$. A function $f:\mathbb{R}^d\rightarrow\mathbb{R}^k$ is $\rho$-Lipschitz over $C$ if for every $\mathbf{w}_1,\mathbf{w}_2 \in C$ we have $|f(\mathbb{w_1})-f(\mathbb{w_2}) | \le \rho|\mathbf{w_1}-\mathbf{w_2}|$.</p>
-<p>MEANING: if $f$ is everywhere bounded (in absolute value) by $\rho$, then the function is $\rho$-Lipschitz.</p>
-<p><strong>CLAIM</strong>: Let $f(x) = g_1(g_2(\mathbf{x}))$, where $g_1$ is $\rho_1$-Lipschitz and $g_2$ is $\rho_2$-Lipschitz. Then, $f \space is \space(\rho_1\rho_2)-Lipschitz$. In particular, if $g_2$ is the linear function, $g_2(\mathbf{x})=\langle \mathbf{v},\mathbf{x}\rangle+b$, for some $\mathbf{v} \in \mathbb{R}^d, b\in \mathbb{R},then \space f \space (\rho_1|\mathbf{v}|)-Lipschitz$.</p>
-<h2 id="Smoothness"><a href="#Smoothness" class="headerlink" title="Smoothness"></a>Smoothness</h2><p><strong>DEFINITION</strong>: A differentiable function $f$: $\mathbb{R}^d \rightarrow \mathbb{R}$ is $\beta$-smooth if its gradient is $\beta$-Lipschitz; namely, for all $\mathbf{v},\mathbf{w}$ we have $|\nabla f(\mathbf{v}) - \nabla f(\mathbf{w}) | \le \beta|\mathbf{v} - \mathbf{w} |$.</p>
-<p><strong>CLAIM</strong>: Let $f(\mathbf{w}) = g(\langle \mathbf{w} , \mathbf{x} \rangle + b), where \space g:\mathbb{R} \rightarrow \mathbb{R}​$ is a $\beta​$-smooth function, $\mathbf{x} \in \mathbb{R}^d​$, and $b \in \mathbb{R}​$. Then, $f \space is  \space (\beta |\mathbf{x}|)​$-smooth.</p>
-<p>实际上，凸性要求一个函数在局部增长得比线性函数要快，而强凸性则要求其增长得比一个二次函数（二次项系数为m/2）快。</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+\frac{\partial p_j}{\partial a_i}&=\frac{\partial p_i}{\partial a_i}=\frac{\partial{\frac{e^{a_i}}{\sum_{k=1}^Ne^{a_k}}}}{\partial a_i}=\frac{\sum_{k=1}^{N}e^{a_i}e^{a_k}-(e^{a_i})^2}{(\sum_{k=1}^Ne^{a_k})^2}\\
+&=\frac{e^{a_i}}{\sum_{k=1}^Ne^{a_k}}\left(1-\frac{e^{a_i}}{\sum_{k=1}^Ne^{a_k}}\right)\\
+&=p_i(1-p_i)
+\end{align*}</script><ol>
+<li>If $i\neq j$</li>
+</ol>
+<script type="math/tex; mode=display">
+\frac{\partial p_j}{\partial a_i}=\frac{\partial{\frac{e^{a_j}}{\sum_{k=1}^Ne^{a_k}}}}{\partial a_i}=
+-\frac{e^{a_j}}{\sum_{k=1}^Ne^{a_k}}\frac{e^{a_i}}{\sum_{k=1}^Ne^{a_k}}=-p_jp_i\tag2</script><p>combine the result of (1) and (2)</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+\frac{\partial L}{\partial a_i}& = \left(-\sum_iy_i\frac{1}{p_i}\right)\frac{\partial p_i}{\partial a_i}\\
+&=-\frac{y_i}{p_i}p_i(1-p_i)+\sum_{i\neq j}\frac{y_i}{p_i}p_ip_j\\
+&=-y_i+y_ip_i+\sum_{i\neq j}y_ip_i\\
+&=-y_i+p_i\sum_iy_i\\
+&=p_i-y_i
+\end{align*}</script><p>code in python</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">delta_entropy</span><span class="params">(X,y)</span>:</span></span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    X is the output of fully connected layer(N-dimensional vector)</span></span><br><span class="line"><span class="string">    y is true labels(integer)</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    grad = softmax(X)</span><br><span class="line">    grad[y] -= <span class="number">1</span></span><br><span class="line">    <span class="keyword">return</span> grad</span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
         <category>artificial intelligence</category>
       </categories>
       <tags>
-        <tag>machine learning</tag>
+        <tag>softmax</tag>
       </tags>
   </entry>
   <entry>
@@ -337,65 +396,6 @@ f(\alpha \mathbf{u} + (1-\alpha)\mathbf{v}) \le \alpha f(\mathbf{u}) + (1-\alpha
       </tags>
   </entry>
   <entry>
-    <title>Softmax and Cross Entropy Loss</title>
-    <url>/2018/04/11/Softmax-and-Cross-Entropy-Loss/</url>
-    <content><![CDATA[<p>introduction and derivative of Softmax and Cross Entropy Loss.</p>
-<a id="more"></a>
-<h3 id="Softmax-function"><a href="#Softmax-function" class="headerlink" title="Softmax function"></a>Softmax function</h3><p>the softmax function takes N-dimensional vector of real numbers and transforms it into a vector of real number in range of (0,1) which means the probability of each classification.</p>
-<script type="math/tex; mode=display">
-p_i=\frac{e^{a_i}}{\sum_{k=1}^Ne^{a_k}}</script><p>it is easy to know  $\sum_{k=1}^Np_i=1$ .</p>
-<p>the code of softmax function in python:</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">softmax</span><span class="params">(X)</span>:</span></span><br><span class="line">    exps = np.exp(X)</span><br><span class="line">    <span class="keyword">return</span> exps / np.sum(exps)</span><br></pre></td></tr></table></figure>
-<p>sometimes the exp operation can overshot the limit of the floating point numbers in python, so we need to normalize the value by multiply a constant C.</p>
-<script type="math/tex; mode=display">
-p_i=\frac{e^{a_i}}{\sum_{k=1}^Ne^{a_k}}
-=\frac{Ce^{a_i}}{C\sum_{k=1}^Ne^{a_k}}
-=\frac{e^{a_i+log(C)}}{\sum_{k=1}^Ne^{a_k+log(C)}}</script><p>Generally, we max $log(C)=-max(a)$, so we need make a little change of our code:</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">softmax</span><span class="params">(X)</span>:</span></span><br><span class="line">    exps = np.exp(X-np.max(X))</span><br><span class="line">    <span class="keyword">return</span> exps / np.sum(exps)</span><br></pre></td></tr></table></figure>
-<h3 id="Cross-Entropy-Loss"><a href="#Cross-Entropy-Loss" class="headerlink" title="Cross Entropy Loss"></a>Cross Entropy Loss</h3><p>the defination of cross entropy loss is:</p>
-<script type="math/tex; mode=display">
-L=-\sum_iy_i log(p_i)</script><p>note: </p>
-<p>$p_i$ means the softmax value of  i-th neuron  in fully connected layer;</p>
-<p>if the true label of input sample is $j$,  then $y_{i=j}=1;y_{i\neq j}=0$.</p>
-<p>the code of loss function in python:</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">cross_entropy</span><span class="params">(X, y)</span>:</span></span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    X is the output of fully connected layer(N-dimensional vector)</span></span><br><span class="line"><span class="string">    y is true label(integer)</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    p = softmax(X)</span><br><span class="line">    loss = -np.log(p[y])</span><br><span class="line">    <span class="keyword">return</span> loss</span><br></pre></td></tr></table></figure>
-<h3 id="Backward-propagation"><a href="#Backward-propagation" class="headerlink" title="Backward propagation"></a>Backward propagation</h3><p>we need to compute the derivative of cross entropy loss:</p>
-<script type="math/tex; mode=display">
-\frac{\partial L}{\partial a_i}=\frac{\partial L}{\partial p_j}\frac{\partial p_j}{\partial a_i}</script><p>it is easy to compute $\frac{\partial L}{\partial p_i}$</p>
-<script type="math/tex; mode=display">
-\frac{\partial L}{\partial p_i}=-\sum_iy_i\frac{1}{p_i}\tag1</script><p>then compute $\frac{\partial p_j}{\partial a_i}$, we need to divide it into two situations：</p>
-<ol>
-<li>if $i=j$</li>
-</ol>
-<script type="math/tex; mode=display">
-\begin{align*}
-\frac{\partial p_j}{\partial a_i}&=\frac{\partial p_i}{\partial a_i}=\frac{\partial{\frac{e^{a_i}}{\sum_{k=1}^Ne^{a_k}}}}{\partial a_i}=\frac{\sum_{k=1}^{N}e^{a_i}e^{a_k}-(e^{a_i})^2}{(\sum_{k=1}^Ne^{a_k})^2}\\
-&=\frac{e^{a_i}}{\sum_{k=1}^Ne^{a_k}}\left(1-\frac{e^{a_i}}{\sum_{k=1}^Ne^{a_k}}\right)\\
-&=p_i(1-p_i)
-\end{align*}</script><ol>
-<li>If $i\neq j$</li>
-</ol>
-<script type="math/tex; mode=display">
-\frac{\partial p_j}{\partial a_i}=\frac{\partial{\frac{e^{a_j}}{\sum_{k=1}^Ne^{a_k}}}}{\partial a_i}=
--\frac{e^{a_j}}{\sum_{k=1}^Ne^{a_k}}\frac{e^{a_i}}{\sum_{k=1}^Ne^{a_k}}=-p_jp_i\tag2</script><p>combine the result of (1) and (2)</p>
-<script type="math/tex; mode=display">
-\begin{align*}
-\frac{\partial L}{\partial a_i}& = \left(-\sum_iy_i\frac{1}{p_i}\right)\frac{\partial p_i}{\partial a_i}\\
-&=-\frac{y_i}{p_i}p_i(1-p_i)+\sum_{i\neq j}\frac{y_i}{p_i}p_ip_j\\
-&=-y_i+y_ip_i+\sum_{i\neq j}y_ip_i\\
-&=-y_i+p_i\sum_iy_i\\
-&=p_i-y_i
-\end{align*}</script><p>code in python</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">delta_entropy</span><span class="params">(X,y)</span>:</span></span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    X is the output of fully connected layer(N-dimensional vector)</span></span><br><span class="line"><span class="string">    y is true labels(integer)</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    grad = softmax(X)</span><br><span class="line">    grad[y] -= <span class="number">1</span></span><br><span class="line">    <span class="keyword">return</span> grad</span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>artificial intelligence</category>
-      </categories>
-      <tags>
-        <tag>softmax</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>ZELDA-男人的浪漫</title>
     <url>/2018/03/19/ZELDA-%E7%94%B7%E4%BA%BA%E7%9A%84%E6%B5%AA%E6%BC%AB/</url>
     <content><![CDATA[<p>如果一款游戏，如果能让你回到儿时，你会去玩吗？</p>
@@ -416,6 +416,143 @@ L=-\sum_iy_i log(p_i)</script><p>note: </p>
       </categories>
       <tags>
         <tag>游戏</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>google map 比例尺算法分析</title>
+    <url>/2017/12/24/google-map-%E6%AF%94%E4%BE%8B%E5%B0%BA%E7%AE%97%E6%B3%95%E5%88%86%E6%9E%90/</url>
+    <content><![CDATA[<p>比例尺即地图右下角显示地图距离与实际距离比例的控件，由于Google map自带比例尺控件存在的局限性——无法调整位置和格式，所以通过此文章，介绍比例尺算法及具体实现。</p>
+<a id="more"></a>
+<h3 id="什么是比例尺"><a href="#什么是比例尺" class="headerlink" title="什么是比例尺"></a>什么是比例尺</h3><p>比例尺是表示<a href="http://baike.baidu.com/view/5454725.htm" target="_blank" rel="noopener">图上距离</a>比实地距离缩小的程度，因此也叫<a href="http://baike.baidu.com/view/1559050.htm" target="_blank" rel="noopener">缩尺</a>。用公式表示为：比例尺=<a href="http://baike.baidu.com/view/5454725.htm" target="_blank" rel="noopener">图上距离</a>/实地距离。在Google map上比例尺显示在右下角。</p>
+<p>在创建地图时只需增加设置项</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">scaleControl: true</span><br></pre></td></tr></table></figure>
+<p>如下例</p>
+<iframe scrolling="no" width="100%" height="300" src="https://jsfiddle.net/yinxiaojian/yL9mxdzp/embedded/js,resources,html,css,result/light" frameborder="0" loading="lazy" allowfullscreen></iframe>
+<p>遗憾的是这样添加的比例尺会存在于右下角，而且不像其他控件一样可以调整位置。如果我们希望修改其位置或者样式，就会无从下手。</p>
+<h3 id="自制比例尺"><a href="#自制比例尺" class="headerlink" title="自制比例尺"></a>自制比例尺</h3><p>实现一个比例尺的关键在于如何获取到地图距离与实际距离的比例和缩放等级及维度之间的关系。google官方api未提供相关函数，因此我们需要自己计算。核心公式为</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ScaleValue &#x3D; 156543.03392 * Math.cos(latLng.lat() * Math.PI &#x2F; 180) &#x2F; Math.pow(2, zoom)</span><br></pre></td></tr></table></figure>
+<p>其中zoom为当前缩放等级，latLng.lat()即目标点维度值。该公式是在地球半径为6378137m的基础上计算的，这个值即google地图所采用的值。</p>
+<p>有了计算公式后，我们还需要一张表——缩放等级和比例尺对应表，也就是在什么样的缩放等级下使用多大的比例尺，表格如下:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Zoom    Scale</span><br><span class="line">0    10000km</span><br><span class="line">1    5000km</span><br><span class="line">2    2000km</span><br><span class="line">3    1000km</span><br><span class="line">4    500km</span><br><span class="line">5    200km</span><br><span class="line">6    200km</span><br><span class="line">7    100km</span><br><span class="line">8    50km</span><br><span class="line">9    20km</span><br><span class="line">10   10km</span><br><span class="line">11   5km</span><br><span class="line">12   2km</span><br><span class="line">13   1km</span><br><span class="line">14   500m</span><br><span class="line">15   200m</span><br><span class="line">16   200m</span><br><span class="line">17   100m</span><br><span class="line">18   50m</span><br><span class="line">19   20m</span><br><span class="line">20   10m</span><br><span class="line">21   5m</span><br><span class="line">22   2m</span><br><span class="line">23   1m</span><br><span class="line">24   1m</span><br><span class="line">25   1m</span><br><span class="line">26   1m</span><br></pre></td></tr></table></figure>
+<p>通过监听地图变化事件（缩放和平移），获取当前屏幕中心点缩放等级和维度获取到scale和scalevalue，那么比例尺的长度（px） = scale/scalevalue。</p>
+<p>获取当前比例尺长度的核心代码如下：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 根据缩放等级和维度获取KM数(m数)和像素</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">setScaleInfos</span>(<span class="params">zoomLevel, lat, map</span>) </span>&#123;</span><br><span class="line">	<span class="comment">// 缩放等级-比例尺</span></span><br><span class="line">	<span class="keyword">var</span> zoomList = [&#123;</span><br><span class="line">		text: <span class="string">"10000KM"</span>,</span><br><span class="line">		value: <span class="number">10000</span> * <span class="number">1000</span></span><br><span class="line">	&#125;, &#123;</span><br><span class="line">		text: <span class="string">"5000KM"</span>,</span><br><span class="line">		value: <span class="number">5000</span> * <span class="number">1000</span></span><br><span class="line">	&#125;, &#123;</span><br><span class="line">		text: <span class="string">"2000KM"</span>,</span><br><span class="line">		value: <span class="number">2000</span> * <span class="number">1000</span></span><br><span class="line">	&#125;, &#123;</span><br><span class="line">		text: <span class="string">"1000KM"</span>,</span><br><span class="line">		value: <span class="number">1000</span> * <span class="number">1000</span></span><br><span class="line">	&#125;, &#123;</span><br><span class="line">		text: <span class="string">"500KM"</span>,</span><br><span class="line">		value: <span class="number">500</span> * <span class="number">1000</span></span><br><span class="line">	&#125;, &#123;</span><br><span class="line">		text: <span class="string">"200KM"</span>,</span><br><span class="line">		value: <span class="number">200</span> * <span class="number">1000</span></span><br><span class="line">	&#125;, &#123;</span><br><span class="line">		text: <span class="string">"200KM"</span>,</span><br><span class="line">		value: <span class="number">200</span> * <span class="number">1000</span></span><br><span class="line">	&#125;, &#123;</span><br><span class="line">		text: <span class="string">"100KM"</span>,</span><br><span class="line">		value: <span class="number">100</span> * <span class="number">1000</span></span><br><span class="line">	&#125;, &#123;</span><br><span class="line">		text: <span class="string">"50KM"</span>,</span><br><span class="line">		value: <span class="number">50</span> * <span class="number">1000</span></span><br><span class="line">	&#125;, &#123;</span><br><span class="line">		text: <span class="string">"20KM"</span>,</span><br><span class="line">		value: <span class="number">20</span> * <span class="number">1000</span></span><br><span class="line">	&#125;, &#123;</span><br><span class="line">		text: <span class="string">"10KM"</span>,</span><br><span class="line">		value: <span class="number">10</span> * <span class="number">1000</span></span><br><span class="line">	&#125;, &#123;</span><br><span class="line">		text: <span class="string">"5KM"</span>,</span><br><span class="line">		value: <span class="number">5000</span></span><br><span class="line">	&#125;, &#123;</span><br><span class="line">		text: <span class="string">"2KM"</span>,</span><br><span class="line">		value: <span class="number">2000</span></span><br><span class="line">	&#125;, &#123;</span><br><span class="line">		text: <span class="string">"1KM"</span>,</span><br><span class="line">		value: <span class="number">1000</span></span><br><span class="line">	&#125;, &#123;</span><br><span class="line">		text: <span class="string">"500m"</span>,</span><br><span class="line">		value: <span class="number">500</span></span><br><span class="line">	&#125;, &#123;</span><br><span class="line">		text: <span class="string">"200m"</span>,</span><br><span class="line">		value: <span class="number">200</span></span><br><span class="line">	&#125;, &#123;</span><br><span class="line">		text: <span class="string">"200m"</span>,</span><br><span class="line">		value: <span class="number">200</span></span><br><span class="line">	&#125;, &#123;</span><br><span class="line">		text: <span class="string">"100m"</span>,</span><br><span class="line">		value: <span class="number">100</span></span><br><span class="line">	&#125;, &#123;</span><br><span class="line">		text: <span class="string">"50m"</span>,</span><br><span class="line">		value: <span class="number">50</span></span><br><span class="line">	&#125;, &#123;</span><br><span class="line">		text: <span class="string">"20m"</span>,</span><br><span class="line">		value: <span class="number">20</span></span><br><span class="line">	&#125;, &#123;</span><br><span class="line">		text: <span class="string">"10m"</span>,</span><br><span class="line">		value: <span class="number">10</span></span><br><span class="line">	&#125;, &#123;</span><br><span class="line">		text: <span class="string">"5m"</span>,</span><br><span class="line">		value: <span class="number">5</span></span><br><span class="line">	&#125;, &#123;</span><br><span class="line">		text: <span class="string">"2m"</span>,</span><br><span class="line">		value: <span class="number">2</span></span><br><span class="line">	&#125;, &#123;</span><br><span class="line">		text: <span class="string">"1m"</span>,</span><br><span class="line">		value: <span class="number">1</span></span><br><span class="line">	&#125;, &#123;</span><br><span class="line">		text: <span class="string">"1m"</span>,</span><br><span class="line">		value: <span class="number">1</span></span><br><span class="line">	&#125;, &#123;</span><br><span class="line">		text: <span class="string">"1m"</span>,</span><br><span class="line">		value: <span class="number">1</span></span><br><span class="line">	&#125;, &#123;</span><br><span class="line">		text: <span class="string">"1m"</span>,</span><br><span class="line">		value: <span class="number">1</span></span><br><span class="line">	&#125;];</span><br><span class="line">	<span class="comment">// 宽度</span></span><br><span class="line">	<span class="keyword">var</span> pxValue = <span class="built_in">Math</span>.floor(zoomList[zoomLevel].value / (<span class="number">156543.03392</span> * <span class="built_in">Math</span>.cos(lat * <span class="built_in">Math</span>.PI / <span class="number">180</span>) / <span class="built_in">Math</span>.pow(<span class="number">2</span>, zoomLevel)));</span><br><span class="line">	<span class="comment">// 更新经纬度数据</span></span><br><span class="line">	$W.id(<span class="string">"scaleText"</span>).innerHTML = zoomList[zoomLevel].text;</span><br><span class="line">	$W.id(<span class="string">"scaleSize"</span>).style.width = pxValue + <span class="string">"px"</span>;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>下面是通过上述思路实现的例子，在地图右下角实现一个比例尺。</p>
+<iframe scrolling="no" width="100%" height="300" src="https://jsfiddle.net/yinxiaojian/6eutbuyr/embedded/js,resources,html,css,result/light" frameborder="0" loading="lazy" allowfullscreen></iframe>]]></content>
+      <categories>
+        <category>前端</category>
+      </categories>
+      <tags>
+        <tag>google map</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>WebRTC与NAT穿透</title>
+    <url>/2019/03/02/WebRTC%E4%B8%8ENAT%E7%A9%BF%E9%80%8F/</url>
+    <content><![CDATA[<p>WebRTC支持点对点通信（P2P），但是其建立通讯仍需要两类服务器。</p>
+<ul>
+<li>信令服务器：用于客户端交换元信息以协调通讯。</li>
+<li>STUN/TURN服务器：应对网络地址转换器（NAT）和防火墙。</li>
+</ul>
+<a id="more"></a>
+<blockquote>
+<p>以下客户端指进行通话的用户</p>
+</blockquote>
+<h3 id="信令服务器"><a href="#信令服务器" class="headerlink" title="信令服务器"></a>信令服务器</h3><p>信令就是协调通讯的过程，为了建立一个webRTC的通讯过程，客户端需要交换如下信息：</p>
+<ul>
+<li>用于打开或关闭通信的会话控制消息。</li>
+<li>错误消息。</li>
+<li>媒体元数据，例如编解码器和编解码器设置，带宽和媒体类型。</li>
+<li>密钥数据，用于建立安全连接。</li>
+<li>网络数据，例如客户端的外网IP地址和端口。</li>
+</ul>
+<h3 id="STUN-TURN服务器"><a href="#STUN-TURN服务器" class="headerlink" title="STUN/TURN服务器"></a>STUN/TURN服务器</h3><p>对于建立连接所需的元数据信息，WebRTC通过信令服务器进行转发。但是对于实际的媒体和数据流，一旦建立会话，首先尝试直接连接客户端，即客户端点对点通信。也就是说，每个客户端都有一个唯一的IP地址，他能用来和其他客户端进行直接通讯。</p>
+<p><img src="https://www.html5rocks.com/en/tutorials/webrtc/infrastructure/p2p.png" alt="没有NAT和防火墙的理想情况"></p>
+<center><i>没有NAT和防火墙的理想情况</i></center>
+
+<p>但是现实中，大多数设备都位于一层或多层NAT之后，有些设备具有阻止某些端口和协议的防病毒软件，而且许多设备都在代理和企业防火墙之后。 防火墙和NAT也可以由相同的设备实现，例如家庭wifi路由器。</p>
+<p><img src="https://www.html5rocks.com/en/tutorials/webrtc/infrastructure/nat.png" alt=""></p>
+<center><i>现实世界</i></center>
+
+<p>WebRTC可以使用ICE框架来克服现实网络的复杂性。 在连接过程中，ICE将试图找到最佳的连接路径，通过尝试所有可能的选项,然后选择最合适的方案。ICE首先尝试使用从设备的操作系统和网卡获得的主机地址建立连接；如果失败（设备位于NAT后），ICE将使用STUN服务器获取设备外网地址；如果失败，则使用TURN服务器作为中继转发流量（媒体和数据流）。</p>
+<p>也就是说：</p>
+<ul>
+<li>STUN服务器用于获取设备的外网地址。</li>
+<li>TURN服务器用于转发流量，在P2P连接失败的情况下发挥作用。</li>
+</ul>
+<p>STUN和或TURN服务器的URL（可选）由iceServers配置对象中的WebRTC应用程序指定，该对象是RTCPeerConnection构造函数的第一个参数：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="string">'iceServers'</span>: [</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="string">'urls'</span>: <span class="string">'stun:stun.l.google.com:19302'</span></span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="string">'urls'</span>: <span class="string">'turn:192.158.29.39:3478?transport=udp'</span>,</span><br><span class="line">      <span class="string">'credential'</span>: <span class="string">'JZEOEt2V3Qb0y27GRntt2u2PAYA='</span>,</span><br><span class="line">      <span class="string">'username'</span>: <span class="string">'28224511:1379330808'</span></span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="string">'urls'</span>: <span class="string">'turn:192.158.29.39:3478?transport=tcp'</span>,</span><br><span class="line">      <span class="string">'credential'</span>: <span class="string">'JZEOEt2V3Qb0y27GRntt2u2PAYA='</span>,</span><br><span class="line">      <span class="string">'username'</span>: <span class="string">'28224511:1379330808'</span></span><br><span class="line">    &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="STUN服务器"><a href="#STUN服务器" class="headerlink" title="STUN服务器"></a>STUN服务器</h4><p>NAT为设备提供IP地址，以便在内网中使用，但此地址不能在外部使用。如果没有公共地址，WebRTC对等方就无法进行通信。为了解决这个问题，WebRTC使用STUN服务器。</p>
+<p>STUN服务器位于<strong>公网</strong>上，其工作非常简单：检查传入请求的IP:port，并将该地址作为响应发回。也就是说，应用程序使用STUN服务器从外网是脚下发现其IP:Port。此过程使WebRTC客户端获取自己的公网地址，然后通过信令机制将其传递给另一个苦护短，以便建立P2P连接。</p>
+<p><strong>STUN服务器的工作非常简单，因此可以处理大量请求</strong>，这也是有很多免费的STUN服务器提供的原因。</p>
+<blockquote>
+<p>根据webrtcstats.com，WebRTC使用STUN成功建立连接的概率为：86％</p>
+</blockquote>
+<p><img src="https://www.html5rocks.com/en/tutorials/webrtc/infrastructure/stun.png" alt=""></p>
+<center><i>使用STUN服务器获取公网地址</i></center>
+
+<h4 id="TURN服务器"><a href="#TURN服务器" class="headerlink" title="TURN服务器"></a>TURN服务器</h4><p>在P2P连接失败后，WebRTC会利用TURN服务器作为中继进行通信。需要强调的是：<strong>TURN在不同客户端之间中转的是音频/视频/数据流，而不是信令数据。</strong></p>
+<p>TURN服务器具有公网地址，因此即使客户端位于防火墙或代理之后，也可以与其进行联系。 TURN服务器需要中转大量的视频音频等数据，因此相对STUN服务器，它们需要消耗大量带宽。</p>
+<p><img src="https://www.html5rocks.com/en/tutorials/webrtc/infrastructure/turn.png" alt=""></p>
+<center><i>完整的框架：STUN、TURN、SIGNALING</i></center>
+
+<p>在上图中，若使用STUN无法建立连接，将会使用TURN进行中继。</p>
+<h3 id="附录：NAT分类与STUN-TURN"><a href="#附录：NAT分类与STUN-TURN" class="headerlink" title="附录：NAT分类与STUN/TURN"></a>附录：NAT分类与STUN/TURN</h3><h4 id="基础概念"><a href="#基础概念" class="headerlink" title="基础概念"></a>基础概念</h4><p>一个IP连接由两个IP组成的连接“四元组”决定：</p>
+<ul>
+<li>(Source IP address, source port number)</li>
+<li>(Destination IP address, destination port number)</li>
+</ul>
+<p>即（源地址，源端口）和（目标地址，目标端口），可视化如下：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">(SRC_ADDR, SRC_PORT) -&gt; (DST_ADDR, DST_PORT)</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>NOTE</p>
+<ul>
+<li><code>-&gt;</code> 表示连接的方向</li>
+<li><code>(ADDR, PORT)</code> 表示一个（IP地址，IP端口）元组</li>
+<li><code>(SRC_ADDR, SRC_PORT)</code> 表示发起连接的机器的IP</li>
+<li><code>(DST_ADDR, DST_PORT)</code> 表示接收连接的机器的IP</li>
+</ul>
+</blockquote>
+<p>NAT(Network Address Translation) 是一种广泛应用的解决IP 短缺的有效方法， NAT 将内网地址转和端口号换成合法的公网地址和端口号，建立一个会话，与公网主机进行通信。可视化如下：</p>
+<p>NAT分为两大类：锥型和对称型，而锥型又分为三种类型，分类如下：</p>
+<ul>
+<li>锥形 cone NAT<ul>
+<li>全锥形 Full Cone NAT</li>
+<li>地址受限锥形 Address-Restricted Cone NAT</li>
+<li>端口受限锥形 Port-Restricted Cone NAT</li>
+</ul>
+</li>
+<li>对称形 Symmetric NAT</li>
+</ul>
+<h4 id="全锥形-Full-Cone-NAT"><a href="#全锥形-Full-Cone-NAT" class="headerlink" title="全锥形 Full Cone NAT"></a>全锥形 Full Cone NAT</h4><p>全锥NAT 把所有来自相同内部IP地址和端口的请求映射到相同的外部IP 地址和端口。任何一个外部主机均可通过该映射发送数据包到该内部主机，可视化如下：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">    &#123;NAT internal side&#125;  |    &#123;NAT external side&#125;  |  &#123;Remote machine&#125;</span><br><span class="line">                         |                         |</span><br><span class="line">1. (INT_ADDR, INT_PORT) &#x3D;&gt; [ (EXT_ADDR, INT_PORT) -&gt; (REM_ADDR, REM_PORT) ]</span><br><span class="line">2. (INT_ADDR, INT_PORT) &lt;&#x3D; [ (EXT_ADDR, INT_PORT) &lt;- (   *    ,    *    ) ]</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><code>*</code>表示所有值都可以使用，任何一个外部主机都可以通过该映射建立连接。</p>
+</blockquote>
+<h4 id="地址受限锥形-Address-Restricted-Cone-NAT"><a href="#地址受限锥形-Address-Restricted-Cone-NAT" class="headerlink" title="地址受限锥形 Address-Restricted Cone NAT"></a>地址受限锥形 Address-Restricted Cone NAT</h4><p>地址受限锥形NAT 把所有来自相同内部IP 地址和端口的请求映射到相同的外部IP 地址和端口。但是, 和全锥NAT 不同的是：只有当内部主机先给外部主机发送数据包, 该外部主机才能向该内部主机发送数据包，可视化如下：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">    &#123;NAT internal side&#125;  |    &#123;NAT external side&#125;  |  &#123;Remote machine&#125;</span><br><span class="line">                         |                         |</span><br><span class="line">1. (INT_ADDR, INT_PORT) &#x3D;&gt; [ (EXT_ADDR, INT_PORT) -&gt; (REM_ADDR, REM_PORT) ]</span><br><span class="line">2. (INT_ADDR, INT_PORT) &lt;&#x3D; [ (EXT_ADDR, INT_PORT) &lt;- (REM_ADDR,    *    ) ]</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>在第二步中，REM_ADDR必须和第一步中相同，但是REM_PORT没有限制。</p>
+</blockquote>
+<h4 id="端口受限锥形-Port-Restricted-Cone-NAT"><a href="#端口受限锥形-Port-Restricted-Cone-NAT" class="headerlink" title="端口受限锥形 Port-Restricted Cone NAT"></a>端口受限锥形 Port-Restricted Cone NAT</h4><p>端口受限锥形NAT 与地址受限锥形NAT 类似, 只是多了端口号的限制, 即只有内部主机先向外部地址和端口号元组发送数据包, 该外部主机才能使用特定的端口号向内部主机发送数据包，可视化如下：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">    &#123;NAT internal side&#125;  |    &#123;NAT external side&#125;  |  &#123;Remote machine&#125;</span><br><span class="line">                         |                         |</span><br><span class="line">1. (INT_ADDR, INT_PORT) &#x3D;&gt; [ (EXT_ADDR, INT_PORT) -&gt; (REM_ADDR, REM_PORT) ]</span><br><span class="line">2. (INT_ADDR, INT_PORT) &lt;&#x3D; [ (EXT_ADDR, INT_PORT) &lt;- (REM_ADDR, REM_PORT) ]</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>在第二步中，REM_ADDR和REM_PORT都要和第一步相同。</p>
+</blockquote>
+<h4 id="对称形-Symmetric-NAT"><a href="#对称形-Symmetric-NAT" class="headerlink" title="对称形 Symmetric NAT"></a>对称形 Symmetric NAT</h4><p>对称形NAT 与上述3 种锥类都不同，当同一内部主机使用相同的端口与不同地址的外部主机进行通信时, 对称NAT 会重新建立一个Session ，为这个Session 分配新的外部端口号，或许还会改变IP 地址。 这意味着从同一本地端口到两个不同远程计算机的两个连续连接将具有两个不同的外部端口，即使是同一内部主机，可视化如下：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">    &#123;NAT internal side&#125;  |    &#123;NAT external side&#125;  |  &#123;Remote machine&#125;</span><br><span class="line">                         |                         |</span><br><span class="line">1. (INT_ADDR, INT_PORT) &#x3D;&gt; [ (EXT_ADDR, EXT_PORT1) -&gt; (REM_ADDR, REM_PORT1) ]</span><br><span class="line">2. (INT_ADDR, INT_PORT) &lt;&#x3D; [ (EXT_ADDR, EXT_PORT1) &lt;- (REM_ADDR, REM_PORT1) ]</span><br><span class="line">...</span><br><span class="line">3. (INT_ADDR, INT_PORT) &#x3D;&gt; [ (EXT_ADDR, EXT_PORT2) -&gt; (REM_ADDR, REM_PORT2) ]</span><br><span class="line">4. (INT_ADDR, INT_PORT) &lt;&#x3D; [ (EXT_ADDR, EXT_PORT2) &lt;- (REM_ADDR, REM_PORT2) ]</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>在第一步中建立连接，分配的外部端口号为EXT_PORT1</p>
+<p>在第三步中建立新的连接，分配的外部端口号为EXT_PORT2，<strong>外部端口号发生变化</strong>。</p>
+</blockquote>
+<h4 id="STUN-TURN与NAT的关系"><a href="#STUN-TURN与NAT的关系" class="headerlink" title="STUN/TURN与NAT的关系"></a>STUN/TURN与NAT的关系</h4><p>假设客户端A和客户端B需要建立P2P连接，在锥形NAT中，由于<code>(EXT_ADDR, EXT_PORT)</code>是不会发生变化的，所以我们可以通过STUN获取该客户段A和B的外部IP和端口，然后让两者建立连接。</p>
+<p>在对称形NAT中，由于<code>(EXT_ADDR, EXT_PORT)</code>中的端口会发生变化，当客户端A和B与STUN服务器建立连接，获取外部IP和端口后。两者利用该外部IP和端口建立P2P连接，对称NAT会为A和B分配新的外部端口，因此无法建立连接。所以，对于对称形NAT，我们需要通过TURN服务器进行信息转发。</p>
+]]></content>
+      <categories>
+        <category>技术分析</category>
+      </categories>
+      <tags>
+        <tag>WebRTC</tag>
       </tags>
   </entry>
   <entry>
@@ -703,143 +840,6 @@ L=-\sum_iy_i log(p_i)</script><p>note: </p>
       </tags>
   </entry>
   <entry>
-    <title>WebRTC与NAT穿透</title>
-    <url>/2019/03/02/WebRTC%E4%B8%8ENAT%E7%A9%BF%E9%80%8F/</url>
-    <content><![CDATA[<p>WebRTC支持点对点通信（P2P），但是其建立通讯仍需要两类服务器。</p>
-<ul>
-<li>信令服务器：用于客户端交换元信息以协调通讯。</li>
-<li>STUN/TURN服务器：应对网络地址转换器（NAT）和防火墙。</li>
-</ul>
-<a id="more"></a>
-<blockquote>
-<p>以下客户端指进行通话的用户</p>
-</blockquote>
-<h3 id="信令服务器"><a href="#信令服务器" class="headerlink" title="信令服务器"></a>信令服务器</h3><p>信令就是协调通讯的过程，为了建立一个webRTC的通讯过程，客户端需要交换如下信息：</p>
-<ul>
-<li>用于打开或关闭通信的会话控制消息。</li>
-<li>错误消息。</li>
-<li>媒体元数据，例如编解码器和编解码器设置，带宽和媒体类型。</li>
-<li>密钥数据，用于建立安全连接。</li>
-<li>网络数据，例如客户端的外网IP地址和端口。</li>
-</ul>
-<h3 id="STUN-TURN服务器"><a href="#STUN-TURN服务器" class="headerlink" title="STUN/TURN服务器"></a>STUN/TURN服务器</h3><p>对于建立连接所需的元数据信息，WebRTC通过信令服务器进行转发。但是对于实际的媒体和数据流，一旦建立会话，首先尝试直接连接客户端，即客户端点对点通信。也就是说，每个客户端都有一个唯一的IP地址，他能用来和其他客户端进行直接通讯。</p>
-<p><img src="https://www.html5rocks.com/en/tutorials/webrtc/infrastructure/p2p.png" alt="没有NAT和防火墙的理想情况"></p>
-<center><i>没有NAT和防火墙的理想情况</i></center>
-
-<p>但是现实中，大多数设备都位于一层或多层NAT之后，有些设备具有阻止某些端口和协议的防病毒软件，而且许多设备都在代理和企业防火墙之后。 防火墙和NAT也可以由相同的设备实现，例如家庭wifi路由器。</p>
-<p><img src="https://www.html5rocks.com/en/tutorials/webrtc/infrastructure/nat.png" alt=""></p>
-<center><i>现实世界</i></center>
-
-<p>WebRTC可以使用ICE框架来克服现实网络的复杂性。 在连接过程中，ICE将试图找到最佳的连接路径，通过尝试所有可能的选项,然后选择最合适的方案。ICE首先尝试使用从设备的操作系统和网卡获得的主机地址建立连接；如果失败（设备位于NAT后），ICE将使用STUN服务器获取设备外网地址；如果失败，则使用TURN服务器作为中继转发流量（媒体和数据流）。</p>
-<p>也就是说：</p>
-<ul>
-<li>STUN服务器用于获取设备的外网地址。</li>
-<li>TURN服务器用于转发流量，在P2P连接失败的情况下发挥作用。</li>
-</ul>
-<p>STUN和或TURN服务器的URL（可选）由iceServers配置对象中的WebRTC应用程序指定，该对象是RTCPeerConnection构造函数的第一个参数：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="string">'iceServers'</span>: [</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="string">'urls'</span>: <span class="string">'stun:stun.l.google.com:19302'</span></span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="string">'urls'</span>: <span class="string">'turn:192.158.29.39:3478?transport=udp'</span>,</span><br><span class="line">      <span class="string">'credential'</span>: <span class="string">'JZEOEt2V3Qb0y27GRntt2u2PAYA='</span>,</span><br><span class="line">      <span class="string">'username'</span>: <span class="string">'28224511:1379330808'</span></span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="string">'urls'</span>: <span class="string">'turn:192.158.29.39:3478?transport=tcp'</span>,</span><br><span class="line">      <span class="string">'credential'</span>: <span class="string">'JZEOEt2V3Qb0y27GRntt2u2PAYA='</span>,</span><br><span class="line">      <span class="string">'username'</span>: <span class="string">'28224511:1379330808'</span></span><br><span class="line">    &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="STUN服务器"><a href="#STUN服务器" class="headerlink" title="STUN服务器"></a>STUN服务器</h4><p>NAT为设备提供IP地址，以便在内网中使用，但此地址不能在外部使用。如果没有公共地址，WebRTC对等方就无法进行通信。为了解决这个问题，WebRTC使用STUN服务器。</p>
-<p>STUN服务器位于<strong>公网</strong>上，其工作非常简单：检查传入请求的IP:port，并将该地址作为响应发回。也就是说，应用程序使用STUN服务器从外网是脚下发现其IP:Port。此过程使WebRTC客户端获取自己的公网地址，然后通过信令机制将其传递给另一个苦护短，以便建立P2P连接。</p>
-<p><strong>STUN服务器的工作非常简单，因此可以处理大量请求</strong>，这也是有很多免费的STUN服务器提供的原因。</p>
-<blockquote>
-<p>根据webrtcstats.com，WebRTC使用STUN成功建立连接的概率为：86％</p>
-</blockquote>
-<p><img src="https://www.html5rocks.com/en/tutorials/webrtc/infrastructure/stun.png" alt=""></p>
-<center><i>使用STUN服务器获取公网地址</i></center>
-
-<h4 id="TURN服务器"><a href="#TURN服务器" class="headerlink" title="TURN服务器"></a>TURN服务器</h4><p>在P2P连接失败后，WebRTC会利用TURN服务器作为中继进行通信。需要强调的是：<strong>TURN在不同客户端之间中转的是音频/视频/数据流，而不是信令数据。</strong></p>
-<p>TURN服务器具有公网地址，因此即使客户端位于防火墙或代理之后，也可以与其进行联系。 TURN服务器需要中转大量的视频音频等数据，因此相对STUN服务器，它们需要消耗大量带宽。</p>
-<p><img src="https://www.html5rocks.com/en/tutorials/webrtc/infrastructure/turn.png" alt=""></p>
-<center><i>完整的框架：STUN、TURN、SIGNALING</i></center>
-
-<p>在上图中，若使用STUN无法建立连接，将会使用TURN进行中继。</p>
-<h3 id="附录：NAT分类与STUN-TURN"><a href="#附录：NAT分类与STUN-TURN" class="headerlink" title="附录：NAT分类与STUN/TURN"></a>附录：NAT分类与STUN/TURN</h3><h4 id="基础概念"><a href="#基础概念" class="headerlink" title="基础概念"></a>基础概念</h4><p>一个IP连接由两个IP组成的连接“四元组”决定：</p>
-<ul>
-<li>(Source IP address, source port number)</li>
-<li>(Destination IP address, destination port number)</li>
-</ul>
-<p>即（源地址，源端口）和（目标地址，目标端口），可视化如下：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">(SRC_ADDR, SRC_PORT) -&gt; (DST_ADDR, DST_PORT)</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>NOTE</p>
-<ul>
-<li><code>-&gt;</code> 表示连接的方向</li>
-<li><code>(ADDR, PORT)</code> 表示一个（IP地址，IP端口）元组</li>
-<li><code>(SRC_ADDR, SRC_PORT)</code> 表示发起连接的机器的IP</li>
-<li><code>(DST_ADDR, DST_PORT)</code> 表示接收连接的机器的IP</li>
-</ul>
-</blockquote>
-<p>NAT(Network Address Translation) 是一种广泛应用的解决IP 短缺的有效方法， NAT 将内网地址转和端口号换成合法的公网地址和端口号，建立一个会话，与公网主机进行通信。可视化如下：</p>
-<p>NAT分为两大类：锥型和对称型，而锥型又分为三种类型，分类如下：</p>
-<ul>
-<li>锥形 cone NAT<ul>
-<li>全锥形 Full Cone NAT</li>
-<li>地址受限锥形 Address-Restricted Cone NAT</li>
-<li>端口受限锥形 Port-Restricted Cone NAT</li>
-</ul>
-</li>
-<li>对称形 Symmetric NAT</li>
-</ul>
-<h4 id="全锥形-Full-Cone-NAT"><a href="#全锥形-Full-Cone-NAT" class="headerlink" title="全锥形 Full Cone NAT"></a>全锥形 Full Cone NAT</h4><p>全锥NAT 把所有来自相同内部IP地址和端口的请求映射到相同的外部IP 地址和端口。任何一个外部主机均可通过该映射发送数据包到该内部主机，可视化如下：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">    &#123;NAT internal side&#125;  |    &#123;NAT external side&#125;  |  &#123;Remote machine&#125;</span><br><span class="line">                         |                         |</span><br><span class="line">1. (INT_ADDR, INT_PORT) &#x3D;&gt; [ (EXT_ADDR, INT_PORT) -&gt; (REM_ADDR, REM_PORT) ]</span><br><span class="line">2. (INT_ADDR, INT_PORT) &lt;&#x3D; [ (EXT_ADDR, INT_PORT) &lt;- (   *    ,    *    ) ]</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p><code>*</code>表示所有值都可以使用，任何一个外部主机都可以通过该映射建立连接。</p>
-</blockquote>
-<h4 id="地址受限锥形-Address-Restricted-Cone-NAT"><a href="#地址受限锥形-Address-Restricted-Cone-NAT" class="headerlink" title="地址受限锥形 Address-Restricted Cone NAT"></a>地址受限锥形 Address-Restricted Cone NAT</h4><p>地址受限锥形NAT 把所有来自相同内部IP 地址和端口的请求映射到相同的外部IP 地址和端口。但是, 和全锥NAT 不同的是：只有当内部主机先给外部主机发送数据包, 该外部主机才能向该内部主机发送数据包，可视化如下：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">    &#123;NAT internal side&#125;  |    &#123;NAT external side&#125;  |  &#123;Remote machine&#125;</span><br><span class="line">                         |                         |</span><br><span class="line">1. (INT_ADDR, INT_PORT) &#x3D;&gt; [ (EXT_ADDR, INT_PORT) -&gt; (REM_ADDR, REM_PORT) ]</span><br><span class="line">2. (INT_ADDR, INT_PORT) &lt;&#x3D; [ (EXT_ADDR, INT_PORT) &lt;- (REM_ADDR,    *    ) ]</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>在第二步中，REM_ADDR必须和第一步中相同，但是REM_PORT没有限制。</p>
-</blockquote>
-<h4 id="端口受限锥形-Port-Restricted-Cone-NAT"><a href="#端口受限锥形-Port-Restricted-Cone-NAT" class="headerlink" title="端口受限锥形 Port-Restricted Cone NAT"></a>端口受限锥形 Port-Restricted Cone NAT</h4><p>端口受限锥形NAT 与地址受限锥形NAT 类似, 只是多了端口号的限制, 即只有内部主机先向外部地址和端口号元组发送数据包, 该外部主机才能使用特定的端口号向内部主机发送数据包，可视化如下：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">    &#123;NAT internal side&#125;  |    &#123;NAT external side&#125;  |  &#123;Remote machine&#125;</span><br><span class="line">                         |                         |</span><br><span class="line">1. (INT_ADDR, INT_PORT) &#x3D;&gt; [ (EXT_ADDR, INT_PORT) -&gt; (REM_ADDR, REM_PORT) ]</span><br><span class="line">2. (INT_ADDR, INT_PORT) &lt;&#x3D; [ (EXT_ADDR, INT_PORT) &lt;- (REM_ADDR, REM_PORT) ]</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>在第二步中，REM_ADDR和REM_PORT都要和第一步相同。</p>
-</blockquote>
-<h4 id="对称形-Symmetric-NAT"><a href="#对称形-Symmetric-NAT" class="headerlink" title="对称形 Symmetric NAT"></a>对称形 Symmetric NAT</h4><p>对称形NAT 与上述3 种锥类都不同，当同一内部主机使用相同的端口与不同地址的外部主机进行通信时, 对称NAT 会重新建立一个Session ，为这个Session 分配新的外部端口号，或许还会改变IP 地址。 这意味着从同一本地端口到两个不同远程计算机的两个连续连接将具有两个不同的外部端口，即使是同一内部主机，可视化如下：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">    &#123;NAT internal side&#125;  |    &#123;NAT external side&#125;  |  &#123;Remote machine&#125;</span><br><span class="line">                         |                         |</span><br><span class="line">1. (INT_ADDR, INT_PORT) &#x3D;&gt; [ (EXT_ADDR, EXT_PORT1) -&gt; (REM_ADDR, REM_PORT1) ]</span><br><span class="line">2. (INT_ADDR, INT_PORT) &lt;&#x3D; [ (EXT_ADDR, EXT_PORT1) &lt;- (REM_ADDR, REM_PORT1) ]</span><br><span class="line">...</span><br><span class="line">3. (INT_ADDR, INT_PORT) &#x3D;&gt; [ (EXT_ADDR, EXT_PORT2) -&gt; (REM_ADDR, REM_PORT2) ]</span><br><span class="line">4. (INT_ADDR, INT_PORT) &lt;&#x3D; [ (EXT_ADDR, EXT_PORT2) &lt;- (REM_ADDR, REM_PORT2) ]</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>在第一步中建立连接，分配的外部端口号为EXT_PORT1</p>
-<p>在第三步中建立新的连接，分配的外部端口号为EXT_PORT2，<strong>外部端口号发生变化</strong>。</p>
-</blockquote>
-<h4 id="STUN-TURN与NAT的关系"><a href="#STUN-TURN与NAT的关系" class="headerlink" title="STUN/TURN与NAT的关系"></a>STUN/TURN与NAT的关系</h4><p>假设客户端A和客户端B需要建立P2P连接，在锥形NAT中，由于<code>(EXT_ADDR, EXT_PORT)</code>是不会发生变化的，所以我们可以通过STUN获取该客户段A和B的外部IP和端口，然后让两者建立连接。</p>
-<p>在对称形NAT中，由于<code>(EXT_ADDR, EXT_PORT)</code>中的端口会发生变化，当客户端A和B与STUN服务器建立连接，获取外部IP和端口后。两者利用该外部IP和端口建立P2P连接，对称NAT会为A和B分配新的外部端口，因此无法建立连接。所以，对于对称形NAT，我们需要通过TURN服务器进行信息转发。</p>
-]]></content>
-      <categories>
-        <category>技术分析</category>
-      </categories>
-      <tags>
-        <tag>WebRTC</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>google map 比例尺算法分析</title>
-    <url>/2017/12/24/google-map-%E6%AF%94%E4%BE%8B%E5%B0%BA%E7%AE%97%E6%B3%95%E5%88%86%E6%9E%90/</url>
-    <content><![CDATA[<p>比例尺即地图右下角显示地图距离与实际距离比例的控件，由于Google map自带比例尺控件存在的局限性——无法调整位置和格式，所以通过此文章，介绍比例尺算法及具体实现。</p>
-<a id="more"></a>
-<h3 id="什么是比例尺"><a href="#什么是比例尺" class="headerlink" title="什么是比例尺"></a>什么是比例尺</h3><p>比例尺是表示<a href="http://baike.baidu.com/view/5454725.htm" target="_blank" rel="noopener">图上距离</a>比实地距离缩小的程度，因此也叫<a href="http://baike.baidu.com/view/1559050.htm" target="_blank" rel="noopener">缩尺</a>。用公式表示为：比例尺=<a href="http://baike.baidu.com/view/5454725.htm" target="_blank" rel="noopener">图上距离</a>/实地距离。在Google map上比例尺显示在右下角。</p>
-<p>在创建地图时只需增加设置项</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">scaleControl: true</span><br></pre></td></tr></table></figure>
-<p>如下例</p>
-<iframe scrolling="no" width="100%" height="300" src="https://jsfiddle.net/yinxiaojian/yL9mxdzp/embedded/js,resources,html,css,result/light" frameborder="0" loading="lazy" allowfullscreen></iframe>
-<p>遗憾的是这样添加的比例尺会存在于右下角，而且不像其他控件一样可以调整位置。如果我们希望修改其位置或者样式，就会无从下手。</p>
-<h3 id="自制比例尺"><a href="#自制比例尺" class="headerlink" title="自制比例尺"></a>自制比例尺</h3><p>实现一个比例尺的关键在于如何获取到地图距离与实际距离的比例和缩放等级及维度之间的关系。google官方api未提供相关函数，因此我们需要自己计算。核心公式为</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ScaleValue &#x3D; 156543.03392 * Math.cos(latLng.lat() * Math.PI &#x2F; 180) &#x2F; Math.pow(2, zoom)</span><br></pre></td></tr></table></figure>
-<p>其中zoom为当前缩放等级，latLng.lat()即目标点维度值。该公式是在地球半径为6378137m的基础上计算的，这个值即google地图所采用的值。</p>
-<p>有了计算公式后，我们还需要一张表——缩放等级和比例尺对应表，也就是在什么样的缩放等级下使用多大的比例尺，表格如下:</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Zoom    Scale</span><br><span class="line">0    10000km</span><br><span class="line">1    5000km</span><br><span class="line">2    2000km</span><br><span class="line">3    1000km</span><br><span class="line">4    500km</span><br><span class="line">5    200km</span><br><span class="line">6    200km</span><br><span class="line">7    100km</span><br><span class="line">8    50km</span><br><span class="line">9    20km</span><br><span class="line">10   10km</span><br><span class="line">11   5km</span><br><span class="line">12   2km</span><br><span class="line">13   1km</span><br><span class="line">14   500m</span><br><span class="line">15   200m</span><br><span class="line">16   200m</span><br><span class="line">17   100m</span><br><span class="line">18   50m</span><br><span class="line">19   20m</span><br><span class="line">20   10m</span><br><span class="line">21   5m</span><br><span class="line">22   2m</span><br><span class="line">23   1m</span><br><span class="line">24   1m</span><br><span class="line">25   1m</span><br><span class="line">26   1m</span><br></pre></td></tr></table></figure>
-<p>通过监听地图变化事件（缩放和平移），获取当前屏幕中心点缩放等级和维度获取到scale和scalevalue，那么比例尺的长度（px） = scale/scalevalue。</p>
-<p>获取当前比例尺长度的核心代码如下：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 根据缩放等级和维度获取KM数(m数)和像素</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">setScaleInfos</span>(<span class="params">zoomLevel, lat, map</span>) </span>&#123;</span><br><span class="line">	<span class="comment">// 缩放等级-比例尺</span></span><br><span class="line">	<span class="keyword">var</span> zoomList = [&#123;</span><br><span class="line">		text: <span class="string">"10000KM"</span>,</span><br><span class="line">		value: <span class="number">10000</span> * <span class="number">1000</span></span><br><span class="line">	&#125;, &#123;</span><br><span class="line">		text: <span class="string">"5000KM"</span>,</span><br><span class="line">		value: <span class="number">5000</span> * <span class="number">1000</span></span><br><span class="line">	&#125;, &#123;</span><br><span class="line">		text: <span class="string">"2000KM"</span>,</span><br><span class="line">		value: <span class="number">2000</span> * <span class="number">1000</span></span><br><span class="line">	&#125;, &#123;</span><br><span class="line">		text: <span class="string">"1000KM"</span>,</span><br><span class="line">		value: <span class="number">1000</span> * <span class="number">1000</span></span><br><span class="line">	&#125;, &#123;</span><br><span class="line">		text: <span class="string">"500KM"</span>,</span><br><span class="line">		value: <span class="number">500</span> * <span class="number">1000</span></span><br><span class="line">	&#125;, &#123;</span><br><span class="line">		text: <span class="string">"200KM"</span>,</span><br><span class="line">		value: <span class="number">200</span> * <span class="number">1000</span></span><br><span class="line">	&#125;, &#123;</span><br><span class="line">		text: <span class="string">"200KM"</span>,</span><br><span class="line">		value: <span class="number">200</span> * <span class="number">1000</span></span><br><span class="line">	&#125;, &#123;</span><br><span class="line">		text: <span class="string">"100KM"</span>,</span><br><span class="line">		value: <span class="number">100</span> * <span class="number">1000</span></span><br><span class="line">	&#125;, &#123;</span><br><span class="line">		text: <span class="string">"50KM"</span>,</span><br><span class="line">		value: <span class="number">50</span> * <span class="number">1000</span></span><br><span class="line">	&#125;, &#123;</span><br><span class="line">		text: <span class="string">"20KM"</span>,</span><br><span class="line">		value: <span class="number">20</span> * <span class="number">1000</span></span><br><span class="line">	&#125;, &#123;</span><br><span class="line">		text: <span class="string">"10KM"</span>,</span><br><span class="line">		value: <span class="number">10</span> * <span class="number">1000</span></span><br><span class="line">	&#125;, &#123;</span><br><span class="line">		text: <span class="string">"5KM"</span>,</span><br><span class="line">		value: <span class="number">5000</span></span><br><span class="line">	&#125;, &#123;</span><br><span class="line">		text: <span class="string">"2KM"</span>,</span><br><span class="line">		value: <span class="number">2000</span></span><br><span class="line">	&#125;, &#123;</span><br><span class="line">		text: <span class="string">"1KM"</span>,</span><br><span class="line">		value: <span class="number">1000</span></span><br><span class="line">	&#125;, &#123;</span><br><span class="line">		text: <span class="string">"500m"</span>,</span><br><span class="line">		value: <span class="number">500</span></span><br><span class="line">	&#125;, &#123;</span><br><span class="line">		text: <span class="string">"200m"</span>,</span><br><span class="line">		value: <span class="number">200</span></span><br><span class="line">	&#125;, &#123;</span><br><span class="line">		text: <span class="string">"200m"</span>,</span><br><span class="line">		value: <span class="number">200</span></span><br><span class="line">	&#125;, &#123;</span><br><span class="line">		text: <span class="string">"100m"</span>,</span><br><span class="line">		value: <span class="number">100</span></span><br><span class="line">	&#125;, &#123;</span><br><span class="line">		text: <span class="string">"50m"</span>,</span><br><span class="line">		value: <span class="number">50</span></span><br><span class="line">	&#125;, &#123;</span><br><span class="line">		text: <span class="string">"20m"</span>,</span><br><span class="line">		value: <span class="number">20</span></span><br><span class="line">	&#125;, &#123;</span><br><span class="line">		text: <span class="string">"10m"</span>,</span><br><span class="line">		value: <span class="number">10</span></span><br><span class="line">	&#125;, &#123;</span><br><span class="line">		text: <span class="string">"5m"</span>,</span><br><span class="line">		value: <span class="number">5</span></span><br><span class="line">	&#125;, &#123;</span><br><span class="line">		text: <span class="string">"2m"</span>,</span><br><span class="line">		value: <span class="number">2</span></span><br><span class="line">	&#125;, &#123;</span><br><span class="line">		text: <span class="string">"1m"</span>,</span><br><span class="line">		value: <span class="number">1</span></span><br><span class="line">	&#125;, &#123;</span><br><span class="line">		text: <span class="string">"1m"</span>,</span><br><span class="line">		value: <span class="number">1</span></span><br><span class="line">	&#125;, &#123;</span><br><span class="line">		text: <span class="string">"1m"</span>,</span><br><span class="line">		value: <span class="number">1</span></span><br><span class="line">	&#125;, &#123;</span><br><span class="line">		text: <span class="string">"1m"</span>,</span><br><span class="line">		value: <span class="number">1</span></span><br><span class="line">	&#125;];</span><br><span class="line">	<span class="comment">// 宽度</span></span><br><span class="line">	<span class="keyword">var</span> pxValue = <span class="built_in">Math</span>.floor(zoomList[zoomLevel].value / (<span class="number">156543.03392</span> * <span class="built_in">Math</span>.cos(lat * <span class="built_in">Math</span>.PI / <span class="number">180</span>) / <span class="built_in">Math</span>.pow(<span class="number">2</span>, zoomLevel)));</span><br><span class="line">	<span class="comment">// 更新经纬度数据</span></span><br><span class="line">	$W.id(<span class="string">"scaleText"</span>).innerHTML = zoomList[zoomLevel].text;</span><br><span class="line">	$W.id(<span class="string">"scaleSize"</span>).style.width = pxValue + <span class="string">"px"</span>;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p>下面是通过上述思路实现的例子，在地图右下角实现一个比例尺。</p>
-<iframe scrolling="no" width="100%" height="300" src="https://jsfiddle.net/yinxiaojian/6eutbuyr/embedded/js,resources,html,css,result/light" frameborder="0" loading="lazy" allowfullscreen></iframe>]]></content>
-      <categories>
-        <category>前端</category>
-      </categories>
-      <tags>
-        <tag>google map</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>java类与成员访问控制</title>
     <url>/2017/10/27/java%E7%B1%BB%E4%B8%8E%E6%88%90%E5%91%98%E8%AE%BF%E9%97%AE%E6%8E%A7%E5%88%B6/</url>
     <content><![CDATA[<p>java访问控制是基础中的基础，有public/private/protected/default四个类型，一般分为类的访问控制和成员访问控制两个类型。<br><a id="more"></a></p>
@@ -937,9 +937,14 @@ c_t = f_t \odot c_{t-1} + i_t \odot \tilde{c}_t,</script><p>if $f_t = 1$, $c_{t-
         <category>paper notes</category>
       </categories>
       <tags>
-        <tag>deep learning</tag>
         <tag>machine learning</tag>
+        <tag>deep learning</tag>
       </tags>
+  </entry>
+  <entry>
+    <title>wide &amp; deep learning for recommender systems</title>
+    <url>/2020/05/23/wide-deep-learning-for-recommender-systems/</url>
+    <content><![CDATA[]]></content>
   </entry>
   <entry>
     <title>机器学习-决策树</title>

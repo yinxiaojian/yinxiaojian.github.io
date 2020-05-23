@@ -1,6 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Deep Interest Network</title>
+    <url>/2020/05/11/Deep-Interest-Network/</url>
+    <content><![CDATA[<blockquote>
+<p>Deep Interest Network for Click-Through Rate Prediction</p>
+<p>Deep Interest Evolution Network for Click-Through Rate Prediction</p>
+<p>Deep Session Interest Network for Click-Through Rate Prediction</p>
+</blockquote>
+<a id="more"></a>
+<p>最近阅读了阿里的经典论文：DIN，并对后续的DIEN和DSIN进行了了解，此处做一个简单的记录。</p>
+<h4 id="DIN"><a href="#DIN" class="headerlink" title="DIN"></a>DIN</h4><p>对于DIN来说，核心在于如何更好的从用户的历史行为中提取合适的兴趣，简单的sum/average pooling是不符合实际场景的。用户在浏览的过程中，可能会对多种类型的商品感兴趣，其兴趣也是多种多样。比如说女生的浏览历史中存在服饰和电子产品，那么在预测裤子这件商品的点击时，历史行为中的服饰和电子产品的重要程度显然是不同的。DIN尝试通过注意力机制为历史行为中的商品赋予不同的权重，从而生成最符合当前预测商品的兴趣。</p>
+<p><img src="https://raw.githubusercontent.com/yinxiaojian/blog-img/master/20200516230137.png" alt=""></p>
+<h4 id="DIEN"><a href="#DIEN" class="headerlink" title="DIEN"></a>DIEN</h4><p>DIEN考虑到了两个问题：第一个问题是DIN直接使用行为去表示最终的兴趣，这是很困难的。我们需要去挖掘行为背后潜藏的兴趣。第二个问题在于用户某一方面的兴趣是睡着时间变化而变化的，因此我们需要考虑兴趣的动态变化，从而更好的进行预测。</p>
+<blockquote>
+<p>个人理解：DIEN提出的这两个问题都是很符合实际场景的，首先用户的行为是一个序列，有前后之分。直接使用赋予行为权重并求和，很难体现这一序列信息。论文里将其包装为hidden interest。其次，兴趣本身也是变化的，这里我们可以讲行为作为原始信息，兴趣作为一阶信息，那么兴趣的变化本质上就是二阶信息。</p>
+<p>因此论文也采用了GRU去捕捉一阶信息，在此基础上在使用一个GRU去捕捉二阶信息。</p>
+</blockquote>
+<p>针对问题一，DIEN采用GRU去捕捉行为背后隐藏的兴趣，在此基础上，使用DIN的attention机制获取最符合目标的兴趣，然后使用AUGRU去捕捉兴趣随着时间瓷都的变化。</p>
+<p><img src="https://raw.githubusercontent.com/yinxiaojian/blog-img/master/20200516231053.png" alt=""></p>
+<h4 id="DSIN"><a href="#DSIN" class="headerlink" title="DSIN"></a>DSIN</h4><p>DSIN从实际场景出发，提出用户的行为序列往往是由一个个的session组成的，每个session内部较为相似，同时不同session之间可能存在关联，并且在时间尺度上存在先后关系。</p>
+<p>因此DSIN讲用户的行为序列在时间尺度上切成一个个session（按照相邻行为时间差切割），然后使用Self-Attention去模拟单个session。在获取单个session的表示后，使用Bi-LSTM去模拟不同session之间的关系。同时其采用了DIN中的attention机制去为不同session赋予不同的权重。</p>
+<blockquote>
+<p>实际上，DSIN是讲单个session当作一个兴趣或者一个类别去模拟，然后再模拟session与session之间的关系，而attention机制则只是用来求和的。总的来说，DSIN从session尺度考虑问题，并非是很新鲜的想法，而且既然每个session之间差别较大，那么再使用LSTM去模拟session之间的时序关系是否可行？个人认为其不如DIN和DIEN合理。</p>
+</blockquote>
+<p><img src="https://raw.githubusercontent.com/yinxiaojian/blog-img/master/20200516234211.png" alt=""></p>
+]]></content>
+      <categories>
+        <category>paper notes</category>
+      </categories>
+      <tags>
+        <tag>machine learning</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Convexity, Lipschitzness, and Smoothness</title>
     <url>/2018/06/28/Convexity-Lipschitzness-and-Smoothness/</url>
     <content><![CDATA[<p>introduction from “understandingmachine learning theory algorithms”</p>
@@ -47,224 +80,65 @@ f(\alpha \mathbf{u} + (1-\alpha)\mathbf{v}) \le \alpha f(\mathbf{u}) + (1-\alpha
       </tags>
   </entry>
   <entry>
-    <title>CNN反向传播算法</title>
-    <url>/2018/03/21/CNN%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD%E7%AE%97%E6%B3%95/</url>
-    <content><![CDATA[<blockquote>
-<p>全文翻译自 Notes on Convolutional Neural Networks </p>
-<p><a href="http://web.mit.edu/jvb/www/papers/cnn_tutorial.pdf" target="_blank" rel="noopener">论文链接</a></p>
-<p>释部分为自己的补充说明，可能存在错误</p>
-</blockquote>
+    <title>STUN和TURN服务器搭建</title>
+    <url>/2019/03/02/STUN%E5%92%8CTURN%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA/</url>
+    <content><![CDATA[<p>使用CoTurn自建STUN和TURN服务。</p>
 <a id="more"></a>
-<h3 id="1-介绍"><a href="#1-介绍" class="headerlink" title="1 介绍"></a>1 介绍</h3><p>本文档讨论CNN的推导和实现，并加上一些简单的扩展。相比权值，卷积神经网络涉及到更多的连接。其架构本身实现了正则化。此外，CNN在某种程度上实现了平移不变性。这种特殊的神经网络假设我们希望通过数据驱动的方式学习过滤器，用来提取输入特征。推导是在二维的数据和卷积的基础上展开的，但可以很容易的推广到任意维度。</p>
-<p>我们先对经典的BP算法做一个描述，然后推导2D卷积神经网络中卷积层和子采样层（池化层）的BP权值更新方法。在整个过程中，我们强调了视线的效率，给出MATLAB代码片段配合方程讲解。然后讨论如何自动组合前一层的feature map，最后是feature map的稀疏组合。</p>
-<p>免责声明：这个笔记可能有错误。</p>
-<blockquote>
-<p>feature map 就是特征矩阵，一张图片的每个像素点的RGB值可分别组成矩阵（R矩阵，G矩阵，B矩阵），这些就是feature map</p>
-</blockquote>
-<h3 id="2-全连接的反向传播算法"><a href="#2-全连接的反向传播算法" class="headerlink" title="2 全连接的反向传播算法"></a>2 全连接的反向传播算法</h3><p>一个典型的卷积神经网络，开始是卷积层和子采样层交替，最后几层（最接近输出）是全连接的一维网络（全连接层）。当你准备将2D feature map作为一维全连接网络的输入时，直接将所有特征连接为一个一维向量，然后就可以利用BP算法。因此在讨论CNN之前，这里先对BP算法进行解释。</p>
-<h4 id="2-1-前向传播-Feedforward-Pass"><a href="#2-1-前向传播-Feedforward-Pass" class="headerlink" title="2.1 前向传播 Feedforward Pass"></a>2.1 前向传播 Feedforward Pass</h4><p>在接下来的推导中，我们考虑平方和误差函数，对于一个有c个类别和N个训练样本的多分类问题，计算公式如下：</p>
-<script type="math/tex; mode=display">
-E^N=\frac{1}{2}\sum_{n=1}^{N}\sum_{k=1}^{c}(t_k^n-y_k^n)^2</script><p>$t_k^n$是第n个样本对应标签的第k个维度的值，$y_k^n$表示第n个样本对应的网络输出的第k个值。对于多分类问题，输出一般为“one-of-c”形式。如果样本$x^n$属于第k类，那么$t_k^n$为正，$t^n$的其他维度即$t_{k\neq1}^n$为0或负数。这取决于输出激活函数的选择，此处不做讨论。</p>
-<p>因为整个训练集的误差为每个训练样本的误差和，所以我们先讨论一个样本。第n个样本的误差如下：</p>
-<script type="math/tex; mode=display">
-E^N=\frac{1}{2}\sum_{n=1}^{N}\sum_{k=1}^c(t_k^n-y_k^n)^2=\frac{1}{2}||t^n-y^n||_2^2\tag{1}</script><p>在全连接层，我们可以根据反向传播规则计算E对网络权值的偏导数。用$l$代表当前层，输出层被指定为$L$层，输入层为第1层，那么当前层的输出为</p>
-<script type="math/tex; mode=display">
-x^l=f(u^l), with \space u^l=W^lx^{l-1}+b^l\tag{2}</script><p>输出激活函数$f(\cdot)$一般选择logistic(sigmoid)函数$f(x)=(1+e^{-\beta x})^{-1}$或者hyperbolic tangent函数$f(x)=a\space tanh(bx)$。logistic函数将$[-\infty,\infty]$映射到$[0,1]$，hyperbolic tangent函数将$[-\infty,\infty]$映射到$[-a,a]$，因此hyperbolic tangent函数的输出平均值一般趋于0，sigmoid函数的输出平均为非零。但是如果将训练数据归一化到均值为0方差为1，可以在梯度下降时增加收敛。对于归一化的数据集来说，hyperbolic tangent函数是较好的选择。LeCun推荐$a=1.7159,b=2/3$，所以最大非线性点在$f(\pm1)=\pm1$，因此对预期训练目标进行正则化将会避免训练饱和。</p>
-<h4 id="2-2-反向传播-Backpropagation-Pass"><a href="#2-2-反向传播-Backpropagation-Pass" class="headerlink" title="2.2 反向传播 Backpropagation Pass"></a>2.2 反向传播 Backpropagation Pass</h4><p>通过网络反向传播的误差可以看作每个神经元关于偏差扰动的敏感度（sensitivities），通过链式法则可得：</p>
-<blockquote>
-<p>敏感度就是误差对目标的偏导数</p>
-</blockquote>
-<script type="math/tex; mode=display">
-\begin{equation}
-\frac{\partial{E}}{\partial{b}}=\frac{\partial{E}}{\partial{u}}\frac{\partial{u}}{\partial{b}}=\delta
-\end{equation}\tag{3}</script><p>因为$\frac{\partial{u}}{\partial{b}}=1$，所以bias的敏感度和误差对一个神经元的输入的偏导数是相等的。利用这个关系将高层误差反向传播到底层，使用下面的递推关系式：</p>
-<script type="math/tex; mode=display">
-\delta^t=(W^{l+1})^T\delta^{l+1}\circ f'(u^t)\tag{4}</script><p>其中$\circ$表示对应位置元素相乘，从公式（1）可以看到，输出层神经元的敏感度会有一些不同：</p>
-<script type="math/tex; mode=display">
-\delta^L=f'(u^L)\circ(y^n-t^n)</script><p>最后，对每个神经元运用delta规则进行更行，即对神经元的输入使用delta进行缩放。用向量的形式表述就是：输入向量（前一层的输出）和灵敏度向量之间的一个外积：</p>
-<script type="math/tex; mode=display">
-\frac{\partial{E}}{\partial{W^l}}=x^{l-1}(\delta^l)^T\tag{5}</script><script type="math/tex; mode=display">
-\bigtriangleup W^l=-\eta\frac{\partial{E}}{\partial{W^l}}\tag{6}</script><p>更新偏置值（bias）也是相同的原理，在实际中通常为每个权值赋予一个特定的学习率$\eta_{ij}$。</p>
-<h3 id="3-卷积神经网络-Convolutional-Neural-Networks"><a href="#3-卷积神经网络-Convolutional-Neural-Networks" class="headerlink" title="3 卷积神经网络 Convolutional Neural Networks"></a>3 卷积神经网络 Convolutional Neural Networks</h3><blockquote>
-<p>公式符号释意</p>
-<p>在本文中卷积核有多个，每个卷积核和feature map有多个维度，例如一张图片有RGB值，那么就有三个维度</p>
-<p>$i$——卷积核或者feature的第几维度<br>$j$——第几个卷积核<br>$up()$——上采样函数<br>$down()$——下采样函数<br>$l$——当前层</p>
-</blockquote>
-<p>通常卷积层和子采样层交替以减少计算时间并逐步建立空间和结构不变性。为了同时保持特异性，需要小的子采样因子。这并不是什么新鲜的概念，但简洁有效。这种模型在哺乳动物的视觉皮层非常常见，在过去十年，听觉神经科学发现，这些相同的设计范例可以在多种不同动物皮层的主要和带状听觉区域中找到。 分级分析和学习架构可能仍然是听觉领域的关键。</p>
-<h4 id="3-1-卷积层-Convolution-Layers"><a href="#3-1-卷积层-Convolution-Layers" class="headerlink" title="3.1 卷积层 Convolution Layers"></a>3.1 卷积层 Convolution Layers</h4><p>我们现在推导卷积层的BP更行。在一个卷积层，上一层的feature map与一个卷积核进行卷积运算，然后通过一个激活函数获得输出feature map。每个输出map可能是多个卷积结果的结合，公式表述：</p>
-<script type="math/tex; mode=display">
-x_j^l=f\left(\sum_{i\in M_j}x_i^{l-1}*k_{ij}^{l}+b_j^l\right)</script><p>$M_j$表示输入maps的集合，在MATLAB中卷积的运算需采用”valid”模式。通常情况下，输入maps选择一对或者三个。后面我们会讨论如何自动选择需要组合的特征map。每一个输出map都会加上一个偏执项$b$，但是对于一个特定的输出map，输入maps会和相同的卷积核进行卷积运算，也就是说，如果输出map $j$ 和 $k$ 都是由map $i$通过卷积运算的结果，那么对应的卷积核是不同的。</p>
-<blockquote>
-<p>一张图片有RGB三个颜色通道，则对应的卷积核也是三维的，输出的feature map就是三个卷积结果的结合</p>
-<p><img src="https://ws3.sinaimg.cn/large/005PPQ5Ily1g0ymwrjv8jg30m50iqaob.gif" alt="CNN_02"></p>
-</blockquote>
-<p>3.1.1 Computing the Gradients</p>
-<p>我们假设每个卷积层$l$后面都接一个子采样层 $l+1$。在使用BP算法计算 $l$ 层每个节点的敏感度时，我们需要先对下一层（$l+1$层）连接当前层（$l$层）的节点的敏感度求和，再乘以这些连接对应的权值（连接$l$层和$l+1$层的权值），最后乘以当前层$l$的该神经元节点的输入$u$的激活函数$f$的导数值。因为下采样的存在，采样层的一个像素（神经元）对应的灵敏度$\delta$对应于卷积层（上一层）的输出map的一块像素（采样窗口大小）。因此，$l$层中的map的每个节点只与$l+1$层中相应map的一个节点连接。为了有效计算$l$层的敏感度，我们可以对下采样层的敏感，度map进行“上采样(upsample)”操作，这样可以使下采样层的敏感度map的大小和卷积层的map大小相同，然后将$l$层的激活值偏导map和$l+1$层的上采样敏感度map对应元素相乘。因为下采样层map的权值均是一个常数$\beta$（见3.2节），所以我们只需要将上一步得到的结果乘以 $ \beta$ 就可以得到$l$层的敏感度map $\delta^l$。我们可以在卷积层的每个feature map进行相同的计算过程：</p>
-<script type="math/tex; mode=display">
-\delta_j^l=\beta_j^{l+1}\left(f'(u_j^l)\circ up(\delta_j^{l+1})\right)</script><p>其中的 $up(\cdot)$表示上采样操作，如果下采样过程的采样因子为$n$，只需将每个像素点在水平方向和垂直方向复制$n$次就可以实现，一种有效的实现方式是利用 Kronecker product:</p>
-<script type="math/tex; mode=display">
-up(x)=x\otimes1_{n\times n}</script><blockquote>
-<p>Ref:<a href="https://zh.wikipedia.org/zh/克罗内克积" target="_blank" rel="noopener">克罗内克积</a></p>
-</blockquote>
-<p>现在对于一个给定的map，我们已经可以计算其敏感度map，然后我们可以简单的对敏感度map的所有节点求和计算出其bias（偏置项）梯度:</p>
-<script type="math/tex; mode=display">
-\frac{\partial{E}}{\partial{b_j}}=\sum_{u,v}(\delta_j^l)_{uv}</script><p>最后，使用BP算法计算权重（卷积核）的梯度，很多权重在连接中是共享的，因此我们需要对所有与该权值有联系（权值共享的连接）的连接对该点求梯度，然后对这些梯度进行求和，就像计算bias梯度一样：</p>
-<script type="math/tex; mode=display">
-\frac{\partial{E}}{\partial{k_{ij}^l}}=\sum_{u,v}(\delta_j^l)_{uv}(p_i^{l-1})_{uv}\tag{7}</script><p>其中$(p_i^{l-1})_{uv}$是$x_i^{l-1}$在卷积运算时和$k_{ij}^l$按元素相乘得到输出map的$(u,v)$位置值的patch。看上去好像我们我刻意追踪输入map中哪些patch与输出map中的哪些像素（及其对应的敏感map）相对应，但是公式(7)可以通过卷积运算获得:</p>
-<script type="math/tex; mode=display">
-\frac{\partial{E}}{\partial{k_{ij}^l}}=rot180(conv2(x_i^{l-1},rot180(\delta_j^l),'valid'))</script><p>这里我们对$\delta$敏感度map做旋转操作是为了这样就可以进行互相关计算而不是卷积，之后将输出旋转回来，以便当我们在前馈阶段执行卷积时，卷积核将具有正确的方向。</p>
-<h4 id="3-2-子采样层-Sub-sampling-Layers"><a href="#3-2-子采样层-Sub-sampling-Layers" class="headerlink" title="3.2 子采样层 Sub-sampling Layers"></a>3.2 子采样层 Sub-sampling Layers</h4><p>子采样层对输入maps进行downsample操作（池化），输入有N个maps，输出也会有N个maps，只是每个maps变小了，公式表述如下：</p>
-<script type="math/tex; mode=display">
-x_j^l=f\left(\beta_j^ldown(x_j^{l-1})+b_j^l\right)</script><p>其中的$down(\cdot)$是下采样函数。典型的操作一般是对输入图像的不同$n\times n$的块的像素进行求和。这样输出图像在两个维度上都缩小了n倍。每个输出map都有一个属于自己的乘性偏置β和一个加性偏置b。</p>
-<p>3.2.1 Computing the Gradients</p>
-<p>这里的困难在于如何计算敏感度maps。只要我们能得到敏感度maps，需要更新的只有bias参数 $\beta$ 和 $b$ 。如果子采样层的下一层是全连接层，那么子采样层的敏感度maps只需要利用BP算法就可以容易获得。所以我们假设子采样层的上一层和下一层都是卷积层。</p>
-<p>当我们在3.1.1节计算卷积核梯度时，我们需要找到输入map中patch和输出map的像素的对应关系。这里就是必须找到当前层的敏感度map中那个patch与下一层的敏感度矩阵的的给定像素对应，这样就可以像公式 (4)那样应用$\delta$递推。 当然，将输入patch和输出像素之间连接相乘的权重恰好是（旋转的）卷积核的权重。利用卷积可以实现该计算：</p>
-<script type="math/tex; mode=display">
-\delta_j^l=f'(u_j^l)\circ conv2(\delta_j^{l+1},rot180(k_j^{l+1}),full)</script><p>如前所述，我们旋转内核是为了是卷积函数实施互相关计算。同时，我们需要对卷积边界进行“full”处理，Matlab的卷积函数会自动执行这个过程，对缺少的输入像素进行补零操作。</p>
-<p>现在我们可以很容易的计算 $b$ 和 $\beta$ 的梯度，加性基 $b$ 的处理和之前一样，将敏感度map中所有元素相加即可 ：</p>
-<script type="math/tex; mode=display">
-\frac{\partial E}{\partial b_j}=\sum_{u,v}(\delta_j^l)_{uv}</script><p>对于乘性偏置$\beta$ ，参与了前向传播时下采样map的运算，所以在前向计算时将这些maps保存，这样避免了在反向传播时重复计算。定义：</p>
-<script type="math/tex; mode=display">
-d_j^l=down(x_j^{l-1})</script><p>$\beta$ 梯度计算公式如下：</p>
-<script type="math/tex; mode=display">
-\frac{\partial E}{\partial \beta_j}=\sum_{u,v}(\delta_j^l)</script><blockquote>
-<p>补充说明：对rot180的解释</p>
-<p>假设第$l-1$层输出$x^l$是一个3x3矩阵，第$l$层卷积核$k^l$是一个2x2的矩阵，步幅为1，输出一个2x2的矩阵$z^l$，则有（简化$b^l=0$，单卷积核)</p>
-<script type="math/tex; mode=display">
-x^{l-1}*k^{l}=z^{l}</script><p>矩阵形式表达：</p>
-<script type="math/tex; mode=display">
-\left( \begin{array}{}
-x_{11}&x_{12}&x_{13}\\
-x_{21}&x_{22}&x_{23}\\
-x_{31}&x_{32}&x_{33}
-\end{array}
-\right)
-*
-\left( \begin{array}{}
-k_{11}&k_{12}\\
-k_{21}&k_{22}
-\end{array}
-\right)
-=
-\left( \begin{array}{}
-z_{11}&z_{12}\\
-z_{21}&z_{22}
-\end{array}
-\right)</script><p>根据卷积的定义可得：</p>
-<script type="math/tex; mode=display">
-z_{11}=x_{11}k_{11}+x_{12}k_{12}+x_{21}k_{21}+x_{22}k_{22}\\
-z_{12}=x_{12}k_{11}+x_{13}k_{12}+x_{22}k_{21}+x_{23}k_{22}\\
-z_{21}=x_{21}k_{11}+x_{22}k_{12}+x_{31}k_{21}+x_{32}k_{22}\\
-z_{22}=x_{22}k_{11}+x_{23}k_{12}+x_{32}k_{21}+x_{33}k_{22}</script><p>第$l$层的梯度误差为$\delta^l$，反向传导：</p>
-<script type="math/tex; mode=display">
-\frac{\partial{E}}{\partial{k^l}}=\frac{\partial{E}}{\partial{z^l}}\frac{\partial{z^l}}{\partial{k^l}}=\delta^l\frac{z^l}{k^l}</script><p>因此对于卷积核$k^l$的梯度为第$l$层的敏感度（梯度）乘上$\frac{\partial{z^l}}{\partial{k^l}}$，分别计算可得</p>
-<script type="math/tex; mode=display">
-\bigtriangledown{k_{11}}=\delta_{11}x_{11}+\delta_{12}x_{22}+\delta_{21}x_{21}+\delta_{22}x_{22}\\
-\bigtriangledown{k_{12}}=\delta_{11}x_{12}+\delta_{12}x_{13}+\delta_{21}x_{22}+\delta_{22}x_{23}\\
-\bigtriangledown{k_{21}}=\delta_{11}x_{21}+\delta_{12}x_{22}+\delta_{21}x_{31}+\delta_{22}x_{32}\\
-\bigtriangledown{k_{22}}=\delta_{11}x_{22}+\delta_{12}x_{23}+\delta_{21}x_{32}+\delta_{22}x_{33}</script><p>上面4个式子用矩阵卷积形式表示：</p>
-<script type="math/tex; mode=display">
-\left( \begin{array}{}
-x_{11}&x_{12}&x_{13}\\
-x_{21}&x_{22}&x_{23}\\
-x_{31}&x_{32}&x_{33}
-\end{array}
-\right)
-*
-\left( \begin{array}{}
-\delta_{11}&\delta_{12}\\
-\delta_{21}&\delta_{22}
-\end{array}
-\right)
-=
-\left( \begin{array}{}
-\bigtriangledown k_{11}&\bigtriangledown k_{12}\\
-\bigtriangledown k_{21}&\bigtriangledown k_{22}
-\end{array}
-\right)</script><p>公式化表达为：</p>
-<script type="math/tex; mode=display">
-\frac{\partial{E}}{\partial{k^l}}=x^{l-1}*\delta^l</script><p>这里需要注意，在论文中进行了两次旋转，这是因为在MATLAB中conv2函数在计算卷积时除了会对矩阵进行“0”扩展，还会将卷积核进行旋转，然后再计算。例如：</p>
-<figure class="highlight matlab"><table><tr><td class="code"><pre><span class="line">a =</span><br><span class="line">     <span class="number">1</span>     <span class="number">1</span>     <span class="number">1</span></span><br><span class="line">     <span class="number">1</span>     <span class="number">1</span>     <span class="number">1</span></span><br><span class="line">     <span class="number">1</span>     <span class="number">1</span>     <span class="number">1</span></span><br><span class="line">k =</span><br><span class="line">     <span class="number">1</span>     <span class="number">2</span>     <span class="number">3</span></span><br><span class="line">     <span class="number">4</span>     <span class="number">5</span>     <span class="number">6</span></span><br><span class="line">     <span class="number">7</span>     <span class="number">8</span>     <span class="number">9</span></span><br><span class="line"></span><br><span class="line">&gt;&gt; convn(a,k,<span class="string">'full'</span>)</span><br><span class="line"><span class="built_in">ans</span> =</span><br><span class="line"></span><br><span class="line">     <span class="number">1</span>     <span class="number">3</span>     <span class="number">6</span>     <span class="number">5</span>     <span class="number">3</span></span><br><span class="line">     <span class="number">5</span>    <span class="number">12</span>    <span class="number">21</span>    <span class="number">16</span>     <span class="number">9</span></span><br><span class="line">    <span class="number">12</span>    <span class="number">27</span>    <span class="number">45</span>    <span class="number">33</span>    <span class="number">18</span></span><br><span class="line">    <span class="number">11</span>    <span class="number">24</span>    <span class="number">39</span>    <span class="number">28</span>    <span class="number">15</span></span><br><span class="line">     <span class="number">7</span>    <span class="number">15</span>    <span class="number">24</span>    <span class="number">17</span>     <span class="number">9</span></span><br></pre></td></tr></table></figure>
-<p>因此在编写代码时需要注意保持一致（要么旋转，要么不旋转）。</p>
-<p>在3.2节计算 $\delta^l_j$ 也是同理</p>
-<p>利用反向传播：</p>
-<script type="math/tex; mode=display">
-\frac{\partial{E}}{\partial{x^{l-1}}}=\frac{\partial{E}}{\partial{z^l}}\frac{\partial{z^l}}{\partial{x^{l-1}}}=\delta^l\frac{z^l}{x^{l-1}}</script><p>利用上式，可得：</p>
-<script type="math/tex; mode=display">
-\bigtriangledown{x_{11}}=\delta_{11}k_{11}\\
-\bigtriangledown{x_{12}}=\delta_{11}k_{12}+\delta_{12}k_{11}\\
-\bigtriangledown{x_{13}}=\delta_{12}k_{12}\\
-\bigtriangledown{x_{21}}=\delta_{11}k_{21}+\delta_{21}k_{11}\\
-\bigtriangledown{x_{22}}=\delta_{11}k_{22}+\delta_{12}k_{21}+\delta_{21}k_{12}+\delta_{22}k_{11}\\
-\bigtriangledown{x_{23}}=\delta_{12}k_{22}+\delta_{22}k_{12}\\
-\bigtriangledown{x_{31}}=\delta_{21}k_{21}\\
-\bigtriangledown{x_{32}}=\delta_{21}k_{22}+\delta_{22}k_{21}\\
-\bigtriangledown{x_{33}}=\delta_{22}k_{22}</script><p>上面九个式子用矩阵卷积形式表示：</p>
-<script type="math/tex; mode=display">
-\left( \begin{array}{}
-0&0&0&0\\
-0&\delta_{11}&\delta_{12}&0\\
-0&\delta_{21}&\delta_{22}&0\\
-0&0&0&0
-\end{array}
-\right)
-*
-\left( \begin{array}{}
-k_{22}&k_{21}\\
-k_{12}&k_{11}
-\end{array}
-\right)
-=
-\left( \begin{array}{}
-\bigtriangledown x_{11}&\bigtriangledown x_{12}&\bigtriangledown x_{13}\\
-\bigtriangledown x_{21}&\bigtriangledown x_{22}&\bigtriangledown x_{23}\\
-\bigtriangledown x_{31}&\bigtriangledown x_{32}&\bigtriangledown x_{33}
-\end{array}
-\right)</script><p>公式化表达为：</p>
-<script type="math/tex; mode=display">
-\frac{\partial{E}}{\partial{x^{l-1}}}=\delta^l * rot180(k^l)</script></blockquote>
-<h4 id="3-3-学习特征maps组合-Learning-Combinations-of-Feature-Maps"><a href="#3-3-学习特征maps组合-Learning-Combinations-of-Feature-Maps" class="headerlink" title="3.3 学习特征maps组合 Learning Combinations of Feature Maps"></a>3.3 学习特征maps组合 Learning Combinations of Feature Maps</h4><p>通常，对不同的maps进行卷积并对结果求和获得一个输出map，往往能取得不错的效果。在一些文献中，通过人工选择输入maps进行组合。但是我们可以尝试通过训练获得这个组合。让 $a_{ij}$ 表示得到第 $j$ 个输出map中第 $i$ 个输入map的权重，那么第 $j$ 个输出map的定义如下：</p>
-<script type="math/tex; mode=display">
-x_j^l=f\left( \sum_{i=1}^{N_{in}}a_{ij}(x_i^{l-1}*k_i^l)+b_j^l\right)</script><p>同时需满足以下约束：</p>
-<script type="math/tex; mode=display">
-\sum_ia_ij=1,and \space 0\leq a_{ij}\leq1</script><p>这些约束可以通过将变量$a_{ij}$表示为softmax形式来加强：</p>
-<script type="math/tex; mode=display">
-a_{ij}=\frac{exp(c_{ij})}{\sum_kexp(c_{kj})}</script><p>因为对于固定的 $j$ 来说，每组权值 $c_{ij}$ 都和其他组权值相独立，所以为了方便描述，我们把下标 $j$ 去掉，只考虑单个map的更新，其他map的更新方式是相同的过程，只是索引 $j$ 不同。</p>
-<p>softmax函数的导数：</p>
-<script type="math/tex; mode=display">
-\frac{\partial a_k}{\partial c_i}=\delta_{ki}a_i-a_ia_k\tag{8}</script><p>这里的 $\delta$ 是 kronecker delta，参照公式 (1) 我们可以得到在 $l$ 层误差对 $a_i$ 的偏导：</p>
-<script type="math/tex; mode=display">
-\frac{\partial E}{\partial a_i}=\frac{\partial E}{\partial u^l}\frac{\partial u^l}{\partial a_i}=\sum_{u,v}(\delta^l \circ (x_i^{l-1}*k_i^l))_{uv}</script><p>这里的$\delta^l$对应具有输入 $u$ 的输出map的敏感度map。和前面一样，这里的卷积运算也是“valid”类型，目的是使结果和sensitivity map大小匹配。最后使用链式法则计算损失函数对权值 $c_i$ 的偏导数：</p>
-<script type="math/tex; mode=display">
-\begin{align}
-\frac{\partial E}{\partial c_i}&=\sum_k\frac{\partial E}{\partial a_k}\frac{\partial a_k}{\partial c_i}\tag{9}\\
-&=a_i\left( \frac{\partial E}{\partial a_i}-\sum_k\frac{\partial E}{\partial a_k}a_k\right)\tag{10}
-\end{align}</script><p> 3.3.1 Enforcing Sparse Combinations</p>
-<p>为了给 $a_i$ 增加稀疏约束（限制一个输出map只与某些而不是全部输入map相连接），我们在代价函数中添加正则项惩罚 $\Omega(a)$ 。这样就可以使某些权值趋于0，最后只有部分输入maps参与输出map相连接，代价函数为：</p>
-<script type="math/tex; mode=display">
-\widetilde{E}^n=E^n + \lambda\sum{i,j}|(a){ij}|\tag{11}</script><p>然后求这个正则项对 $c_i$梯度的影响：</p>
-<script type="math/tex; mode=display">
-\frac{\partial\Omega}{\partial a_i}=\lambda sign(a_i)\tag{12}</script><p>结合公式 (8) 的结果：</p>
-<script type="math/tex; mode=display">
-\begin{align}
-\frac{\partial\Omega}{\partial c_i}& = \sum_k\frac{\partial\Omega}{\partial a_k}\frac{\partial a_k}{\partial c_i} \\
-&=
-\lambda\left(|a_i|-a_i\sum_k|a_k|\right)
-\end{align}</script><p>最后结合公式 (13) 和公式 (9) ，可以求的权重 $c_i$ 的梯度：</p>
-<script type="math/tex; mode=display">
-\frac{\partial\widetilde{E}^n}{\partial c_i} = \frac{\partial E^n}{\partial c_i} +\frac{\partial \Omega}{\partial c_i}</script><h4 id="3-4-加快MATLAB训练速度-Making-it-Fast-with-MATLAB"><a href="#3-4-加快MATLAB训练速度-Making-it-Fast-with-MATLAB" class="headerlink" title="3.4 加快MATLAB训练速度 Making it Fast with MATLAB"></a>3.4 加快MATLAB训练速度 Making it Fast with MATLAB</h4><blockquote>
-<p>与CNN关系不大，不做翻译，可看原文</p>
-</blockquote>
-<h3 id="4-实际训练问题-Practical-Training-Issues-Incomplete"><a href="#4-实际训练问题-Practical-Training-Issues-Incomplete" class="headerlink" title="4 实际训练问题 Practical Training Issues (Incomplete)"></a>4 实际训练问题 Practical Training Issues (Incomplete)</h3><blockquote>
-<p>与CNN关系不大，不做翻译，可看原文</p>
-</blockquote>
-<script type="math/tex; mode=display">
-</script>]]></content>
+<h3 id="下载-CoTurn"><a href="#下载-CoTurn" class="headerlink" title="下载 CoTurn"></a>下载 <a href="https://github.com/coturn/coturn/blob/master/INSTALL" target="_blank" rel="noopener">CoTurn</a></h3><p>下载指定版本的CoTurn并解压</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">wegt https:&#x2F;&#x2F;coturn.net&#x2F;turnserver&#x2F;v4.5.0.8&#x2F;turnserver-4.5.0.8.tar.gz</span><br><span class="line">tar -zxvf turnserver-4.5.0.8.tar.gz</span><br></pre></td></tr></table></figure>
+<h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><p>安装编译所需依赖</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">apt-get update</span><br><span class="line">apt-get install -y libssl-dev libevent-dev libpq-dev mysql-client libmysqlclient-dev libhiredis-dev openssl</span><br><span class="line">apt-get install gdebi-core -y</span><br><span class="line">apt-get install sqlite libsqlite3-dev -y</span><br></pre></td></tr></table></figure>
+<p>编译安装CoTurn</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cd turnserver-4.5.0.8</span><br><span class="line">.&#x2F;configure</span><br><span class="line">make</span><br><span class="line">make install</span><br></pre></td></tr></table></figure>
+<p>查看是否安装成功</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">which turnserver</span><br></pre></td></tr></table></figure>
+<h3 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h3><p>添加用户</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">turnadmin -a –u 用户名 -r 域名 -p 密码</span><br></pre></td></tr></table></figure>
+<p>例如：添加用户sccs，密码为123456，域名fongda.com（域名可以随意填写）</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">turnadmin -a -u sccs -r fongda.com -p 123456</span><br></pre></td></tr></table></figure>
+<p>输入<code>turnadmin -l</code>检查是否添加用户成功</p>
+<h3 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h3><p>前台启动</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">turnserver -L 公网IP -a -f -r 域名</span><br></pre></td></tr></table></figure>
+<p>或者在后台运行</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ turnserver -L 公网IP -o -a -f -r 域名</span><br></pre></td></tr></table></figure>
+<h3 id="验证"><a href="#验证" class="headerlink" title="验证"></a>验证</h3><p>使用webrtc官方提供的网址进行验证：</p>
+<p><a href="https://webrtc.github.io/samples/src/content/peerconnection/trickle-ice/" target="_blank" rel="noopener">https://webrtc.github.io/samples/src/content/peerconnection/trickle-ice/</a></p>
+<p>输入要验证的STUN和TURN服务器</p>
+<p><img src="https://wx3.sinaimg.cn/large/005PPQ5Ily1g0ovehi2xbj31gs0iidhl.jpg" alt="image"></p>
+<p>出现Done时表示服务正常运行</p>
+<p><img src="https://wx2.sinaimg.cn/large/005PPQ5Ily1g0ovfxi3yzj31ie09maay.jpg" alt="image"></p>
+]]></content>
       <categories>
-        <category>artificial intelligence</category>
+        <category>技术分析</category>
       </categories>
       <tags>
-        <tag>deep learning</tag>
+        <tag>WebRTC</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Wide &amp; Deep Learning for Recommender Systems</title>
+    <url>/2020/05/23/Wide-Deep-Learning-for-Recommender-Systems/</url>
+    <content><![CDATA[<h3 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h3><p>推荐系统存在的一个核心挑战：如何同时实现memorization和generalization。</p>
+<p>memorization：记忆能力，学习历史数据集中已经出现过的物品或特征关联。</p>
+<p>generalization：泛化能力，基于相关性的传递原理，探究以前未出现或者极少出现的特征组合。</p>
+<a id="more"></a>
+<blockquote>
+<p>人可以很好的达到memorization和generalization。就像做题一样，我们可以记住很多类型的题（memorization），然后举一反三（generalization）。</p>
+</blockquote>
+<p>传统的线形模型使用one-hot编码处理离散特征，但是不能对特征关联进行建模。因此一般通过人工构建特征组合（cross-product transformations）的方式，获取非线性建模能力，也就是记忆能力。但是历史数据中未出现过的特征组合则无法构建，因此LR仍不具备泛化能力。</p>
+<p>对于FM和DNN这类embedding-based的模型，不需要特征工程，通过对低维度的dense embedding进行组合可以学习到历史数据中未出现的特征组合，具备泛化能力。但是如果query-item矩阵稀疏、高秩的，学习有效的embedding是很困难的。在这种情况下，会导致过度泛化，从而导致一些不太相关的推荐。相对的，线性模型+cross product则能用很少的参数记住exception rules。</p>
+<blockquote>
+<p>这里的exception relues指的是？个人理解就是历史数据中存在的规则。</p>
+</blockquote>
+<p>因此，本文提出一个Wide &amp; deep 学习框架，通过对线形模型（wide model）和神经网络（wide model）进行联合训练，以达到记忆和泛化能力。</p>
+<h3 id="Framework"><a href="#Framework" class="headerlink" title="Framework"></a>Framework</h3><p>本质就是对线性模型和神经网络的预测结果进行加权，最后联合训练。在实践中，用哪些作为wide和deep的输入是一个需要仔细考虑的问题。</p>
+<p><img src="https://raw.githubusercontent.com/yinxiaojian/blog-img/master/20200523184007.png" alt=""></p>
+]]></content>
+      <categories>
+        <category>paper notes</category>
+      </categories>
+      <tags>
+        <tag>machine learning</tag>
       </tags>
   </entry>
   <entry>
@@ -324,235 +198,6 @@ L=-\sum_iy_i log(p_i)</script><p>note: </p>
       </categories>
       <tags>
         <tag>softmax</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Deep Interest Network</title>
-    <url>/2020/05/11/Deep-Interest-Network/</url>
-    <content><![CDATA[<blockquote>
-<p>Deep Interest Network for Click-Through Rate Prediction</p>
-<p>Deep Interest Evolution Network for Click-Through Rate Prediction</p>
-<p>Deep Session Interest Network for Click-Through Rate Prediction</p>
-</blockquote>
-<a id="more"></a>
-<p>最近阅读了阿里的经典论文：DIN，并对后续的DIEN和DSIN进行了了解，此处做一个简单的记录。</p>
-<h4 id="DIN"><a href="#DIN" class="headerlink" title="DIN"></a>DIN</h4><p>对于DIN来说，核心在于如何更好的从用户的历史行为中提取合适的兴趣，简单的sum/average pooling是不符合实际场景的。用户在浏览的过程中，可能会对多种类型的商品感兴趣，其兴趣也是多种多样。比如说女生的浏览历史中存在服饰和电子产品，那么在预测裤子这件商品的点击时，历史行为中的服饰和电子产品的重要程度显然是不同的。DIN尝试通过注意力机制为历史行为中的商品赋予不同的权重，从而生成最符合当前预测商品的兴趣。</p>
-<p><img src="https://raw.githubusercontent.com/yinxiaojian/blog-img/master/20200516230137.png" alt=""></p>
-<h4 id="DIEN"><a href="#DIEN" class="headerlink" title="DIEN"></a>DIEN</h4><p>DIEN考虑到了两个问题：第一个问题是DIN直接使用行为去表示最终的兴趣，这是很困难的。我们需要去挖掘行为背后潜藏的兴趣。第二个问题在于用户某一方面的兴趣是睡着时间变化而变化的，因此我们需要考虑兴趣的动态变化，从而更好的进行预测。</p>
-<blockquote>
-<p>个人理解：DIEN提出的这两个问题都是很符合实际场景的，首先用户的行为是一个序列，有前后之分。直接使用赋予行为权重并求和，很难体现这一序列信息。论文里将其包装为hidden interest。其次，兴趣本身也是变化的，这里我们可以讲行为作为原始信息，兴趣作为一阶信息，那么兴趣的变化本质上就是二阶信息。</p>
-<p>因此论文也采用了GRU去捕捉一阶信息，在此基础上在使用一个GRU去捕捉二阶信息。</p>
-</blockquote>
-<p>针对问题一，DIEN采用GRU去捕捉行为背后隐藏的兴趣，在此基础上，使用DIN的attention机制获取最符合目标的兴趣，然后使用AUGRU去捕捉兴趣随着时间瓷都的变化。</p>
-<p><img src="https://raw.githubusercontent.com/yinxiaojian/blog-img/master/20200516231053.png" alt=""></p>
-<h4 id="DSIN"><a href="#DSIN" class="headerlink" title="DSIN"></a>DSIN</h4><p>DSIN从实际场景出发，提出用户的行为序列往往是由一个个的session组成的，每个session内部较为相似，同时不同session之间可能存在关联，并且在时间尺度上存在先后关系。</p>
-<p>因此DSIN讲用户的行为序列在时间尺度上切成一个个session（按照相邻行为时间差切割），然后使用Self-Attention去模拟单个session。在获取单个session的表示后，使用Bi-LSTM去模拟不同session之间的关系。同时其采用了DIN中的attention机制去为不同session赋予不同的权重。</p>
-<blockquote>
-<p>实际上，DSIN是讲单个session当作一个兴趣或者一个类别去模拟，然后再模拟session与session之间的关系，而attention机制则只是用来求和的。总的来说，DSIN从session尺度考虑问题，并非是很新鲜的想法，而且既然每个session之间差别较大，那么再使用LSTM去模拟session之间的时序关系是否可行？个人认为其不如DIN和DIEN合理。</p>
-</blockquote>
-<p><img src="https://raw.githubusercontent.com/yinxiaojian/blog-img/master/20200516234211.png" alt=""></p>
-]]></content>
-      <categories>
-        <category>paper notes</category>
-      </categories>
-      <tags>
-        <tag>machine learning</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>STUN和TURN服务器搭建</title>
-    <url>/2019/03/02/STUN%E5%92%8CTURN%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA/</url>
-    <content><![CDATA[<p>使用CoTurn自建STUN和TURN服务。</p>
-<a id="more"></a>
-<h3 id="下载-CoTurn"><a href="#下载-CoTurn" class="headerlink" title="下载 CoTurn"></a>下载 <a href="https://github.com/coturn/coturn/blob/master/INSTALL" target="_blank" rel="noopener">CoTurn</a></h3><p>下载指定版本的CoTurn并解压</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">wegt https:&#x2F;&#x2F;coturn.net&#x2F;turnserver&#x2F;v4.5.0.8&#x2F;turnserver-4.5.0.8.tar.gz</span><br><span class="line">tar -zxvf turnserver-4.5.0.8.tar.gz</span><br></pre></td></tr></table></figure>
-<h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><p>安装编译所需依赖</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">apt-get update</span><br><span class="line">apt-get install -y libssl-dev libevent-dev libpq-dev mysql-client libmysqlclient-dev libhiredis-dev openssl</span><br><span class="line">apt-get install gdebi-core -y</span><br><span class="line">apt-get install sqlite libsqlite3-dev -y</span><br></pre></td></tr></table></figure>
-<p>编译安装CoTurn</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cd turnserver-4.5.0.8</span><br><span class="line">.&#x2F;configure</span><br><span class="line">make</span><br><span class="line">make install</span><br></pre></td></tr></table></figure>
-<p>查看是否安装成功</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">which turnserver</span><br></pre></td></tr></table></figure>
-<h3 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h3><p>添加用户</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">turnadmin -a –u 用户名 -r 域名 -p 密码</span><br></pre></td></tr></table></figure>
-<p>例如：添加用户sccs，密码为123456，域名fongda.com（域名可以随意填写）</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">turnadmin -a -u sccs -r fongda.com -p 123456</span><br></pre></td></tr></table></figure>
-<p>输入<code>turnadmin -l</code>检查是否添加用户成功</p>
-<h3 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h3><p>前台启动</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">turnserver -L 公网IP -a -f -r 域名</span><br></pre></td></tr></table></figure>
-<p>或者在后台运行</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ turnserver -L 公网IP -o -a -f -r 域名</span><br></pre></td></tr></table></figure>
-<h3 id="验证"><a href="#验证" class="headerlink" title="验证"></a>验证</h3><p>使用webrtc官方提供的网址进行验证：</p>
-<p><a href="https://webrtc.github.io/samples/src/content/peerconnection/trickle-ice/" target="_blank" rel="noopener">https://webrtc.github.io/samples/src/content/peerconnection/trickle-ice/</a></p>
-<p>输入要验证的STUN和TURN服务器</p>
-<p><img src="https://wx3.sinaimg.cn/large/005PPQ5Ily1g0ovehi2xbj31gs0iidhl.jpg" alt="image"></p>
-<p>出现Done时表示服务正常运行</p>
-<p><img src="https://wx2.sinaimg.cn/large/005PPQ5Ily1g0ovfxi3yzj31ie09maay.jpg" alt="image"></p>
-]]></content>
-      <categories>
-        <category>技术分析</category>
-      </categories>
-      <tags>
-        <tag>WebRTC</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>ZELDA-男人的浪漫</title>
-    <url>/2018/03/19/ZELDA-%E7%94%B7%E4%BA%BA%E7%9A%84%E6%B5%AA%E6%BC%AB/</url>
-    <content><![CDATA[<p>如果一款游戏，如果能让你回到儿时，你会去玩吗？</p>
-<a id="more"></a>
-<p>游戏时间 100 小时，四神兽和boss全灭，120神庙解锁一半，支线任务完成1/4。</p>
-<p>拿到游戏到现在过去了10天，除了实习时间，我几乎都在玩这款游戏，这段时间我没有看动漫，甚至连手机都懒得碰。直到现在，在天气晴朗的时候，登上海拉尔大陆的顶端远眺，留给我的依旧是无数秘密。</p>
-<p><img src="https://ws4.sinaimg.cn/large/005PPQ5Ily1g0ymv18a9mj30l60b4adc.jpg" alt="9c29d14f-ae6e-42b4-9c36-c1f81c9217af"></p>
-<p>我无法忘记游戏开始走出出生地的震撼，一个广阔的大陆等着你探索。作为一个普通玩家，或许无法从专业性的角度去阐述这款游戏的优秀，但是我可以慢慢的回想我在游戏中的故事。</p>
-<p>开放世界、沙盒玩法可以说是游戏界经常提到的概念，在我以前玩的游戏中，我按照游戏设计者设计好的路线去解锁游戏，在这个过程中，总是会有一种压迫感，游戏设计者在不停的推着我前进。终于，游戏主线支线结束，站在广阔的地图上，我却不知道干什么。</p>
-<p>荒野之息却完全不同，游戏剧情“老套”，主线就是打魔王救公主。在游戏的过程中，我却忘记了主线，沉迷于爬山，炸鱼，采矿，做菜等等等等。看到一座很高的山，我费劲力气爬上去，只为看到更好的风景。为发现隐藏在海拉尔大陆的120个神庙而惊喜，进入神庙后又是另一番体验。就连npc都设计的非常巧妙，记得有一个npc，她对我说：“别摸鱼了，快去拯救世界”，令人爆笑。如果这些还不够，还有900个“呀哈哈”等着你去寻找，可能在石头下，也可能在山顶上。</p>
-<p>在大概两天后，我终于想起了公主，于是我开始进入主线，四大神兽每个都有不同的故事和解谜方式，不会让人厌烦。打败四大神兽后，我又开始收集13个回忆，慢慢的找到了所有林克和公主的故事，一个傲娇的公主是怎么慢慢成长，怎么喜欢上我的（笑）。接着就是面对最终boss加农了，这时候我却不想推进了，我不想结束这段旅行，还有那么多神庙没有解锁，那么多支线没有做，现在打boss总有种半途而废的感觉。不过游戏总有分别，又过了两天，我带着全村最好的剑，最好的弓，最好的盾，最好的药冲到boss，然后boss就死了，一段回忆后游戏戛然而止······</p>
-<p>在这段时间，做梦的时候我总是会梦到游戏剧情，在室外的时候，看到高楼大厦，我也不经意的会思考怎么爬上去，爬上去会看到什么样的风景。现在我大概知道为什么会沉迷这款游戏了，大概是这款游戏满足了我所有的浪漫。</p>
-<p>在童年时候，我会为钓到小鱼小虾而激动，会为爬到大坝上而激动。那时候会做梦，觉得自己是个大侠、冒险家。和小伙伴们去野外（隔壁村）探险，会去招惹村口的凶狗，会骑姥姥家养的小花狗。实际上，直到现在我还想做这些事，还对其乐此不疲，只不过没人陪我了。是的，我长大了，虽然还在校园，但烦恼却不少。所以，我感谢这款游戏，让我找到了冒险的感觉，为游戏中每一个新事物，为前方而满怀期待！</p>
-<p>最后，塞尔达天下第一！</p>
-]]></content>
-      <categories>
-        <category>杂谈</category>
-      </categories>
-      <tags>
-        <tag>游戏</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>google map 比例尺算法分析</title>
-    <url>/2017/12/24/google-map-%E6%AF%94%E4%BE%8B%E5%B0%BA%E7%AE%97%E6%B3%95%E5%88%86%E6%9E%90/</url>
-    <content><![CDATA[<p>比例尺即地图右下角显示地图距离与实际距离比例的控件，由于Google map自带比例尺控件存在的局限性——无法调整位置和格式，所以通过此文章，介绍比例尺算法及具体实现。</p>
-<a id="more"></a>
-<h3 id="什么是比例尺"><a href="#什么是比例尺" class="headerlink" title="什么是比例尺"></a>什么是比例尺</h3><p>比例尺是表示<a href="http://baike.baidu.com/view/5454725.htm" target="_blank" rel="noopener">图上距离</a>比实地距离缩小的程度，因此也叫<a href="http://baike.baidu.com/view/1559050.htm" target="_blank" rel="noopener">缩尺</a>。用公式表示为：比例尺=<a href="http://baike.baidu.com/view/5454725.htm" target="_blank" rel="noopener">图上距离</a>/实地距离。在Google map上比例尺显示在右下角。</p>
-<p>在创建地图时只需增加设置项</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">scaleControl: true</span><br></pre></td></tr></table></figure>
-<p>如下例</p>
-<iframe scrolling="no" width="100%" height="300" src="https://jsfiddle.net/yinxiaojian/yL9mxdzp/embedded/js,resources,html,css,result/light" frameborder="0" loading="lazy" allowfullscreen></iframe>
-<p>遗憾的是这样添加的比例尺会存在于右下角，而且不像其他控件一样可以调整位置。如果我们希望修改其位置或者样式，就会无从下手。</p>
-<h3 id="自制比例尺"><a href="#自制比例尺" class="headerlink" title="自制比例尺"></a>自制比例尺</h3><p>实现一个比例尺的关键在于如何获取到地图距离与实际距离的比例和缩放等级及维度之间的关系。google官方api未提供相关函数，因此我们需要自己计算。核心公式为</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ScaleValue &#x3D; 156543.03392 * Math.cos(latLng.lat() * Math.PI &#x2F; 180) &#x2F; Math.pow(2, zoom)</span><br></pre></td></tr></table></figure>
-<p>其中zoom为当前缩放等级，latLng.lat()即目标点维度值。该公式是在地球半径为6378137m的基础上计算的，这个值即google地图所采用的值。</p>
-<p>有了计算公式后，我们还需要一张表——缩放等级和比例尺对应表，也就是在什么样的缩放等级下使用多大的比例尺，表格如下:</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Zoom    Scale</span><br><span class="line">0    10000km</span><br><span class="line">1    5000km</span><br><span class="line">2    2000km</span><br><span class="line">3    1000km</span><br><span class="line">4    500km</span><br><span class="line">5    200km</span><br><span class="line">6    200km</span><br><span class="line">7    100km</span><br><span class="line">8    50km</span><br><span class="line">9    20km</span><br><span class="line">10   10km</span><br><span class="line">11   5km</span><br><span class="line">12   2km</span><br><span class="line">13   1km</span><br><span class="line">14   500m</span><br><span class="line">15   200m</span><br><span class="line">16   200m</span><br><span class="line">17   100m</span><br><span class="line">18   50m</span><br><span class="line">19   20m</span><br><span class="line">20   10m</span><br><span class="line">21   5m</span><br><span class="line">22   2m</span><br><span class="line">23   1m</span><br><span class="line">24   1m</span><br><span class="line">25   1m</span><br><span class="line">26   1m</span><br></pre></td></tr></table></figure>
-<p>通过监听地图变化事件（缩放和平移），获取当前屏幕中心点缩放等级和维度获取到scale和scalevalue，那么比例尺的长度（px） = scale/scalevalue。</p>
-<p>获取当前比例尺长度的核心代码如下：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 根据缩放等级和维度获取KM数(m数)和像素</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">setScaleInfos</span>(<span class="params">zoomLevel, lat, map</span>) </span>&#123;</span><br><span class="line">	<span class="comment">// 缩放等级-比例尺</span></span><br><span class="line">	<span class="keyword">var</span> zoomList = [&#123;</span><br><span class="line">		text: <span class="string">"10000KM"</span>,</span><br><span class="line">		value: <span class="number">10000</span> * <span class="number">1000</span></span><br><span class="line">	&#125;, &#123;</span><br><span class="line">		text: <span class="string">"5000KM"</span>,</span><br><span class="line">		value: <span class="number">5000</span> * <span class="number">1000</span></span><br><span class="line">	&#125;, &#123;</span><br><span class="line">		text: <span class="string">"2000KM"</span>,</span><br><span class="line">		value: <span class="number">2000</span> * <span class="number">1000</span></span><br><span class="line">	&#125;, &#123;</span><br><span class="line">		text: <span class="string">"1000KM"</span>,</span><br><span class="line">		value: <span class="number">1000</span> * <span class="number">1000</span></span><br><span class="line">	&#125;, &#123;</span><br><span class="line">		text: <span class="string">"500KM"</span>,</span><br><span class="line">		value: <span class="number">500</span> * <span class="number">1000</span></span><br><span class="line">	&#125;, &#123;</span><br><span class="line">		text: <span class="string">"200KM"</span>,</span><br><span class="line">		value: <span class="number">200</span> * <span class="number">1000</span></span><br><span class="line">	&#125;, &#123;</span><br><span class="line">		text: <span class="string">"200KM"</span>,</span><br><span class="line">		value: <span class="number">200</span> * <span class="number">1000</span></span><br><span class="line">	&#125;, &#123;</span><br><span class="line">		text: <span class="string">"100KM"</span>,</span><br><span class="line">		value: <span class="number">100</span> * <span class="number">1000</span></span><br><span class="line">	&#125;, &#123;</span><br><span class="line">		text: <span class="string">"50KM"</span>,</span><br><span class="line">		value: <span class="number">50</span> * <span class="number">1000</span></span><br><span class="line">	&#125;, &#123;</span><br><span class="line">		text: <span class="string">"20KM"</span>,</span><br><span class="line">		value: <span class="number">20</span> * <span class="number">1000</span></span><br><span class="line">	&#125;, &#123;</span><br><span class="line">		text: <span class="string">"10KM"</span>,</span><br><span class="line">		value: <span class="number">10</span> * <span class="number">1000</span></span><br><span class="line">	&#125;, &#123;</span><br><span class="line">		text: <span class="string">"5KM"</span>,</span><br><span class="line">		value: <span class="number">5000</span></span><br><span class="line">	&#125;, &#123;</span><br><span class="line">		text: <span class="string">"2KM"</span>,</span><br><span class="line">		value: <span class="number">2000</span></span><br><span class="line">	&#125;, &#123;</span><br><span class="line">		text: <span class="string">"1KM"</span>,</span><br><span class="line">		value: <span class="number">1000</span></span><br><span class="line">	&#125;, &#123;</span><br><span class="line">		text: <span class="string">"500m"</span>,</span><br><span class="line">		value: <span class="number">500</span></span><br><span class="line">	&#125;, &#123;</span><br><span class="line">		text: <span class="string">"200m"</span>,</span><br><span class="line">		value: <span class="number">200</span></span><br><span class="line">	&#125;, &#123;</span><br><span class="line">		text: <span class="string">"200m"</span>,</span><br><span class="line">		value: <span class="number">200</span></span><br><span class="line">	&#125;, &#123;</span><br><span class="line">		text: <span class="string">"100m"</span>,</span><br><span class="line">		value: <span class="number">100</span></span><br><span class="line">	&#125;, &#123;</span><br><span class="line">		text: <span class="string">"50m"</span>,</span><br><span class="line">		value: <span class="number">50</span></span><br><span class="line">	&#125;, &#123;</span><br><span class="line">		text: <span class="string">"20m"</span>,</span><br><span class="line">		value: <span class="number">20</span></span><br><span class="line">	&#125;, &#123;</span><br><span class="line">		text: <span class="string">"10m"</span>,</span><br><span class="line">		value: <span class="number">10</span></span><br><span class="line">	&#125;, &#123;</span><br><span class="line">		text: <span class="string">"5m"</span>,</span><br><span class="line">		value: <span class="number">5</span></span><br><span class="line">	&#125;, &#123;</span><br><span class="line">		text: <span class="string">"2m"</span>,</span><br><span class="line">		value: <span class="number">2</span></span><br><span class="line">	&#125;, &#123;</span><br><span class="line">		text: <span class="string">"1m"</span>,</span><br><span class="line">		value: <span class="number">1</span></span><br><span class="line">	&#125;, &#123;</span><br><span class="line">		text: <span class="string">"1m"</span>,</span><br><span class="line">		value: <span class="number">1</span></span><br><span class="line">	&#125;, &#123;</span><br><span class="line">		text: <span class="string">"1m"</span>,</span><br><span class="line">		value: <span class="number">1</span></span><br><span class="line">	&#125;, &#123;</span><br><span class="line">		text: <span class="string">"1m"</span>,</span><br><span class="line">		value: <span class="number">1</span></span><br><span class="line">	&#125;];</span><br><span class="line">	<span class="comment">// 宽度</span></span><br><span class="line">	<span class="keyword">var</span> pxValue = <span class="built_in">Math</span>.floor(zoomList[zoomLevel].value / (<span class="number">156543.03392</span> * <span class="built_in">Math</span>.cos(lat * <span class="built_in">Math</span>.PI / <span class="number">180</span>) / <span class="built_in">Math</span>.pow(<span class="number">2</span>, zoomLevel)));</span><br><span class="line">	<span class="comment">// 更新经纬度数据</span></span><br><span class="line">	$W.id(<span class="string">"scaleText"</span>).innerHTML = zoomList[zoomLevel].text;</span><br><span class="line">	$W.id(<span class="string">"scaleSize"</span>).style.width = pxValue + <span class="string">"px"</span>;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p>下面是通过上述思路实现的例子，在地图右下角实现一个比例尺。</p>
-<iframe scrolling="no" width="100%" height="300" src="https://jsfiddle.net/yinxiaojian/6eutbuyr/embedded/js,resources,html,css,result/light" frameborder="0" loading="lazy" allowfullscreen></iframe>]]></content>
-      <categories>
-        <category>前端</category>
-      </categories>
-      <tags>
-        <tag>google map</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>WebRTC与NAT穿透</title>
-    <url>/2019/03/02/WebRTC%E4%B8%8ENAT%E7%A9%BF%E9%80%8F/</url>
-    <content><![CDATA[<p>WebRTC支持点对点通信（P2P），但是其建立通讯仍需要两类服务器。</p>
-<ul>
-<li>信令服务器：用于客户端交换元信息以协调通讯。</li>
-<li>STUN/TURN服务器：应对网络地址转换器（NAT）和防火墙。</li>
-</ul>
-<a id="more"></a>
-<blockquote>
-<p>以下客户端指进行通话的用户</p>
-</blockquote>
-<h3 id="信令服务器"><a href="#信令服务器" class="headerlink" title="信令服务器"></a>信令服务器</h3><p>信令就是协调通讯的过程，为了建立一个webRTC的通讯过程，客户端需要交换如下信息：</p>
-<ul>
-<li>用于打开或关闭通信的会话控制消息。</li>
-<li>错误消息。</li>
-<li>媒体元数据，例如编解码器和编解码器设置，带宽和媒体类型。</li>
-<li>密钥数据，用于建立安全连接。</li>
-<li>网络数据，例如客户端的外网IP地址和端口。</li>
-</ul>
-<h3 id="STUN-TURN服务器"><a href="#STUN-TURN服务器" class="headerlink" title="STUN/TURN服务器"></a>STUN/TURN服务器</h3><p>对于建立连接所需的元数据信息，WebRTC通过信令服务器进行转发。但是对于实际的媒体和数据流，一旦建立会话，首先尝试直接连接客户端，即客户端点对点通信。也就是说，每个客户端都有一个唯一的IP地址，他能用来和其他客户端进行直接通讯。</p>
-<p><img src="https://www.html5rocks.com/en/tutorials/webrtc/infrastructure/p2p.png" alt="没有NAT和防火墙的理想情况"></p>
-<center><i>没有NAT和防火墙的理想情况</i></center>
-
-<p>但是现实中，大多数设备都位于一层或多层NAT之后，有些设备具有阻止某些端口和协议的防病毒软件，而且许多设备都在代理和企业防火墙之后。 防火墙和NAT也可以由相同的设备实现，例如家庭wifi路由器。</p>
-<p><img src="https://www.html5rocks.com/en/tutorials/webrtc/infrastructure/nat.png" alt=""></p>
-<center><i>现实世界</i></center>
-
-<p>WebRTC可以使用ICE框架来克服现实网络的复杂性。 在连接过程中，ICE将试图找到最佳的连接路径，通过尝试所有可能的选项,然后选择最合适的方案。ICE首先尝试使用从设备的操作系统和网卡获得的主机地址建立连接；如果失败（设备位于NAT后），ICE将使用STUN服务器获取设备外网地址；如果失败，则使用TURN服务器作为中继转发流量（媒体和数据流）。</p>
-<p>也就是说：</p>
-<ul>
-<li>STUN服务器用于获取设备的外网地址。</li>
-<li>TURN服务器用于转发流量，在P2P连接失败的情况下发挥作用。</li>
-</ul>
-<p>STUN和或TURN服务器的URL（可选）由iceServers配置对象中的WebRTC应用程序指定，该对象是RTCPeerConnection构造函数的第一个参数：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="string">'iceServers'</span>: [</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="string">'urls'</span>: <span class="string">'stun:stun.l.google.com:19302'</span></span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="string">'urls'</span>: <span class="string">'turn:192.158.29.39:3478?transport=udp'</span>,</span><br><span class="line">      <span class="string">'credential'</span>: <span class="string">'JZEOEt2V3Qb0y27GRntt2u2PAYA='</span>,</span><br><span class="line">      <span class="string">'username'</span>: <span class="string">'28224511:1379330808'</span></span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="string">'urls'</span>: <span class="string">'turn:192.158.29.39:3478?transport=tcp'</span>,</span><br><span class="line">      <span class="string">'credential'</span>: <span class="string">'JZEOEt2V3Qb0y27GRntt2u2PAYA='</span>,</span><br><span class="line">      <span class="string">'username'</span>: <span class="string">'28224511:1379330808'</span></span><br><span class="line">    &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="STUN服务器"><a href="#STUN服务器" class="headerlink" title="STUN服务器"></a>STUN服务器</h4><p>NAT为设备提供IP地址，以便在内网中使用，但此地址不能在外部使用。如果没有公共地址，WebRTC对等方就无法进行通信。为了解决这个问题，WebRTC使用STUN服务器。</p>
-<p>STUN服务器位于<strong>公网</strong>上，其工作非常简单：检查传入请求的IP:port，并将该地址作为响应发回。也就是说，应用程序使用STUN服务器从外网是脚下发现其IP:Port。此过程使WebRTC客户端获取自己的公网地址，然后通过信令机制将其传递给另一个苦护短，以便建立P2P连接。</p>
-<p><strong>STUN服务器的工作非常简单，因此可以处理大量请求</strong>，这也是有很多免费的STUN服务器提供的原因。</p>
-<blockquote>
-<p>根据webrtcstats.com，WebRTC使用STUN成功建立连接的概率为：86％</p>
-</blockquote>
-<p><img src="https://www.html5rocks.com/en/tutorials/webrtc/infrastructure/stun.png" alt=""></p>
-<center><i>使用STUN服务器获取公网地址</i></center>
-
-<h4 id="TURN服务器"><a href="#TURN服务器" class="headerlink" title="TURN服务器"></a>TURN服务器</h4><p>在P2P连接失败后，WebRTC会利用TURN服务器作为中继进行通信。需要强调的是：<strong>TURN在不同客户端之间中转的是音频/视频/数据流，而不是信令数据。</strong></p>
-<p>TURN服务器具有公网地址，因此即使客户端位于防火墙或代理之后，也可以与其进行联系。 TURN服务器需要中转大量的视频音频等数据，因此相对STUN服务器，它们需要消耗大量带宽。</p>
-<p><img src="https://www.html5rocks.com/en/tutorials/webrtc/infrastructure/turn.png" alt=""></p>
-<center><i>完整的框架：STUN、TURN、SIGNALING</i></center>
-
-<p>在上图中，若使用STUN无法建立连接，将会使用TURN进行中继。</p>
-<h3 id="附录：NAT分类与STUN-TURN"><a href="#附录：NAT分类与STUN-TURN" class="headerlink" title="附录：NAT分类与STUN/TURN"></a>附录：NAT分类与STUN/TURN</h3><h4 id="基础概念"><a href="#基础概念" class="headerlink" title="基础概念"></a>基础概念</h4><p>一个IP连接由两个IP组成的连接“四元组”决定：</p>
-<ul>
-<li>(Source IP address, source port number)</li>
-<li>(Destination IP address, destination port number)</li>
-</ul>
-<p>即（源地址，源端口）和（目标地址，目标端口），可视化如下：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">(SRC_ADDR, SRC_PORT) -&gt; (DST_ADDR, DST_PORT)</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>NOTE</p>
-<ul>
-<li><code>-&gt;</code> 表示连接的方向</li>
-<li><code>(ADDR, PORT)</code> 表示一个（IP地址，IP端口）元组</li>
-<li><code>(SRC_ADDR, SRC_PORT)</code> 表示发起连接的机器的IP</li>
-<li><code>(DST_ADDR, DST_PORT)</code> 表示接收连接的机器的IP</li>
-</ul>
-</blockquote>
-<p>NAT(Network Address Translation) 是一种广泛应用的解决IP 短缺的有效方法， NAT 将内网地址转和端口号换成合法的公网地址和端口号，建立一个会话，与公网主机进行通信。可视化如下：</p>
-<p>NAT分为两大类：锥型和对称型，而锥型又分为三种类型，分类如下：</p>
-<ul>
-<li>锥形 cone NAT<ul>
-<li>全锥形 Full Cone NAT</li>
-<li>地址受限锥形 Address-Restricted Cone NAT</li>
-<li>端口受限锥形 Port-Restricted Cone NAT</li>
-</ul>
-</li>
-<li>对称形 Symmetric NAT</li>
-</ul>
-<h4 id="全锥形-Full-Cone-NAT"><a href="#全锥形-Full-Cone-NAT" class="headerlink" title="全锥形 Full Cone NAT"></a>全锥形 Full Cone NAT</h4><p>全锥NAT 把所有来自相同内部IP地址和端口的请求映射到相同的外部IP 地址和端口。任何一个外部主机均可通过该映射发送数据包到该内部主机，可视化如下：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">    &#123;NAT internal side&#125;  |    &#123;NAT external side&#125;  |  &#123;Remote machine&#125;</span><br><span class="line">                         |                         |</span><br><span class="line">1. (INT_ADDR, INT_PORT) &#x3D;&gt; [ (EXT_ADDR, INT_PORT) -&gt; (REM_ADDR, REM_PORT) ]</span><br><span class="line">2. (INT_ADDR, INT_PORT) &lt;&#x3D; [ (EXT_ADDR, INT_PORT) &lt;- (   *    ,    *    ) ]</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p><code>*</code>表示所有值都可以使用，任何一个外部主机都可以通过该映射建立连接。</p>
-</blockquote>
-<h4 id="地址受限锥形-Address-Restricted-Cone-NAT"><a href="#地址受限锥形-Address-Restricted-Cone-NAT" class="headerlink" title="地址受限锥形 Address-Restricted Cone NAT"></a>地址受限锥形 Address-Restricted Cone NAT</h4><p>地址受限锥形NAT 把所有来自相同内部IP 地址和端口的请求映射到相同的外部IP 地址和端口。但是, 和全锥NAT 不同的是：只有当内部主机先给外部主机发送数据包, 该外部主机才能向该内部主机发送数据包，可视化如下：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">    &#123;NAT internal side&#125;  |    &#123;NAT external side&#125;  |  &#123;Remote machine&#125;</span><br><span class="line">                         |                         |</span><br><span class="line">1. (INT_ADDR, INT_PORT) &#x3D;&gt; [ (EXT_ADDR, INT_PORT) -&gt; (REM_ADDR, REM_PORT) ]</span><br><span class="line">2. (INT_ADDR, INT_PORT) &lt;&#x3D; [ (EXT_ADDR, INT_PORT) &lt;- (REM_ADDR,    *    ) ]</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>在第二步中，REM_ADDR必须和第一步中相同，但是REM_PORT没有限制。</p>
-</blockquote>
-<h4 id="端口受限锥形-Port-Restricted-Cone-NAT"><a href="#端口受限锥形-Port-Restricted-Cone-NAT" class="headerlink" title="端口受限锥形 Port-Restricted Cone NAT"></a>端口受限锥形 Port-Restricted Cone NAT</h4><p>端口受限锥形NAT 与地址受限锥形NAT 类似, 只是多了端口号的限制, 即只有内部主机先向外部地址和端口号元组发送数据包, 该外部主机才能使用特定的端口号向内部主机发送数据包，可视化如下：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">    &#123;NAT internal side&#125;  |    &#123;NAT external side&#125;  |  &#123;Remote machine&#125;</span><br><span class="line">                         |                         |</span><br><span class="line">1. (INT_ADDR, INT_PORT) &#x3D;&gt; [ (EXT_ADDR, INT_PORT) -&gt; (REM_ADDR, REM_PORT) ]</span><br><span class="line">2. (INT_ADDR, INT_PORT) &lt;&#x3D; [ (EXT_ADDR, INT_PORT) &lt;- (REM_ADDR, REM_PORT) ]</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>在第二步中，REM_ADDR和REM_PORT都要和第一步相同。</p>
-</blockquote>
-<h4 id="对称形-Symmetric-NAT"><a href="#对称形-Symmetric-NAT" class="headerlink" title="对称形 Symmetric NAT"></a>对称形 Symmetric NAT</h4><p>对称形NAT 与上述3 种锥类都不同，当同一内部主机使用相同的端口与不同地址的外部主机进行通信时, 对称NAT 会重新建立一个Session ，为这个Session 分配新的外部端口号，或许还会改变IP 地址。 这意味着从同一本地端口到两个不同远程计算机的两个连续连接将具有两个不同的外部端口，即使是同一内部主机，可视化如下：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">    &#123;NAT internal side&#125;  |    &#123;NAT external side&#125;  |  &#123;Remote machine&#125;</span><br><span class="line">                         |                         |</span><br><span class="line">1. (INT_ADDR, INT_PORT) &#x3D;&gt; [ (EXT_ADDR, EXT_PORT1) -&gt; (REM_ADDR, REM_PORT1) ]</span><br><span class="line">2. (INT_ADDR, INT_PORT) &lt;&#x3D; [ (EXT_ADDR, EXT_PORT1) &lt;- (REM_ADDR, REM_PORT1) ]</span><br><span class="line">...</span><br><span class="line">3. (INT_ADDR, INT_PORT) &#x3D;&gt; [ (EXT_ADDR, EXT_PORT2) -&gt; (REM_ADDR, REM_PORT2) ]</span><br><span class="line">4. (INT_ADDR, INT_PORT) &lt;&#x3D; [ (EXT_ADDR, EXT_PORT2) &lt;- (REM_ADDR, REM_PORT2) ]</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>在第一步中建立连接，分配的外部端口号为EXT_PORT1</p>
-<p>在第三步中建立新的连接，分配的外部端口号为EXT_PORT2，<strong>外部端口号发生变化</strong>。</p>
-</blockquote>
-<h4 id="STUN-TURN与NAT的关系"><a href="#STUN-TURN与NAT的关系" class="headerlink" title="STUN/TURN与NAT的关系"></a>STUN/TURN与NAT的关系</h4><p>假设客户端A和客户端B需要建立P2P连接，在锥形NAT中，由于<code>(EXT_ADDR, EXT_PORT)</code>是不会发生变化的，所以我们可以通过STUN获取该客户段A和B的外部IP和端口，然后让两者建立连接。</p>
-<p>在对称形NAT中，由于<code>(EXT_ADDR, EXT_PORT)</code>中的端口会发生变化，当客户端A和B与STUN服务器建立连接，获取外部IP和端口后。两者利用该外部IP和端口建立P2P连接，对称NAT会为A和B分配新的外部端口，因此无法建立连接。所以，对于对称形NAT，我们需要通过TURN服务器进行信息转发。</p>
-]]></content>
-      <categories>
-        <category>技术分析</category>
-      </categories>
-      <tags>
-        <tag>WebRTC</tag>
       </tags>
   </entry>
   <entry>
@@ -840,6 +485,166 @@ L=-\sum_iy_i log(p_i)</script><p>note: </p>
       </tags>
   </entry>
   <entry>
+    <title>ZELDA-男人的浪漫</title>
+    <url>/2018/03/19/ZELDA-%E7%94%B7%E4%BA%BA%E7%9A%84%E6%B5%AA%E6%BC%AB/</url>
+    <content><![CDATA[<p>如果一款游戏，如果能让你回到儿时，你会去玩吗？</p>
+<a id="more"></a>
+<p>游戏时间 100 小时，四神兽和boss全灭，120神庙解锁一半，支线任务完成1/4。</p>
+<p>拿到游戏到现在过去了10天，除了实习时间，我几乎都在玩这款游戏，这段时间我没有看动漫，甚至连手机都懒得碰。直到现在，在天气晴朗的时候，登上海拉尔大陆的顶端远眺，留给我的依旧是无数秘密。</p>
+<p><img src="https://ws4.sinaimg.cn/large/005PPQ5Ily1g0ymv18a9mj30l60b4adc.jpg" alt="9c29d14f-ae6e-42b4-9c36-c1f81c9217af"></p>
+<p>我无法忘记游戏开始走出出生地的震撼，一个广阔的大陆等着你探索。作为一个普通玩家，或许无法从专业性的角度去阐述这款游戏的优秀，但是我可以慢慢的回想我在游戏中的故事。</p>
+<p>开放世界、沙盒玩法可以说是游戏界经常提到的概念，在我以前玩的游戏中，我按照游戏设计者设计好的路线去解锁游戏，在这个过程中，总是会有一种压迫感，游戏设计者在不停的推着我前进。终于，游戏主线支线结束，站在广阔的地图上，我却不知道干什么。</p>
+<p>荒野之息却完全不同，游戏剧情“老套”，主线就是打魔王救公主。在游戏的过程中，我却忘记了主线，沉迷于爬山，炸鱼，采矿，做菜等等等等。看到一座很高的山，我费劲力气爬上去，只为看到更好的风景。为发现隐藏在海拉尔大陆的120个神庙而惊喜，进入神庙后又是另一番体验。就连npc都设计的非常巧妙，记得有一个npc，她对我说：“别摸鱼了，快去拯救世界”，令人爆笑。如果这些还不够，还有900个“呀哈哈”等着你去寻找，可能在石头下，也可能在山顶上。</p>
+<p>在大概两天后，我终于想起了公主，于是我开始进入主线，四大神兽每个都有不同的故事和解谜方式，不会让人厌烦。打败四大神兽后，我又开始收集13个回忆，慢慢的找到了所有林克和公主的故事，一个傲娇的公主是怎么慢慢成长，怎么喜欢上我的（笑）。接着就是面对最终boss加农了，这时候我却不想推进了，我不想结束这段旅行，还有那么多神庙没有解锁，那么多支线没有做，现在打boss总有种半途而废的感觉。不过游戏总有分别，又过了两天，我带着全村最好的剑，最好的弓，最好的盾，最好的药冲到boss，然后boss就死了，一段回忆后游戏戛然而止······</p>
+<p>在这段时间，做梦的时候我总是会梦到游戏剧情，在室外的时候，看到高楼大厦，我也不经意的会思考怎么爬上去，爬上去会看到什么样的风景。现在我大概知道为什么会沉迷这款游戏了，大概是这款游戏满足了我所有的浪漫。</p>
+<p>在童年时候，我会为钓到小鱼小虾而激动，会为爬到大坝上而激动。那时候会做梦，觉得自己是个大侠、冒险家。和小伙伴们去野外（隔壁村）探险，会去招惹村口的凶狗，会骑姥姥家养的小花狗。实际上，直到现在我还想做这些事，还对其乐此不疲，只不过没人陪我了。是的，我长大了，虽然还在校园，但烦恼却不少。所以，我感谢这款游戏，让我找到了冒险的感觉，为游戏中每一个新事物，为前方而满怀期待！</p>
+<p>最后，塞尔达天下第一！</p>
+]]></content>
+      <categories>
+        <category>杂谈</category>
+      </categories>
+      <tags>
+        <tag>游戏</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>WebRTC与NAT穿透</title>
+    <url>/2019/03/02/WebRTC%E4%B8%8ENAT%E7%A9%BF%E9%80%8F/</url>
+    <content><![CDATA[<p>WebRTC支持点对点通信（P2P），但是其建立通讯仍需要两类服务器。</p>
+<ul>
+<li>信令服务器：用于客户端交换元信息以协调通讯。</li>
+<li>STUN/TURN服务器：应对网络地址转换器（NAT）和防火墙。</li>
+</ul>
+<a id="more"></a>
+<blockquote>
+<p>以下客户端指进行通话的用户</p>
+</blockquote>
+<h3 id="信令服务器"><a href="#信令服务器" class="headerlink" title="信令服务器"></a>信令服务器</h3><p>信令就是协调通讯的过程，为了建立一个webRTC的通讯过程，客户端需要交换如下信息：</p>
+<ul>
+<li>用于打开或关闭通信的会话控制消息。</li>
+<li>错误消息。</li>
+<li>媒体元数据，例如编解码器和编解码器设置，带宽和媒体类型。</li>
+<li>密钥数据，用于建立安全连接。</li>
+<li>网络数据，例如客户端的外网IP地址和端口。</li>
+</ul>
+<h3 id="STUN-TURN服务器"><a href="#STUN-TURN服务器" class="headerlink" title="STUN/TURN服务器"></a>STUN/TURN服务器</h3><p>对于建立连接所需的元数据信息，WebRTC通过信令服务器进行转发。但是对于实际的媒体和数据流，一旦建立会话，首先尝试直接连接客户端，即客户端点对点通信。也就是说，每个客户端都有一个唯一的IP地址，他能用来和其他客户端进行直接通讯。</p>
+<p><img src="https://www.html5rocks.com/en/tutorials/webrtc/infrastructure/p2p.png" alt="没有NAT和防火墙的理想情况"></p>
+<center><i>没有NAT和防火墙的理想情况</i></center>
+
+<p>但是现实中，大多数设备都位于一层或多层NAT之后，有些设备具有阻止某些端口和协议的防病毒软件，而且许多设备都在代理和企业防火墙之后。 防火墙和NAT也可以由相同的设备实现，例如家庭wifi路由器。</p>
+<p><img src="https://www.html5rocks.com/en/tutorials/webrtc/infrastructure/nat.png" alt=""></p>
+<center><i>现实世界</i></center>
+
+<p>WebRTC可以使用ICE框架来克服现实网络的复杂性。 在连接过程中，ICE将试图找到最佳的连接路径，通过尝试所有可能的选项,然后选择最合适的方案。ICE首先尝试使用从设备的操作系统和网卡获得的主机地址建立连接；如果失败（设备位于NAT后），ICE将使用STUN服务器获取设备外网地址；如果失败，则使用TURN服务器作为中继转发流量（媒体和数据流）。</p>
+<p>也就是说：</p>
+<ul>
+<li>STUN服务器用于获取设备的外网地址。</li>
+<li>TURN服务器用于转发流量，在P2P连接失败的情况下发挥作用。</li>
+</ul>
+<p>STUN和或TURN服务器的URL（可选）由iceServers配置对象中的WebRTC应用程序指定，该对象是RTCPeerConnection构造函数的第一个参数：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="string">'iceServers'</span>: [</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="string">'urls'</span>: <span class="string">'stun:stun.l.google.com:19302'</span></span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="string">'urls'</span>: <span class="string">'turn:192.158.29.39:3478?transport=udp'</span>,</span><br><span class="line">      <span class="string">'credential'</span>: <span class="string">'JZEOEt2V3Qb0y27GRntt2u2PAYA='</span>,</span><br><span class="line">      <span class="string">'username'</span>: <span class="string">'28224511:1379330808'</span></span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="string">'urls'</span>: <span class="string">'turn:192.158.29.39:3478?transport=tcp'</span>,</span><br><span class="line">      <span class="string">'credential'</span>: <span class="string">'JZEOEt2V3Qb0y27GRntt2u2PAYA='</span>,</span><br><span class="line">      <span class="string">'username'</span>: <span class="string">'28224511:1379330808'</span></span><br><span class="line">    &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="STUN服务器"><a href="#STUN服务器" class="headerlink" title="STUN服务器"></a>STUN服务器</h4><p>NAT为设备提供IP地址，以便在内网中使用，但此地址不能在外部使用。如果没有公共地址，WebRTC对等方就无法进行通信。为了解决这个问题，WebRTC使用STUN服务器。</p>
+<p>STUN服务器位于<strong>公网</strong>上，其工作非常简单：检查传入请求的IP:port，并将该地址作为响应发回。也就是说，应用程序使用STUN服务器从外网是脚下发现其IP:Port。此过程使WebRTC客户端获取自己的公网地址，然后通过信令机制将其传递给另一个苦护短，以便建立P2P连接。</p>
+<p><strong>STUN服务器的工作非常简单，因此可以处理大量请求</strong>，这也是有很多免费的STUN服务器提供的原因。</p>
+<blockquote>
+<p>根据webrtcstats.com，WebRTC使用STUN成功建立连接的概率为：86％</p>
+</blockquote>
+<p><img src="https://www.html5rocks.com/en/tutorials/webrtc/infrastructure/stun.png" alt=""></p>
+<center><i>使用STUN服务器获取公网地址</i></center>
+
+<h4 id="TURN服务器"><a href="#TURN服务器" class="headerlink" title="TURN服务器"></a>TURN服务器</h4><p>在P2P连接失败后，WebRTC会利用TURN服务器作为中继进行通信。需要强调的是：<strong>TURN在不同客户端之间中转的是音频/视频/数据流，而不是信令数据。</strong></p>
+<p>TURN服务器具有公网地址，因此即使客户端位于防火墙或代理之后，也可以与其进行联系。 TURN服务器需要中转大量的视频音频等数据，因此相对STUN服务器，它们需要消耗大量带宽。</p>
+<p><img src="https://www.html5rocks.com/en/tutorials/webrtc/infrastructure/turn.png" alt=""></p>
+<center><i>完整的框架：STUN、TURN、SIGNALING</i></center>
+
+<p>在上图中，若使用STUN无法建立连接，将会使用TURN进行中继。</p>
+<h3 id="附录：NAT分类与STUN-TURN"><a href="#附录：NAT分类与STUN-TURN" class="headerlink" title="附录：NAT分类与STUN/TURN"></a>附录：NAT分类与STUN/TURN</h3><h4 id="基础概念"><a href="#基础概念" class="headerlink" title="基础概念"></a>基础概念</h4><p>一个IP连接由两个IP组成的连接“四元组”决定：</p>
+<ul>
+<li>(Source IP address, source port number)</li>
+<li>(Destination IP address, destination port number)</li>
+</ul>
+<p>即（源地址，源端口）和（目标地址，目标端口），可视化如下：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">(SRC_ADDR, SRC_PORT) -&gt; (DST_ADDR, DST_PORT)</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>NOTE</p>
+<ul>
+<li><code>-&gt;</code> 表示连接的方向</li>
+<li><code>(ADDR, PORT)</code> 表示一个（IP地址，IP端口）元组</li>
+<li><code>(SRC_ADDR, SRC_PORT)</code> 表示发起连接的机器的IP</li>
+<li><code>(DST_ADDR, DST_PORT)</code> 表示接收连接的机器的IP</li>
+</ul>
+</blockquote>
+<p>NAT(Network Address Translation) 是一种广泛应用的解决IP 短缺的有效方法， NAT 将内网地址转和端口号换成合法的公网地址和端口号，建立一个会话，与公网主机进行通信。可视化如下：</p>
+<p>NAT分为两大类：锥型和对称型，而锥型又分为三种类型，分类如下：</p>
+<ul>
+<li>锥形 cone NAT<ul>
+<li>全锥形 Full Cone NAT</li>
+<li>地址受限锥形 Address-Restricted Cone NAT</li>
+<li>端口受限锥形 Port-Restricted Cone NAT</li>
+</ul>
+</li>
+<li>对称形 Symmetric NAT</li>
+</ul>
+<h4 id="全锥形-Full-Cone-NAT"><a href="#全锥形-Full-Cone-NAT" class="headerlink" title="全锥形 Full Cone NAT"></a>全锥形 Full Cone NAT</h4><p>全锥NAT 把所有来自相同内部IP地址和端口的请求映射到相同的外部IP 地址和端口。任何一个外部主机均可通过该映射发送数据包到该内部主机，可视化如下：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">    &#123;NAT internal side&#125;  |    &#123;NAT external side&#125;  |  &#123;Remote machine&#125;</span><br><span class="line">                         |                         |</span><br><span class="line">1. (INT_ADDR, INT_PORT) &#x3D;&gt; [ (EXT_ADDR, INT_PORT) -&gt; (REM_ADDR, REM_PORT) ]</span><br><span class="line">2. (INT_ADDR, INT_PORT) &lt;&#x3D; [ (EXT_ADDR, INT_PORT) &lt;- (   *    ,    *    ) ]</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p><code>*</code>表示所有值都可以使用，任何一个外部主机都可以通过该映射建立连接。</p>
+</blockquote>
+<h4 id="地址受限锥形-Address-Restricted-Cone-NAT"><a href="#地址受限锥形-Address-Restricted-Cone-NAT" class="headerlink" title="地址受限锥形 Address-Restricted Cone NAT"></a>地址受限锥形 Address-Restricted Cone NAT</h4><p>地址受限锥形NAT 把所有来自相同内部IP 地址和端口的请求映射到相同的外部IP 地址和端口。但是, 和全锥NAT 不同的是：只有当内部主机先给外部主机发送数据包, 该外部主机才能向该内部主机发送数据包，可视化如下：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">    &#123;NAT internal side&#125;  |    &#123;NAT external side&#125;  |  &#123;Remote machine&#125;</span><br><span class="line">                         |                         |</span><br><span class="line">1. (INT_ADDR, INT_PORT) &#x3D;&gt; [ (EXT_ADDR, INT_PORT) -&gt; (REM_ADDR, REM_PORT) ]</span><br><span class="line">2. (INT_ADDR, INT_PORT) &lt;&#x3D; [ (EXT_ADDR, INT_PORT) &lt;- (REM_ADDR,    *    ) ]</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>在第二步中，REM_ADDR必须和第一步中相同，但是REM_PORT没有限制。</p>
+</blockquote>
+<h4 id="端口受限锥形-Port-Restricted-Cone-NAT"><a href="#端口受限锥形-Port-Restricted-Cone-NAT" class="headerlink" title="端口受限锥形 Port-Restricted Cone NAT"></a>端口受限锥形 Port-Restricted Cone NAT</h4><p>端口受限锥形NAT 与地址受限锥形NAT 类似, 只是多了端口号的限制, 即只有内部主机先向外部地址和端口号元组发送数据包, 该外部主机才能使用特定的端口号向内部主机发送数据包，可视化如下：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">    &#123;NAT internal side&#125;  |    &#123;NAT external side&#125;  |  &#123;Remote machine&#125;</span><br><span class="line">                         |                         |</span><br><span class="line">1. (INT_ADDR, INT_PORT) &#x3D;&gt; [ (EXT_ADDR, INT_PORT) -&gt; (REM_ADDR, REM_PORT) ]</span><br><span class="line">2. (INT_ADDR, INT_PORT) &lt;&#x3D; [ (EXT_ADDR, INT_PORT) &lt;- (REM_ADDR, REM_PORT) ]</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>在第二步中，REM_ADDR和REM_PORT都要和第一步相同。</p>
+</blockquote>
+<h4 id="对称形-Symmetric-NAT"><a href="#对称形-Symmetric-NAT" class="headerlink" title="对称形 Symmetric NAT"></a>对称形 Symmetric NAT</h4><p>对称形NAT 与上述3 种锥类都不同，当同一内部主机使用相同的端口与不同地址的外部主机进行通信时, 对称NAT 会重新建立一个Session ，为这个Session 分配新的外部端口号，或许还会改变IP 地址。 这意味着从同一本地端口到两个不同远程计算机的两个连续连接将具有两个不同的外部端口，即使是同一内部主机，可视化如下：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">    &#123;NAT internal side&#125;  |    &#123;NAT external side&#125;  |  &#123;Remote machine&#125;</span><br><span class="line">                         |                         |</span><br><span class="line">1. (INT_ADDR, INT_PORT) &#x3D;&gt; [ (EXT_ADDR, EXT_PORT1) -&gt; (REM_ADDR, REM_PORT1) ]</span><br><span class="line">2. (INT_ADDR, INT_PORT) &lt;&#x3D; [ (EXT_ADDR, EXT_PORT1) &lt;- (REM_ADDR, REM_PORT1) ]</span><br><span class="line">...</span><br><span class="line">3. (INT_ADDR, INT_PORT) &#x3D;&gt; [ (EXT_ADDR, EXT_PORT2) -&gt; (REM_ADDR, REM_PORT2) ]</span><br><span class="line">4. (INT_ADDR, INT_PORT) &lt;&#x3D; [ (EXT_ADDR, EXT_PORT2) &lt;- (REM_ADDR, REM_PORT2) ]</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>在第一步中建立连接，分配的外部端口号为EXT_PORT1</p>
+<p>在第三步中建立新的连接，分配的外部端口号为EXT_PORT2，<strong>外部端口号发生变化</strong>。</p>
+</blockquote>
+<h4 id="STUN-TURN与NAT的关系"><a href="#STUN-TURN与NAT的关系" class="headerlink" title="STUN/TURN与NAT的关系"></a>STUN/TURN与NAT的关系</h4><p>假设客户端A和客户端B需要建立P2P连接，在锥形NAT中，由于<code>(EXT_ADDR, EXT_PORT)</code>是不会发生变化的，所以我们可以通过STUN获取该客户段A和B的外部IP和端口，然后让两者建立连接。</p>
+<p>在对称形NAT中，由于<code>(EXT_ADDR, EXT_PORT)</code>中的端口会发生变化，当客户端A和B与STUN服务器建立连接，获取外部IP和端口后。两者利用该外部IP和端口建立P2P连接，对称NAT会为A和B分配新的外部端口，因此无法建立连接。所以，对于对称形NAT，我们需要通过TURN服务器进行信息转发。</p>
+]]></content>
+      <categories>
+        <category>技术分析</category>
+      </categories>
+      <tags>
+        <tag>WebRTC</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>google map 比例尺算法分析</title>
+    <url>/2017/12/24/google-map-%E6%AF%94%E4%BE%8B%E5%B0%BA%E7%AE%97%E6%B3%95%E5%88%86%E6%9E%90/</url>
+    <content><![CDATA[<p>比例尺即地图右下角显示地图距离与实际距离比例的控件，由于Google map自带比例尺控件存在的局限性——无法调整位置和格式，所以通过此文章，介绍比例尺算法及具体实现。</p>
+<a id="more"></a>
+<h3 id="什么是比例尺"><a href="#什么是比例尺" class="headerlink" title="什么是比例尺"></a>什么是比例尺</h3><p>比例尺是表示<a href="http://baike.baidu.com/view/5454725.htm" target="_blank" rel="noopener">图上距离</a>比实地距离缩小的程度，因此也叫<a href="http://baike.baidu.com/view/1559050.htm" target="_blank" rel="noopener">缩尺</a>。用公式表示为：比例尺=<a href="http://baike.baidu.com/view/5454725.htm" target="_blank" rel="noopener">图上距离</a>/实地距离。在Google map上比例尺显示在右下角。</p>
+<p>在创建地图时只需增加设置项</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">scaleControl: true</span><br></pre></td></tr></table></figure>
+<p>如下例</p>
+<iframe scrolling="no" width="100%" height="300" src="https://jsfiddle.net/yinxiaojian/yL9mxdzp/embedded/js,resources,html,css,result/light" frameborder="0" loading="lazy" allowfullscreen></iframe>
+<p>遗憾的是这样添加的比例尺会存在于右下角，而且不像其他控件一样可以调整位置。如果我们希望修改其位置或者样式，就会无从下手。</p>
+<h3 id="自制比例尺"><a href="#自制比例尺" class="headerlink" title="自制比例尺"></a>自制比例尺</h3><p>实现一个比例尺的关键在于如何获取到地图距离与实际距离的比例和缩放等级及维度之间的关系。google官方api未提供相关函数，因此我们需要自己计算。核心公式为</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">ScaleValue &#x3D; 156543.03392 * Math.cos(latLng.lat() * Math.PI &#x2F; 180) &#x2F; Math.pow(2, zoom)</span><br></pre></td></tr></table></figure>
+<p>其中zoom为当前缩放等级，latLng.lat()即目标点维度值。该公式是在地球半径为6378137m的基础上计算的，这个值即google地图所采用的值。</p>
+<p>有了计算公式后，我们还需要一张表——缩放等级和比例尺对应表，也就是在什么样的缩放等级下使用多大的比例尺，表格如下:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Zoom    Scale</span><br><span class="line">0    10000km</span><br><span class="line">1    5000km</span><br><span class="line">2    2000km</span><br><span class="line">3    1000km</span><br><span class="line">4    500km</span><br><span class="line">5    200km</span><br><span class="line">6    200km</span><br><span class="line">7    100km</span><br><span class="line">8    50km</span><br><span class="line">9    20km</span><br><span class="line">10   10km</span><br><span class="line">11   5km</span><br><span class="line">12   2km</span><br><span class="line">13   1km</span><br><span class="line">14   500m</span><br><span class="line">15   200m</span><br><span class="line">16   200m</span><br><span class="line">17   100m</span><br><span class="line">18   50m</span><br><span class="line">19   20m</span><br><span class="line">20   10m</span><br><span class="line">21   5m</span><br><span class="line">22   2m</span><br><span class="line">23   1m</span><br><span class="line">24   1m</span><br><span class="line">25   1m</span><br><span class="line">26   1m</span><br></pre></td></tr></table></figure>
+<p>通过监听地图变化事件（缩放和平移），获取当前屏幕中心点缩放等级和维度获取到scale和scalevalue，那么比例尺的长度（px） = scale/scalevalue。</p>
+<p>获取当前比例尺长度的核心代码如下：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 根据缩放等级和维度获取KM数(m数)和像素</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">setScaleInfos</span>(<span class="params">zoomLevel, lat, map</span>) </span>&#123;</span><br><span class="line">	<span class="comment">// 缩放等级-比例尺</span></span><br><span class="line">	<span class="keyword">var</span> zoomList = [&#123;</span><br><span class="line">		text: <span class="string">"10000KM"</span>,</span><br><span class="line">		value: <span class="number">10000</span> * <span class="number">1000</span></span><br><span class="line">	&#125;, &#123;</span><br><span class="line">		text: <span class="string">"5000KM"</span>,</span><br><span class="line">		value: <span class="number">5000</span> * <span class="number">1000</span></span><br><span class="line">	&#125;, &#123;</span><br><span class="line">		text: <span class="string">"2000KM"</span>,</span><br><span class="line">		value: <span class="number">2000</span> * <span class="number">1000</span></span><br><span class="line">	&#125;, &#123;</span><br><span class="line">		text: <span class="string">"1000KM"</span>,</span><br><span class="line">		value: <span class="number">1000</span> * <span class="number">1000</span></span><br><span class="line">	&#125;, &#123;</span><br><span class="line">		text: <span class="string">"500KM"</span>,</span><br><span class="line">		value: <span class="number">500</span> * <span class="number">1000</span></span><br><span class="line">	&#125;, &#123;</span><br><span class="line">		text: <span class="string">"200KM"</span>,</span><br><span class="line">		value: <span class="number">200</span> * <span class="number">1000</span></span><br><span class="line">	&#125;, &#123;</span><br><span class="line">		text: <span class="string">"200KM"</span>,</span><br><span class="line">		value: <span class="number">200</span> * <span class="number">1000</span></span><br><span class="line">	&#125;, &#123;</span><br><span class="line">		text: <span class="string">"100KM"</span>,</span><br><span class="line">		value: <span class="number">100</span> * <span class="number">1000</span></span><br><span class="line">	&#125;, &#123;</span><br><span class="line">		text: <span class="string">"50KM"</span>,</span><br><span class="line">		value: <span class="number">50</span> * <span class="number">1000</span></span><br><span class="line">	&#125;, &#123;</span><br><span class="line">		text: <span class="string">"20KM"</span>,</span><br><span class="line">		value: <span class="number">20</span> * <span class="number">1000</span></span><br><span class="line">	&#125;, &#123;</span><br><span class="line">		text: <span class="string">"10KM"</span>,</span><br><span class="line">		value: <span class="number">10</span> * <span class="number">1000</span></span><br><span class="line">	&#125;, &#123;</span><br><span class="line">		text: <span class="string">"5KM"</span>,</span><br><span class="line">		value: <span class="number">5000</span></span><br><span class="line">	&#125;, &#123;</span><br><span class="line">		text: <span class="string">"2KM"</span>,</span><br><span class="line">		value: <span class="number">2000</span></span><br><span class="line">	&#125;, &#123;</span><br><span class="line">		text: <span class="string">"1KM"</span>,</span><br><span class="line">		value: <span class="number">1000</span></span><br><span class="line">	&#125;, &#123;</span><br><span class="line">		text: <span class="string">"500m"</span>,</span><br><span class="line">		value: <span class="number">500</span></span><br><span class="line">	&#125;, &#123;</span><br><span class="line">		text: <span class="string">"200m"</span>,</span><br><span class="line">		value: <span class="number">200</span></span><br><span class="line">	&#125;, &#123;</span><br><span class="line">		text: <span class="string">"200m"</span>,</span><br><span class="line">		value: <span class="number">200</span></span><br><span class="line">	&#125;, &#123;</span><br><span class="line">		text: <span class="string">"100m"</span>,</span><br><span class="line">		value: <span class="number">100</span></span><br><span class="line">	&#125;, &#123;</span><br><span class="line">		text: <span class="string">"50m"</span>,</span><br><span class="line">		value: <span class="number">50</span></span><br><span class="line">	&#125;, &#123;</span><br><span class="line">		text: <span class="string">"20m"</span>,</span><br><span class="line">		value: <span class="number">20</span></span><br><span class="line">	&#125;, &#123;</span><br><span class="line">		text: <span class="string">"10m"</span>,</span><br><span class="line">		value: <span class="number">10</span></span><br><span class="line">	&#125;, &#123;</span><br><span class="line">		text: <span class="string">"5m"</span>,</span><br><span class="line">		value: <span class="number">5</span></span><br><span class="line">	&#125;, &#123;</span><br><span class="line">		text: <span class="string">"2m"</span>,</span><br><span class="line">		value: <span class="number">2</span></span><br><span class="line">	&#125;, &#123;</span><br><span class="line">		text: <span class="string">"1m"</span>,</span><br><span class="line">		value: <span class="number">1</span></span><br><span class="line">	&#125;, &#123;</span><br><span class="line">		text: <span class="string">"1m"</span>,</span><br><span class="line">		value: <span class="number">1</span></span><br><span class="line">	&#125;, &#123;</span><br><span class="line">		text: <span class="string">"1m"</span>,</span><br><span class="line">		value: <span class="number">1</span></span><br><span class="line">	&#125;, &#123;</span><br><span class="line">		text: <span class="string">"1m"</span>,</span><br><span class="line">		value: <span class="number">1</span></span><br><span class="line">	&#125;];</span><br><span class="line">	<span class="comment">// 宽度</span></span><br><span class="line">	<span class="keyword">var</span> pxValue = <span class="built_in">Math</span>.floor(zoomList[zoomLevel].value / (<span class="number">156543.03392</span> * <span class="built_in">Math</span>.cos(lat * <span class="built_in">Math</span>.PI / <span class="number">180</span>) / <span class="built_in">Math</span>.pow(<span class="number">2</span>, zoomLevel)));</span><br><span class="line">	<span class="comment">// 更新经纬度数据</span></span><br><span class="line">	$W.id(<span class="string">"scaleText"</span>).innerHTML = zoomList[zoomLevel].text;</span><br><span class="line">	$W.id(<span class="string">"scaleSize"</span>).style.width = pxValue + <span class="string">"px"</span>;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>下面是通过上述思路实现的例子，在地图右下角实现一个比例尺。</p>
+<iframe scrolling="no" width="100%" height="300" src="https://jsfiddle.net/yinxiaojian/6eutbuyr/embedded/js,resources,html,css,result/light" frameborder="0" loading="lazy" allowfullscreen></iframe>]]></content>
+      <categories>
+        <category>前端</category>
+      </categories>
+      <tags>
+        <tag>google map</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>java类与成员访问控制</title>
     <url>/2017/10/27/java%E7%B1%BB%E4%B8%8E%E6%88%90%E5%91%98%E8%AE%BF%E9%97%AE%E6%8E%A7%E5%88%B6/</url>
     <content><![CDATA[<p>java访问控制是基础中的基础，有public/private/protected/default四个类型，一般分为类的访问控制和成员访问控制两个类型。<br><a id="more"></a></p>
@@ -940,11 +745,6 @@ c_t = f_t \odot c_{t-1} + i_t \odot \tilde{c}_t,</script><p>if $f_t = 1$, $c_{t-
         <tag>machine learning</tag>
         <tag>deep learning</tag>
       </tags>
-  </entry>
-  <entry>
-    <title>wide &amp; deep learning for recommender systems</title>
-    <url>/2020/05/23/wide-deep-learning-for-recommender-systems/</url>
-    <content><![CDATA[]]></content>
   </entry>
   <entry>
     <title>机器学习-决策树</title>
@@ -1054,6 +854,227 @@ Ent(\widetilde{D}) = -\sum_{k=1}^{|y|}\widetilde{p}_klog_2\widetilde{p}_k</scrip
       </categories>
       <tags>
         <tag>machine learing</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>CNN反向传播算法</title>
+    <url>/2018/03/21/CNN%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD%E7%AE%97%E6%B3%95/</url>
+    <content><![CDATA[<blockquote>
+<p>全文翻译自 Notes on Convolutional Neural Networks </p>
+<p><a href="http://web.mit.edu/jvb/www/papers/cnn_tutorial.pdf" target="_blank" rel="noopener">论文链接</a></p>
+<p>释部分为自己的补充说明，可能存在错误</p>
+</blockquote>
+<a id="more"></a>
+<h3 id="1-介绍"><a href="#1-介绍" class="headerlink" title="1 介绍"></a>1 介绍</h3><p>本文档讨论CNN的推导和实现，并加上一些简单的扩展。相比权值，卷积神经网络涉及到更多的连接。其架构本身实现了正则化。此外，CNN在某种程度上实现了平移不变性。这种特殊的神经网络假设我们希望通过数据驱动的方式学习过滤器，用来提取输入特征。推导是在二维的数据和卷积的基础上展开的，但可以很容易的推广到任意维度。</p>
+<p>我们先对经典的BP算法做一个描述，然后推导2D卷积神经网络中卷积层和子采样层（池化层）的BP权值更新方法。在整个过程中，我们强调了视线的效率，给出MATLAB代码片段配合方程讲解。然后讨论如何自动组合前一层的feature map，最后是feature map的稀疏组合。</p>
+<p>免责声明：这个笔记可能有错误。</p>
+<blockquote>
+<p>feature map 就是特征矩阵，一张图片的每个像素点的RGB值可分别组成矩阵（R矩阵，G矩阵，B矩阵），这些就是feature map</p>
+</blockquote>
+<h3 id="2-全连接的反向传播算法"><a href="#2-全连接的反向传播算法" class="headerlink" title="2 全连接的反向传播算法"></a>2 全连接的反向传播算法</h3><p>一个典型的卷积神经网络，开始是卷积层和子采样层交替，最后几层（最接近输出）是全连接的一维网络（全连接层）。当你准备将2D feature map作为一维全连接网络的输入时，直接将所有特征连接为一个一维向量，然后就可以利用BP算法。因此在讨论CNN之前，这里先对BP算法进行解释。</p>
+<h4 id="2-1-前向传播-Feedforward-Pass"><a href="#2-1-前向传播-Feedforward-Pass" class="headerlink" title="2.1 前向传播 Feedforward Pass"></a>2.1 前向传播 Feedforward Pass</h4><p>在接下来的推导中，我们考虑平方和误差函数，对于一个有c个类别和N个训练样本的多分类问题，计算公式如下：</p>
+<script type="math/tex; mode=display">
+E^N=\frac{1}{2}\sum_{n=1}^{N}\sum_{k=1}^{c}(t_k^n-y_k^n)^2</script><p>$t_k^n$是第n个样本对应标签的第k个维度的值，$y_k^n$表示第n个样本对应的网络输出的第k个值。对于多分类问题，输出一般为“one-of-c”形式。如果样本$x^n$属于第k类，那么$t_k^n$为正，$t^n$的其他维度即$t_{k\neq1}^n$为0或负数。这取决于输出激活函数的选择，此处不做讨论。</p>
+<p>因为整个训练集的误差为每个训练样本的误差和，所以我们先讨论一个样本。第n个样本的误差如下：</p>
+<script type="math/tex; mode=display">
+E^N=\frac{1}{2}\sum_{n=1}^{N}\sum_{k=1}^c(t_k^n-y_k^n)^2=\frac{1}{2}||t^n-y^n||_2^2\tag{1}</script><p>在全连接层，我们可以根据反向传播规则计算E对网络权值的偏导数。用$l$代表当前层，输出层被指定为$L$层，输入层为第1层，那么当前层的输出为</p>
+<script type="math/tex; mode=display">
+x^l=f(u^l), with \space u^l=W^lx^{l-1}+b^l\tag{2}</script><p>输出激活函数$f(\cdot)$一般选择logistic(sigmoid)函数$f(x)=(1+e^{-\beta x})^{-1}$或者hyperbolic tangent函数$f(x)=a\space tanh(bx)$。logistic函数将$[-\infty,\infty]$映射到$[0,1]$，hyperbolic tangent函数将$[-\infty,\infty]$映射到$[-a,a]$，因此hyperbolic tangent函数的输出平均值一般趋于0，sigmoid函数的输出平均为非零。但是如果将训练数据归一化到均值为0方差为1，可以在梯度下降时增加收敛。对于归一化的数据集来说，hyperbolic tangent函数是较好的选择。LeCun推荐$a=1.7159,b=2/3$，所以最大非线性点在$f(\pm1)=\pm1$，因此对预期训练目标进行正则化将会避免训练饱和。</p>
+<h4 id="2-2-反向传播-Backpropagation-Pass"><a href="#2-2-反向传播-Backpropagation-Pass" class="headerlink" title="2.2 反向传播 Backpropagation Pass"></a>2.2 反向传播 Backpropagation Pass</h4><p>通过网络反向传播的误差可以看作每个神经元关于偏差扰动的敏感度（sensitivities），通过链式法则可得：</p>
+<blockquote>
+<p>敏感度就是误差对目标的偏导数</p>
+</blockquote>
+<script type="math/tex; mode=display">
+\begin{equation}
+\frac{\partial{E}}{\partial{b}}=\frac{\partial{E}}{\partial{u}}\frac{\partial{u}}{\partial{b}}=\delta
+\end{equation}\tag{3}</script><p>因为$\frac{\partial{u}}{\partial{b}}=1$，所以bias的敏感度和误差对一个神经元的输入的偏导数是相等的。利用这个关系将高层误差反向传播到底层，使用下面的递推关系式：</p>
+<script type="math/tex; mode=display">
+\delta^t=(W^{l+1})^T\delta^{l+1}\circ f'(u^t)\tag{4}</script><p>其中$\circ$表示对应位置元素相乘，从公式（1）可以看到，输出层神经元的敏感度会有一些不同：</p>
+<script type="math/tex; mode=display">
+\delta^L=f'(u^L)\circ(y^n-t^n)</script><p>最后，对每个神经元运用delta规则进行更行，即对神经元的输入使用delta进行缩放。用向量的形式表述就是：输入向量（前一层的输出）和灵敏度向量之间的一个外积：</p>
+<script type="math/tex; mode=display">
+\frac{\partial{E}}{\partial{W^l}}=x^{l-1}(\delta^l)^T\tag{5}</script><script type="math/tex; mode=display">
+\bigtriangleup W^l=-\eta\frac{\partial{E}}{\partial{W^l}}\tag{6}</script><p>更新偏置值（bias）也是相同的原理，在实际中通常为每个权值赋予一个特定的学习率$\eta_{ij}$。</p>
+<h3 id="3-卷积神经网络-Convolutional-Neural-Networks"><a href="#3-卷积神经网络-Convolutional-Neural-Networks" class="headerlink" title="3 卷积神经网络 Convolutional Neural Networks"></a>3 卷积神经网络 Convolutional Neural Networks</h3><blockquote>
+<p>公式符号释意</p>
+<p>在本文中卷积核有多个，每个卷积核和feature map有多个维度，例如一张图片有RGB值，那么就有三个维度</p>
+<p>$i$——卷积核或者feature的第几维度<br>$j$——第几个卷积核<br>$up()$——上采样函数<br>$down()$——下采样函数<br>$l$——当前层</p>
+</blockquote>
+<p>通常卷积层和子采样层交替以减少计算时间并逐步建立空间和结构不变性。为了同时保持特异性，需要小的子采样因子。这并不是什么新鲜的概念，但简洁有效。这种模型在哺乳动物的视觉皮层非常常见，在过去十年，听觉神经科学发现，这些相同的设计范例可以在多种不同动物皮层的主要和带状听觉区域中找到。 分级分析和学习架构可能仍然是听觉领域的关键。</p>
+<h4 id="3-1-卷积层-Convolution-Layers"><a href="#3-1-卷积层-Convolution-Layers" class="headerlink" title="3.1 卷积层 Convolution Layers"></a>3.1 卷积层 Convolution Layers</h4><p>我们现在推导卷积层的BP更行。在一个卷积层，上一层的feature map与一个卷积核进行卷积运算，然后通过一个激活函数获得输出feature map。每个输出map可能是多个卷积结果的结合，公式表述：</p>
+<script type="math/tex; mode=display">
+x_j^l=f\left(\sum_{i\in M_j}x_i^{l-1}*k_{ij}^{l}+b_j^l\right)</script><p>$M_j$表示输入maps的集合，在MATLAB中卷积的运算需采用”valid”模式。通常情况下，输入maps选择一对或者三个。后面我们会讨论如何自动选择需要组合的特征map。每一个输出map都会加上一个偏执项$b$，但是对于一个特定的输出map，输入maps会和相同的卷积核进行卷积运算，也就是说，如果输出map $j$ 和 $k$ 都是由map $i$通过卷积运算的结果，那么对应的卷积核是不同的。</p>
+<blockquote>
+<p>一张图片有RGB三个颜色通道，则对应的卷积核也是三维的，输出的feature map就是三个卷积结果的结合</p>
+<p><img src="https://ws3.sinaimg.cn/large/005PPQ5Ily1g0ymwrjv8jg30m50iqaob.gif" alt="CNN_02"></p>
+</blockquote>
+<p>3.1.1 Computing the Gradients</p>
+<p>我们假设每个卷积层$l$后面都接一个子采样层 $l+1$。在使用BP算法计算 $l$ 层每个节点的敏感度时，我们需要先对下一层（$l+1$层）连接当前层（$l$层）的节点的敏感度求和，再乘以这些连接对应的权值（连接$l$层和$l+1$层的权值），最后乘以当前层$l$的该神经元节点的输入$u$的激活函数$f$的导数值。因为下采样的存在，采样层的一个像素（神经元）对应的灵敏度$\delta$对应于卷积层（上一层）的输出map的一块像素（采样窗口大小）。因此，$l$层中的map的每个节点只与$l+1$层中相应map的一个节点连接。为了有效计算$l$层的敏感度，我们可以对下采样层的敏感，度map进行“上采样(upsample)”操作，这样可以使下采样层的敏感度map的大小和卷积层的map大小相同，然后将$l$层的激活值偏导map和$l+1$层的上采样敏感度map对应元素相乘。因为下采样层map的权值均是一个常数$\beta$（见3.2节），所以我们只需要将上一步得到的结果乘以 $ \beta$ 就可以得到$l$层的敏感度map $\delta^l$。我们可以在卷积层的每个feature map进行相同的计算过程：</p>
+<script type="math/tex; mode=display">
+\delta_j^l=\beta_j^{l+1}\left(f'(u_j^l)\circ up(\delta_j^{l+1})\right)</script><p>其中的 $up(\cdot)$表示上采样操作，如果下采样过程的采样因子为$n$，只需将每个像素点在水平方向和垂直方向复制$n$次就可以实现，一种有效的实现方式是利用 Kronecker product:</p>
+<script type="math/tex; mode=display">
+up(x)=x\otimes1_{n\times n}</script><blockquote>
+<p>Ref:<a href="https://zh.wikipedia.org/zh/克罗内克积" target="_blank" rel="noopener">克罗内克积</a></p>
+</blockquote>
+<p>现在对于一个给定的map，我们已经可以计算其敏感度map，然后我们可以简单的对敏感度map的所有节点求和计算出其bias（偏置项）梯度:</p>
+<script type="math/tex; mode=display">
+\frac{\partial{E}}{\partial{b_j}}=\sum_{u,v}(\delta_j^l)_{uv}</script><p>最后，使用BP算法计算权重（卷积核）的梯度，很多权重在连接中是共享的，因此我们需要对所有与该权值有联系（权值共享的连接）的连接对该点求梯度，然后对这些梯度进行求和，就像计算bias梯度一样：</p>
+<script type="math/tex; mode=display">
+\frac{\partial{E}}{\partial{k_{ij}^l}}=\sum_{u,v}(\delta_j^l)_{uv}(p_i^{l-1})_{uv}\tag{7}</script><p>其中$(p_i^{l-1})_{uv}$是$x_i^{l-1}$在卷积运算时和$k_{ij}^l$按元素相乘得到输出map的$(u,v)$位置值的patch。看上去好像我们我刻意追踪输入map中哪些patch与输出map中的哪些像素（及其对应的敏感map）相对应，但是公式(7)可以通过卷积运算获得:</p>
+<script type="math/tex; mode=display">
+\frac{\partial{E}}{\partial{k_{ij}^l}}=rot180(conv2(x_i^{l-1},rot180(\delta_j^l),'valid'))</script><p>这里我们对$\delta$敏感度map做旋转操作是为了这样就可以进行互相关计算而不是卷积，之后将输出旋转回来，以便当我们在前馈阶段执行卷积时，卷积核将具有正确的方向。</p>
+<h4 id="3-2-子采样层-Sub-sampling-Layers"><a href="#3-2-子采样层-Sub-sampling-Layers" class="headerlink" title="3.2 子采样层 Sub-sampling Layers"></a>3.2 子采样层 Sub-sampling Layers</h4><p>子采样层对输入maps进行downsample操作（池化），输入有N个maps，输出也会有N个maps，只是每个maps变小了，公式表述如下：</p>
+<script type="math/tex; mode=display">
+x_j^l=f\left(\beta_j^ldown(x_j^{l-1})+b_j^l\right)</script><p>其中的$down(\cdot)$是下采样函数。典型的操作一般是对输入图像的不同$n\times n$的块的像素进行求和。这样输出图像在两个维度上都缩小了n倍。每个输出map都有一个属于自己的乘性偏置β和一个加性偏置b。</p>
+<p>3.2.1 Computing the Gradients</p>
+<p>这里的困难在于如何计算敏感度maps。只要我们能得到敏感度maps，需要更新的只有bias参数 $\beta$ 和 $b$ 。如果子采样层的下一层是全连接层，那么子采样层的敏感度maps只需要利用BP算法就可以容易获得。所以我们假设子采样层的上一层和下一层都是卷积层。</p>
+<p>当我们在3.1.1节计算卷积核梯度时，我们需要找到输入map中patch和输出map的像素的对应关系。这里就是必须找到当前层的敏感度map中那个patch与下一层的敏感度矩阵的的给定像素对应，这样就可以像公式 (4)那样应用$\delta$递推。 当然，将输入patch和输出像素之间连接相乘的权重恰好是（旋转的）卷积核的权重。利用卷积可以实现该计算：</p>
+<script type="math/tex; mode=display">
+\delta_j^l=f'(u_j^l)\circ conv2(\delta_j^{l+1},rot180(k_j^{l+1}),full)</script><p>如前所述，我们旋转内核是为了是卷积函数实施互相关计算。同时，我们需要对卷积边界进行“full”处理，Matlab的卷积函数会自动执行这个过程，对缺少的输入像素进行补零操作。</p>
+<p>现在我们可以很容易的计算 $b$ 和 $\beta$ 的梯度，加性基 $b$ 的处理和之前一样，将敏感度map中所有元素相加即可 ：</p>
+<script type="math/tex; mode=display">
+\frac{\partial E}{\partial b_j}=\sum_{u,v}(\delta_j^l)_{uv}</script><p>对于乘性偏置$\beta$ ，参与了前向传播时下采样map的运算，所以在前向计算时将这些maps保存，这样避免了在反向传播时重复计算。定义：</p>
+<script type="math/tex; mode=display">
+d_j^l=down(x_j^{l-1})</script><p>$\beta$ 梯度计算公式如下：</p>
+<script type="math/tex; mode=display">
+\frac{\partial E}{\partial \beta_j}=\sum_{u,v}(\delta_j^l)</script><blockquote>
+<p>补充说明：对rot180的解释</p>
+<p>假设第$l-1$层输出$x^l$是一个3x3矩阵，第$l$层卷积核$k^l$是一个2x2的矩阵，步幅为1，输出一个2x2的矩阵$z^l$，则有（简化$b^l=0$，单卷积核)</p>
+<script type="math/tex; mode=display">
+x^{l-1}*k^{l}=z^{l}</script><p>矩阵形式表达：</p>
+<script type="math/tex; mode=display">
+\left( \begin{array}{}
+x_{11}&x_{12}&x_{13}\\
+x_{21}&x_{22}&x_{23}\\
+x_{31}&x_{32}&x_{33}
+\end{array}
+\right)
+*
+\left( \begin{array}{}
+k_{11}&k_{12}\\
+k_{21}&k_{22}
+\end{array}
+\right)
+=
+\left( \begin{array}{}
+z_{11}&z_{12}\\
+z_{21}&z_{22}
+\end{array}
+\right)</script><p>根据卷积的定义可得：</p>
+<script type="math/tex; mode=display">
+z_{11}=x_{11}k_{11}+x_{12}k_{12}+x_{21}k_{21}+x_{22}k_{22}\\
+z_{12}=x_{12}k_{11}+x_{13}k_{12}+x_{22}k_{21}+x_{23}k_{22}\\
+z_{21}=x_{21}k_{11}+x_{22}k_{12}+x_{31}k_{21}+x_{32}k_{22}\\
+z_{22}=x_{22}k_{11}+x_{23}k_{12}+x_{32}k_{21}+x_{33}k_{22}</script><p>第$l$层的梯度误差为$\delta^l$，反向传导：</p>
+<script type="math/tex; mode=display">
+\frac{\partial{E}}{\partial{k^l}}=\frac{\partial{E}}{\partial{z^l}}\frac{\partial{z^l}}{\partial{k^l}}=\delta^l\frac{z^l}{k^l}</script><p>因此对于卷积核$k^l$的梯度为第$l$层的敏感度（梯度）乘上$\frac{\partial{z^l}}{\partial{k^l}}$，分别计算可得</p>
+<script type="math/tex; mode=display">
+\bigtriangledown{k_{11}}=\delta_{11}x_{11}+\delta_{12}x_{22}+\delta_{21}x_{21}+\delta_{22}x_{22}\\
+\bigtriangledown{k_{12}}=\delta_{11}x_{12}+\delta_{12}x_{13}+\delta_{21}x_{22}+\delta_{22}x_{23}\\
+\bigtriangledown{k_{21}}=\delta_{11}x_{21}+\delta_{12}x_{22}+\delta_{21}x_{31}+\delta_{22}x_{32}\\
+\bigtriangledown{k_{22}}=\delta_{11}x_{22}+\delta_{12}x_{23}+\delta_{21}x_{32}+\delta_{22}x_{33}</script><p>上面4个式子用矩阵卷积形式表示：</p>
+<script type="math/tex; mode=display">
+\left( \begin{array}{}
+x_{11}&x_{12}&x_{13}\\
+x_{21}&x_{22}&x_{23}\\
+x_{31}&x_{32}&x_{33}
+\end{array}
+\right)
+*
+\left( \begin{array}{}
+\delta_{11}&\delta_{12}\\
+\delta_{21}&\delta_{22}
+\end{array}
+\right)
+=
+\left( \begin{array}{}
+\bigtriangledown k_{11}&\bigtriangledown k_{12}\\
+\bigtriangledown k_{21}&\bigtriangledown k_{22}
+\end{array}
+\right)</script><p>公式化表达为：</p>
+<script type="math/tex; mode=display">
+\frac{\partial{E}}{\partial{k^l}}=x^{l-1}*\delta^l</script><p>这里需要注意，在论文中进行了两次旋转，这是因为在MATLAB中conv2函数在计算卷积时除了会对矩阵进行“0”扩展，还会将卷积核进行旋转，然后再计算。例如：</p>
+<figure class="highlight matlab"><table><tr><td class="code"><pre><span class="line">a =</span><br><span class="line">     <span class="number">1</span>     <span class="number">1</span>     <span class="number">1</span></span><br><span class="line">     <span class="number">1</span>     <span class="number">1</span>     <span class="number">1</span></span><br><span class="line">     <span class="number">1</span>     <span class="number">1</span>     <span class="number">1</span></span><br><span class="line">k =</span><br><span class="line">     <span class="number">1</span>     <span class="number">2</span>     <span class="number">3</span></span><br><span class="line">     <span class="number">4</span>     <span class="number">5</span>     <span class="number">6</span></span><br><span class="line">     <span class="number">7</span>     <span class="number">8</span>     <span class="number">9</span></span><br><span class="line"></span><br><span class="line">&gt;&gt; convn(a,k,<span class="string">'full'</span>)</span><br><span class="line"><span class="built_in">ans</span> =</span><br><span class="line"></span><br><span class="line">     <span class="number">1</span>     <span class="number">3</span>     <span class="number">6</span>     <span class="number">5</span>     <span class="number">3</span></span><br><span class="line">     <span class="number">5</span>    <span class="number">12</span>    <span class="number">21</span>    <span class="number">16</span>     <span class="number">9</span></span><br><span class="line">    <span class="number">12</span>    <span class="number">27</span>    <span class="number">45</span>    <span class="number">33</span>    <span class="number">18</span></span><br><span class="line">    <span class="number">11</span>    <span class="number">24</span>    <span class="number">39</span>    <span class="number">28</span>    <span class="number">15</span></span><br><span class="line">     <span class="number">7</span>    <span class="number">15</span>    <span class="number">24</span>    <span class="number">17</span>     <span class="number">9</span></span><br></pre></td></tr></table></figure>
+<p>因此在编写代码时需要注意保持一致（要么旋转，要么不旋转）。</p>
+<p>在3.2节计算 $\delta^l_j$ 也是同理</p>
+<p>利用反向传播：</p>
+<script type="math/tex; mode=display">
+\frac{\partial{E}}{\partial{x^{l-1}}}=\frac{\partial{E}}{\partial{z^l}}\frac{\partial{z^l}}{\partial{x^{l-1}}}=\delta^l\frac{z^l}{x^{l-1}}</script><p>利用上式，可得：</p>
+<script type="math/tex; mode=display">
+\bigtriangledown{x_{11}}=\delta_{11}k_{11}\\
+\bigtriangledown{x_{12}}=\delta_{11}k_{12}+\delta_{12}k_{11}\\
+\bigtriangledown{x_{13}}=\delta_{12}k_{12}\\
+\bigtriangledown{x_{21}}=\delta_{11}k_{21}+\delta_{21}k_{11}\\
+\bigtriangledown{x_{22}}=\delta_{11}k_{22}+\delta_{12}k_{21}+\delta_{21}k_{12}+\delta_{22}k_{11}\\
+\bigtriangledown{x_{23}}=\delta_{12}k_{22}+\delta_{22}k_{12}\\
+\bigtriangledown{x_{31}}=\delta_{21}k_{21}\\
+\bigtriangledown{x_{32}}=\delta_{21}k_{22}+\delta_{22}k_{21}\\
+\bigtriangledown{x_{33}}=\delta_{22}k_{22}</script><p>上面九个式子用矩阵卷积形式表示：</p>
+<script type="math/tex; mode=display">
+\left( \begin{array}{}
+0&0&0&0\\
+0&\delta_{11}&\delta_{12}&0\\
+0&\delta_{21}&\delta_{22}&0\\
+0&0&0&0
+\end{array}
+\right)
+*
+\left( \begin{array}{}
+k_{22}&k_{21}\\
+k_{12}&k_{11}
+\end{array}
+\right)
+=
+\left( \begin{array}{}
+\bigtriangledown x_{11}&\bigtriangledown x_{12}&\bigtriangledown x_{13}\\
+\bigtriangledown x_{21}&\bigtriangledown x_{22}&\bigtriangledown x_{23}\\
+\bigtriangledown x_{31}&\bigtriangledown x_{32}&\bigtriangledown x_{33}
+\end{array}
+\right)</script><p>公式化表达为：</p>
+<script type="math/tex; mode=display">
+\frac{\partial{E}}{\partial{x^{l-1}}}=\delta^l * rot180(k^l)</script></blockquote>
+<h4 id="3-3-学习特征maps组合-Learning-Combinations-of-Feature-Maps"><a href="#3-3-学习特征maps组合-Learning-Combinations-of-Feature-Maps" class="headerlink" title="3.3 学习特征maps组合 Learning Combinations of Feature Maps"></a>3.3 学习特征maps组合 Learning Combinations of Feature Maps</h4><p>通常，对不同的maps进行卷积并对结果求和获得一个输出map，往往能取得不错的效果。在一些文献中，通过人工选择输入maps进行组合。但是我们可以尝试通过训练获得这个组合。让 $a_{ij}$ 表示得到第 $j$ 个输出map中第 $i$ 个输入map的权重，那么第 $j$ 个输出map的定义如下：</p>
+<script type="math/tex; mode=display">
+x_j^l=f\left( \sum_{i=1}^{N_{in}}a_{ij}(x_i^{l-1}*k_i^l)+b_j^l\right)</script><p>同时需满足以下约束：</p>
+<script type="math/tex; mode=display">
+\sum_ia_ij=1,and \space 0\leq a_{ij}\leq1</script><p>这些约束可以通过将变量$a_{ij}$表示为softmax形式来加强：</p>
+<script type="math/tex; mode=display">
+a_{ij}=\frac{exp(c_{ij})}{\sum_kexp(c_{kj})}</script><p>因为对于固定的 $j$ 来说，每组权值 $c_{ij}$ 都和其他组权值相独立，所以为了方便描述，我们把下标 $j$ 去掉，只考虑单个map的更新，其他map的更新方式是相同的过程，只是索引 $j$ 不同。</p>
+<p>softmax函数的导数：</p>
+<script type="math/tex; mode=display">
+\frac{\partial a_k}{\partial c_i}=\delta_{ki}a_i-a_ia_k\tag{8}</script><p>这里的 $\delta$ 是 kronecker delta，参照公式 (1) 我们可以得到在 $l$ 层误差对 $a_i$ 的偏导：</p>
+<script type="math/tex; mode=display">
+\frac{\partial E}{\partial a_i}=\frac{\partial E}{\partial u^l}\frac{\partial u^l}{\partial a_i}=\sum_{u,v}(\delta^l \circ (x_i^{l-1}*k_i^l))_{uv}</script><p>这里的$\delta^l$对应具有输入 $u$ 的输出map的敏感度map。和前面一样，这里的卷积运算也是“valid”类型，目的是使结果和sensitivity map大小匹配。最后使用链式法则计算损失函数对权值 $c_i$ 的偏导数：</p>
+<script type="math/tex; mode=display">
+\begin{align}
+\frac{\partial E}{\partial c_i}&=\sum_k\frac{\partial E}{\partial a_k}\frac{\partial a_k}{\partial c_i}\tag{9}\\
+&=a_i\left( \frac{\partial E}{\partial a_i}-\sum_k\frac{\partial E}{\partial a_k}a_k\right)\tag{10}
+\end{align}</script><p> 3.3.1 Enforcing Sparse Combinations</p>
+<p>为了给 $a_i$ 增加稀疏约束（限制一个输出map只与某些而不是全部输入map相连接），我们在代价函数中添加正则项惩罚 $\Omega(a)$ 。这样就可以使某些权值趋于0，最后只有部分输入maps参与输出map相连接，代价函数为：</p>
+<script type="math/tex; mode=display">
+\widetilde{E}^n=E^n + \lambda\sum{i,j}|(a){ij}|\tag{11}</script><p>然后求这个正则项对 $c_i$梯度的影响：</p>
+<script type="math/tex; mode=display">
+\frac{\partial\Omega}{\partial a_i}=\lambda sign(a_i)\tag{12}</script><p>结合公式 (8) 的结果：</p>
+<script type="math/tex; mode=display">
+\begin{align}
+\frac{\partial\Omega}{\partial c_i}& = \sum_k\frac{\partial\Omega}{\partial a_k}\frac{\partial a_k}{\partial c_i} \\
+&=
+\lambda\left(|a_i|-a_i\sum_k|a_k|\right)
+\end{align}</script><p>最后结合公式 (13) 和公式 (9) ，可以求的权重 $c_i$ 的梯度：</p>
+<script type="math/tex; mode=display">
+\frac{\partial\widetilde{E}^n}{\partial c_i} = \frac{\partial E^n}{\partial c_i} +\frac{\partial \Omega}{\partial c_i}</script><h4 id="3-4-加快MATLAB训练速度-Making-it-Fast-with-MATLAB"><a href="#3-4-加快MATLAB训练速度-Making-it-Fast-with-MATLAB" class="headerlink" title="3.4 加快MATLAB训练速度 Making it Fast with MATLAB"></a>3.4 加快MATLAB训练速度 Making it Fast with MATLAB</h4><blockquote>
+<p>与CNN关系不大，不做翻译，可看原文</p>
+</blockquote>
+<h3 id="4-实际训练问题-Practical-Training-Issues-Incomplete"><a href="#4-实际训练问题-Practical-Training-Issues-Incomplete" class="headerlink" title="4 实际训练问题 Practical Training Issues (Incomplete)"></a>4 实际训练问题 Practical Training Issues (Incomplete)</h3><blockquote>
+<p>与CNN关系不大，不做翻译，可看原文</p>
+</blockquote>
+<script type="math/tex; mode=display">
+</script>]]></content>
+      <categories>
+        <category>artificial intelligence</category>
+      </categories>
+      <tags>
+        <tag>deep learning</tag>
       </tags>
   </entry>
 </search>

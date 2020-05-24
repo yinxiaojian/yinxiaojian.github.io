@@ -20,28 +20,40 @@
     var CONFIG = {"hostname":"blog.yinjianwen.site","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta property="og:type" content="website">
-<meta property="og:title" content="CodingxWriting">
-<meta property="og:url" content="http://blog.yinjianwen.site/page/2/index.html">
+  <meta name="description" content="Deep Crossing - Web-Scale Modeling without Manually Crafted Combinatorial Features Deep Learning over Multi-field Categorical Data Product-based Neural Networks for User Response Prediction Wide &amp;amp">
+<meta property="og:type" content="article">
+<meta property="og:title" content="深度学习CTR模型的早期演变">
+<meta property="og:url" content="http://blog.yinjianwen.site/2020/05/23/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0CTR%E6%A8%A1%E5%9E%8B%E7%9A%84%E6%97%A9%E6%9C%9F%E6%BC%94%E5%8F%98/index.html">
 <meta property="og:site_name" content="CodingxWriting">
+<meta property="og:description" content="Deep Crossing - Web-Scale Modeling without Manually Crafted Combinatorial Features Deep Learning over Multi-field Categorical Data Product-based Neural Networks for User Response Prediction Wide &amp;amp">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/yinxiaojian/blog-img/master/20200524182256.png">
+<meta property="og:image" content="http://blog.yinjianwen.site/Users/yinxiaojian/Library/Application%20Support/typora-user-images/image-20200524184121879.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/yinxiaojian/blog-img/master/20200524193722.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/yinxiaojian/blog-img/master/20200523184007.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/yinxiaojian/blog-img/master/20200524180808.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/yinxiaojian/blog-img/master/20200524180944.png">
+<meta property="article:published_time" content="2020-05-23T08:23:55.000Z">
+<meta property="article:modified_time" content="2020-05-24T11:41:47.529Z">
 <meta property="article:author" content="Jianwen Yin">
+<meta property="article:tag" content="machine learning">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/yinxiaojian/blog-img/master/20200524182256.png">
 
-<link rel="canonical" href="http://blog.yinjianwen.site/page/2/">
+<link rel="canonical" href="http://blog.yinjianwen.site/2020/05/23/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0CTR%E6%A8%A1%E5%9E%8B%E7%9A%84%E6%97%A9%E6%9C%9F%E6%BC%94%E5%8F%98/">
 
 
 <script id="page-configurations">
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
     sidebar: "",
-    isHome : true,
-    isPost : false,
+    isHome : false,
+    isPost : true,
     lang   : 'zh-CN'
   };
 </script>
 
-  <title>CodingxWriting</title>
+  <title>深度学习CTR模型的早期演变 | CodingxWriting</title>
   
 
 
@@ -150,13 +162,14 @@
         <div class="content-wrap">
           
 
-          <div class="content index posts-expand">
+          <div class="content post posts-expand">
             
-      
+
+    
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://blog.yinjianwen.site/2018/01/05/SpringMVC-Controllers-%E8%AF%B4%E6%98%8E%E6%96%87%E6%A1%A3/">
+    <link itemprop="mainEntityOfPage" href="http://blog.yinjianwen.site/2020/05/23/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0CTR%E6%A8%A1%E5%9E%8B%E7%9A%84%E6%97%A9%E6%9C%9F%E6%BC%94%E5%8F%98/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.png">
@@ -168,10 +181,9 @@
       <meta itemprop="name" content="CodingxWriting">
     </span>
       <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2018/01/05/SpringMVC-Controllers-%E8%AF%B4%E6%98%8E%E6%96%87%E6%A1%A3/" class="post-title-link" itemprop="url">SpringMVC Controllers 说明文档</a>
-        </h2>
+        <h1 class="post-title" itemprop="name headline">
+          深度学习CTR模型的早期演变
+        </h1>
 
         <div class="post-meta">
             <span class="post-meta-item">
@@ -180,14 +192,14 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2018-01-05 09:41:54" itemprop="dateCreated datePublished" datetime="2018-01-05T09:41:54+08:00">2018-01-05</time>
+              <time title="创建时间：2020-05-23 16:23:55" itemprop="dateCreated datePublished" datetime="2020-05-23T16:23:55+08:00">2020-05-23</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2018-01-06 21:57:02" itemprop="dateModified" datetime="2018-01-06T21:57:02+08:00">2018-01-06</time>
+                <time title="修改时间：2020-05-24 19:41:47" itemprop="dateModified" datetime="2020-05-24T19:41:47+08:00">2020-05-24</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -195,11 +207,18 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/SpringMVC/" itemprop="url" rel="index"><span itemprop="name">SpringMVC</span></a>
+                  <a href="/categories/paper-notes/" itemprop="url" rel="index"><span itemprop="name">paper notes</span></a>
                 </span>
             </span>
 
           
+            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
 
         </div>
       </header>
@@ -210,202 +229,85 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>翻译自官方文档，并加上了自己的理解，解释更加直白。</p>
-<p>官方文档地址：<a href="https://docs.spring.io/spring/docs/current/spring-framework-reference/web.html#mvc" target="_blank" rel="noopener">Spring Web MVC</a></p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2018/01/05/SpringMVC-Controllers-%E8%AF%B4%E6%98%8E%E6%96%87%E6%A1%A3/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
+        <blockquote>
+<p>Deep Crossing - Web-Scale Modeling without Manually Crafted Combinatorial Features</p>
+<p>Deep Learning over Multi-field Categorical Data</p>
+<p>Product-based Neural Networks for User Response Prediction</p>
+<p>Wide &amp; Deep Learning for Recommender Systems</p>
+<p>DeepFM: A Factorization-Machine based Neural Network for CTR Prediction</p>
+</blockquote>
+<a id="more"></a>
+<h3 id="Deep-Crossing-2016"><a href="#Deep-Crossing-2016" class="headerlink" title="Deep Crossing (2016)"></a>Deep Crossing (2016)</h3><p>倒退回最开始的时候，如果让我们设计一个最简单的DNN用于CTR，那么很容易引入一个embedding layer将稀疏特征（one-hot encoding）转换为密集嵌入（dense embedding），然后将其concat后输入到一个多层的神经网络，最终获得输入。而这就是Deep Cross的思想，所以说如果可以穿越到过去做科研还真是一大幸事。</p>
+<p>框架图如下，和普通的DNN不同的是，Deep Crossing 还引入了残差网络，效果有明显提升。</p>
+<p><img src="https://raw.githubusercontent.com/yinxiaojian/blog-img/master/20200524182256.png" alt=""></p>
+<h3 id="FNN-2016"><a href="#FNN-2016" class="headerlink" title="FNN (2016)"></a>FNN (2016)</h3><p>和 Deep Crossing相比，FNN使用FM的隐层向量作为作为DNN的输入，也就是对Embedding层进行预训练。</p>
+<blockquote>
+<p>从时间来看FNN和Deep Crossing属于同一时间的产物，如果FNN晚于Deep Crossing，那么单单凭借预训练这一工程技巧恐怕贡献是不足的。两篇文章思考的角度不同带来的结果也有所不同。</p>
+</blockquote>
+<p>框架图如下：</p>
+<p><img src="/Users/yinxiaojian/Library/Application Support/typora-user-images/image-20200524184121879.png" alt="image-20200524184121879"></p>
+<h3 id="PNN-2016"><a href="#PNN-2016" class="headerlink" title="PNN (2016)"></a>PNN (2016)</h3><p>PNN 在embedding layer 和 hidden layer之间引入了product layer，在改层引入了特征交叉项。相比较FNN使用多层感知器对特征关联进行建模，PNN这种方式更加直接有效。</p>
+<blockquote>
+<p>从某种意义上说，如果将输入的dense embedding看作 LR 和 FM 中的 one-hot encoding的话，FNN 和 PNN 的关系就很像 LR 和 FM。</p>
+</blockquote>
+<p>框架图如下，事实上去掉product layer中的 p 部分（特征交叉部分），那么PNN将会退化为FNN，就像FM去掉特征交叉会退化为LR一样。</p>
+<p><img src="https://raw.githubusercontent.com/yinxiaojian/blog-img/master/20200524193722.png" alt=""></p>
+<h3 id="Wide-amp-Deep-2016"><a href="#Wide-amp-Deep-2016" class="headerlink" title="Wide &amp; Deep (2016)"></a>Wide &amp; Deep (2016)</h3><p>google这篇文章的出发点为如何同时实现memorization和generalization。</p>
+<p>memorization：记忆能力，学习历史数据集中已经出现过的物品或特征关联。</p>
+<p>generalization：泛化能力，基于相关性的传递原理，探究以前未出现或者极少出现的特征关联。</p>
+<blockquote>
+<p>人可以很好的达到memorization和generalization。就像做题一样，我们可以记住很多类型的题（memorization），然后举一反三（generalization）。</p>
+</blockquote>
+<p>传统的线形模型使用one-hot编码处理离散特征，但是不能对特征关联进行建模。因此一般通过人工构建特征组合（cross-product transformations）的方式，获取非线性建模能力，也就是记忆能力。但是历史数据中未出现过的特征关联则无法构建，因此LR仍不具备泛化能力。</p>
+<p>对于FM和DNN这类embedding-based的模型，不需要特征工程，通过对低维度的dense embedding进行组合可以学习到历史数据中未出现的特征组合，具备泛化能力。但是如果query-item矩阵稀疏、高秩的，学习有效的embedding是很困难的。在这种情况下，会导致过度泛化，从而导致一些不太相关的推荐。相对的，线性模型+cross product则能用很少的参数记住exception rules。</p>
+<blockquote>
+<p>这里的exception relues指的是？个人理解就是历史数据中存在的规则。</p>
+</blockquote>
+<p>因此，本文提出一个Wide &amp; deep 学习框架，通过对线形模型（wide model）和神经网络（wide model）进行联合训练，以达到记忆和泛化能力。</p>
+<p>框架图如下，本质就是对线性模型和神经网络的预测结果进行加权，最后联合训练。在实践中，用哪些作为wide和deep的输入是一个需要仔细考虑的问题。</p>
+<p><img src="https://raw.githubusercontent.com/yinxiaojian/blog-img/master/20200523184007.png" alt=""></p>
+<h3 id="DeepFM-2017"><a href="#DeepFM-2017" class="headerlink" title="DeepFM (2017)"></a>DeepFM (2017)</h3><p>DeepFM强调线形模型只能捕捉一阶特征，而FM可以捕捉二阶特征关联，DNN可以捕捉更高阶特征关联。因此其在wide &amp; deep基础上，将wide部分替换为FM模型（FM的线性部分可以捕捉一阶特征），从而达到捕捉一阶、二阶、甚至是高阶的特征关联。</p>
+<p>事实上wide &amp; deep也可以捕捉多阶特征关联，但是其wide部分需要进行特征工程，也就是上文提到的 cross-product transormations。而DeepFM则无需特征工程，可以直接进行训练。</p>
+<p>框架图如下：</p>
+<p><img src="https://raw.githubusercontent.com/yinxiaojian/blog-img/master/20200524180808.png" alt=""></p>
+<p>该文还对以上几种方法进行了简单的对比：</p>
+<p><img src="https://raw.githubusercontent.com/yinxiaojian/blog-img/master/20200524180944.png" alt=""></p>
+
     </div>
 
     
     
     
+
       <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://blog.yinjianwen.site/2017/12/24/google-map-%E6%AF%94%E4%BE%8B%E5%B0%BA%E7%AE%97%E6%B3%95%E5%88%86%E6%9E%90/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="Author">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="CodingxWriting">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2017/12/24/google-map-%E6%AF%94%E4%BE%8B%E5%B0%BA%E7%AE%97%E6%B3%95%E5%88%86%E6%9E%90/" class="post-title-link" itemprop="url">google map 比例尺算法分析</a>
-        </h2>
+          <div class="post-tags">
+              <a href="/tags/machine-learning/" rel="tag"><i class="fa fa-tag"></i> machine learning</a>
+          </div>
 
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2017-12-24 13:26:14" itemprop="dateCreated datePublished" datetime="2017-12-24T13:26:14+08:00">2017-12-24</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2019-03-11 10:12:12" itemprop="dateModified" datetime="2019-03-11T10:12:12+08:00">2019-03-11</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E5%89%8D%E7%AB%AF/" itemprop="url" rel="index"><span itemprop="name">前端</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>比例尺即地图右下角显示地图距离与实际距离比例的控件，由于Google map自带比例尺控件存在的局限性——无法调整位置和格式，所以通过此文章，介绍比例尺算法及具体实现。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2017/12/24/google-map-%E6%AF%94%E4%BE%8B%E5%B0%BA%E7%AE%97%E6%B3%95%E5%88%86%E6%9E%90/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
         
-      
-    </div>
 
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://blog.yinjianwen.site/2017/10/27/java%E7%B1%BB%E4%B8%8E%E6%88%90%E5%91%98%E8%AE%BF%E9%97%AE%E6%8E%A7%E5%88%B6/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="Author">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="CodingxWriting">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2017/10/27/java%E7%B1%BB%E4%B8%8E%E6%88%90%E5%91%98%E8%AE%BF%E9%97%AE%E6%8E%A7%E5%88%B6/" class="post-title-link" itemprop="url">java类与成员访问控制</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2017-10-27 15:22:29" itemprop="dateCreated datePublished" datetime="2017-10-27T15:22:29+08:00">2017-10-27</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2018-01-04 00:03:11" itemprop="dateModified" datetime="2018-01-04T00:03:11+08:00">2018-01-04</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/java/" itemprop="url" rel="index"><span itemprop="name">java</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>java访问控制是基础中的基础，有public/private/protected/default四个类型，一般分为类的访问控制和成员访问控制两个类型。<br>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2017/10/27/java%E7%B1%BB%E4%B8%8E%E6%88%90%E5%91%98%E8%AE%BF%E9%97%AE%E6%8E%A7%E5%88%B6/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
         
-      
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/05/11/Deep-Interest-Network/" rel="prev" title="Deep Interest Network">
+      <i class="fa fa-chevron-left"></i> Deep Interest Network
+    </a></div>
+      <div class="post-nav-item"></div>
     </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
       </footer>
+    
   </article>
   
   
   
-
-
-  
-  <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
-  </nav>
 
 
 
           </div>
           
+    <div class="comments" id="gitalk-container"></div>
 
 <script>
   window.addEventListener('tabs:register', () => {
@@ -452,6 +354,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Deep-Crossing-2016"><span class="nav-number">1.</span> <span class="nav-text">Deep Crossing (2016)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#FNN-2016"><span class="nav-number">2.</span> <span class="nav-text">FNN (2016)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PNN-2016"><span class="nav-number">3.</span> <span class="nav-text">PNN (2016)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Wide-amp-Deep-2016"><span class="nav-number">4.</span> <span class="nav-text">Wide &amp; Deep (2016)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#DeepFM-2017"><span class="nav-number">5.</span> <span class="nav-text">DeepFM (2017)</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -642,12 +545,31 @@
     MathJax.texReset();
     MathJax.typeset();
   }
-</script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+</script>
 
     
 
   
 
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+
+<script>
+NexT.utils.loadComments(document.querySelector('#gitalk-container'), () => {
+  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
+    var gitalk = new Gitalk({
+      clientID    : '4d2be4ddd111613247dd',
+      clientSecret: 'e35d6fe6539051d9f3972abbc33705957b10716a',
+      repo        : 'blog-comment',
+      owner       : 'yinxiaojian',
+      admin       : ['yinxiaojian'],
+      id          : '06e1b33c94ff663e6cde07d08c916a0b',
+        language: '',
+      distractionFreeMode: true
+    });
+    gitalk.render('gitalk-container');
+  }, window.Gitalk);
+});
+</script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 
 </body>
 </html>

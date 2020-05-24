@@ -47,39 +47,6 @@ f(\alpha \mathbf{u} + (1-\alpha)\mathbf{v}) \le \alpha f(\mathbf{u}) + (1-\alpha
       </tags>
   </entry>
   <entry>
-    <title>Deep Interest Network</title>
-    <url>/2020/05/11/Deep-Interest-Network/</url>
-    <content><![CDATA[<blockquote>
-<p>Deep Interest Network for Click-Through Rate Prediction</p>
-<p>Deep Interest Evolution Network for Click-Through Rate Prediction</p>
-<p>Deep Session Interest Network for Click-Through Rate Prediction</p>
-</blockquote>
-<a id="more"></a>
-<p>最近阅读了阿里的经典论文：DIN，并对后续的DIEN和DSIN进行了了解，此处做一个简单的记录。</p>
-<h4 id="DIN"><a href="#DIN" class="headerlink" title="DIN"></a>DIN</h4><p>对于DIN来说，核心在于如何更好的从用户的历史行为中提取合适的兴趣，简单的sum/average pooling是不符合实际场景的。用户在浏览的过程中，可能会对多种类型的商品感兴趣，其兴趣也是多种多样。比如说女生的浏览历史中存在服饰和电子产品，那么在预测裤子这件商品的点击时，历史行为中的服饰和电子产品的重要程度显然是不同的。DIN尝试通过注意力机制为历史行为中的商品赋予不同的权重，从而生成最符合当前预测商品的兴趣。</p>
-<p><img src="https://raw.githubusercontent.com/yinxiaojian/blog-img/master/20200516230137.png" alt=""></p>
-<h4 id="DIEN"><a href="#DIEN" class="headerlink" title="DIEN"></a>DIEN</h4><p>DIEN考虑到了两个问题：第一个问题是DIN直接使用行为去表示最终的兴趣，这是很困难的。我们需要去挖掘行为背后潜藏的兴趣。第二个问题在于用户某一方面的兴趣是睡着时间变化而变化的，因此我们需要考虑兴趣的动态变化，从而更好的进行预测。</p>
-<blockquote>
-<p>个人理解：DIEN提出的这两个问题都是很符合实际场景的，首先用户的行为是一个序列，有前后之分。直接使用赋予行为权重并求和，很难体现这一序列信息。论文里将其包装为hidden interest。其次，兴趣本身也是变化的，这里我们可以讲行为作为原始信息，兴趣作为一阶信息，那么兴趣的变化本质上就是二阶信息。</p>
-<p>因此论文也采用了GRU去捕捉一阶信息，在此基础上在使用一个GRU去捕捉二阶信息。</p>
-</blockquote>
-<p>针对问题一，DIEN采用GRU去捕捉行为背后隐藏的兴趣，在此基础上，使用DIN的attention机制获取最符合目标的兴趣，然后使用AUGRU去捕捉兴趣随着时间瓷都的变化。</p>
-<p><img src="https://raw.githubusercontent.com/yinxiaojian/blog-img/master/20200516231053.png" alt=""></p>
-<h4 id="DSIN"><a href="#DSIN" class="headerlink" title="DSIN"></a>DSIN</h4><p>DSIN从实际场景出发，提出用户的行为序列往往是由一个个的session组成的，每个session内部较为相似，同时不同session之间可能存在关联，并且在时间尺度上存在先后关系。</p>
-<p>因此DSIN讲用户的行为序列在时间尺度上切成一个个session（按照相邻行为时间差切割），然后使用Self-Attention去模拟单个session。在获取单个session的表示后，使用Bi-LSTM去模拟不同session之间的关系。同时其采用了DIN中的attention机制去为不同session赋予不同的权重。</p>
-<blockquote>
-<p>实际上，DSIN是讲单个session当作一个兴趣或者一个类别去模拟，然后再模拟session与session之间的关系，而attention机制则只是用来求和的。总的来说，DSIN从session尺度考虑问题，并非是很新鲜的想法，而且既然每个session之间差别较大，那么再使用LSTM去模拟session之间的时序关系是否可行？个人认为其不如DIN和DIEN合理。</p>
-</blockquote>
-<p><img src="https://raw.githubusercontent.com/yinxiaojian/blog-img/master/20200516234211.png" alt=""></p>
-]]></content>
-      <categories>
-        <category>paper notes</category>
-      </categories>
-      <tags>
-        <tag>machine learning</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>CNN反向传播算法</title>
     <url>/2018/03/21/CNN%E5%8F%8D%E5%90%91%E4%BC%A0%E6%92%AD%E7%AE%97%E6%B3%95/</url>
     <content><![CDATA[<blockquote>
@@ -301,101 +268,6 @@ a_{ij}=\frac{exp(c_{ij})}{\sum_kexp(c_{kj})}</script><p>因为对于固定的 $j
       </tags>
   </entry>
   <entry>
-    <title>STUN和TURN服务器搭建</title>
-    <url>/2019/03/02/STUN%E5%92%8CTURN%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA/</url>
-    <content><![CDATA[<p>使用CoTurn自建STUN和TURN服务。</p>
-<a id="more"></a>
-<h3 id="下载-CoTurn"><a href="#下载-CoTurn" class="headerlink" title="下载 CoTurn"></a>下载 <a href="https://github.com/coturn/coturn/blob/master/INSTALL" target="_blank" rel="noopener">CoTurn</a></h3><p>下载指定版本的CoTurn并解压</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">wegt https:&#x2F;&#x2F;coturn.net&#x2F;turnserver&#x2F;v4.5.0.8&#x2F;turnserver-4.5.0.8.tar.gz</span><br><span class="line">tar -zxvf turnserver-4.5.0.8.tar.gz</span><br></pre></td></tr></table></figure>
-<h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><p>安装编译所需依赖</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">apt-get update</span><br><span class="line">apt-get install -y libssl-dev libevent-dev libpq-dev mysql-client libmysqlclient-dev libhiredis-dev openssl</span><br><span class="line">apt-get install gdebi-core -y</span><br><span class="line">apt-get install sqlite libsqlite3-dev -y</span><br></pre></td></tr></table></figure>
-<p>编译安装CoTurn</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cd turnserver-4.5.0.8</span><br><span class="line">.&#x2F;configure</span><br><span class="line">make</span><br><span class="line">make install</span><br></pre></td></tr></table></figure>
-<p>查看是否安装成功</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">which turnserver</span><br></pre></td></tr></table></figure>
-<h3 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h3><p>添加用户</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">turnadmin -a –u 用户名 -r 域名 -p 密码</span><br></pre></td></tr></table></figure>
-<p>例如：添加用户sccs，密码为123456，域名fongda.com（域名可以随意填写）</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">turnadmin -a -u sccs -r fongda.com -p 123456</span><br></pre></td></tr></table></figure>
-<p>输入<code>turnadmin -l</code>检查是否添加用户成功</p>
-<h3 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h3><p>前台启动</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">turnserver -L 公网IP -a -f -r 域名</span><br></pre></td></tr></table></figure>
-<p>或者在后台运行</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ turnserver -L 公网IP -o -a -f -r 域名</span><br></pre></td></tr></table></figure>
-<h3 id="验证"><a href="#验证" class="headerlink" title="验证"></a>验证</h3><p>使用webrtc官方提供的网址进行验证：</p>
-<p><a href="https://webrtc.github.io/samples/src/content/peerconnection/trickle-ice/" target="_blank" rel="noopener">https://webrtc.github.io/samples/src/content/peerconnection/trickle-ice/</a></p>
-<p>输入要验证的STUN和TURN服务器</p>
-<p><img src="https://wx3.sinaimg.cn/large/005PPQ5Ily1g0ovehi2xbj31gs0iidhl.jpg" alt="image"></p>
-<p>出现Done时表示服务正常运行</p>
-<p><img src="https://wx2.sinaimg.cn/large/005PPQ5Ily1g0ovfxi3yzj31ie09maay.jpg" alt="image"></p>
-]]></content>
-      <categories>
-        <category>技术分析</category>
-      </categories>
-      <tags>
-        <tag>WebRTC</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Softmax and Cross Entropy Loss</title>
-    <url>/2018/04/11/Softmax-and-Cross-Entropy-Loss/</url>
-    <content><![CDATA[<p>introduction and derivative of Softmax and Cross Entropy Loss.</p>
-<a id="more"></a>
-<h3 id="Softmax-function"><a href="#Softmax-function" class="headerlink" title="Softmax function"></a>Softmax function</h3><p>the softmax function takes N-dimensional vector of real numbers and transforms it into a vector of real number in range of (0,1) which means the probability of each classification.</p>
-<script type="math/tex; mode=display">
-p_i=\frac{e^{a_i}}{\sum_{k=1}^Ne^{a_k}}</script><p>it is easy to know  $\sum_{k=1}^Np_i=1$ .</p>
-<p>the code of softmax function in python:</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">softmax</span><span class="params">(X)</span>:</span></span><br><span class="line">    exps = np.exp(X)</span><br><span class="line">    <span class="keyword">return</span> exps / np.sum(exps)</span><br></pre></td></tr></table></figure>
-<p>sometimes the exp operation can overshot the limit of the floating point numbers in python, so we need to normalize the value by multiply a constant C.</p>
-<script type="math/tex; mode=display">
-p_i=\frac{e^{a_i}}{\sum_{k=1}^Ne^{a_k}}
-=\frac{Ce^{a_i}}{C\sum_{k=1}^Ne^{a_k}}
-=\frac{e^{a_i+log(C)}}{\sum_{k=1}^Ne^{a_k+log(C)}}</script><p>Generally, we max $log(C)=-max(a)$, so we need make a little change of our code:</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">softmax</span><span class="params">(X)</span>:</span></span><br><span class="line">    exps = np.exp(X-np.max(X))</span><br><span class="line">    <span class="keyword">return</span> exps / np.sum(exps)</span><br></pre></td></tr></table></figure>
-<h3 id="Cross-Entropy-Loss"><a href="#Cross-Entropy-Loss" class="headerlink" title="Cross Entropy Loss"></a>Cross Entropy Loss</h3><p>the defination of cross entropy loss is:</p>
-<script type="math/tex; mode=display">
-L=-\sum_iy_i log(p_i)</script><p>note: </p>
-<p>$p_i$ means the softmax value of  i-th neuron  in fully connected layer;</p>
-<p>if the true label of input sample is $j$,  then $y_{i=j}=1;y_{i\neq j}=0$.</p>
-<p>the code of loss function in python:</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">cross_entropy</span><span class="params">(X, y)</span>:</span></span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    X is the output of fully connected layer(N-dimensional vector)</span></span><br><span class="line"><span class="string">    y is true label(integer)</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    p = softmax(X)</span><br><span class="line">    loss = -np.log(p[y])</span><br><span class="line">    <span class="keyword">return</span> loss</span><br></pre></td></tr></table></figure>
-<h3 id="Backward-propagation"><a href="#Backward-propagation" class="headerlink" title="Backward propagation"></a>Backward propagation</h3><p>we need to compute the derivative of cross entropy loss:</p>
-<script type="math/tex; mode=display">
-\frac{\partial L}{\partial a_i}=\frac{\partial L}{\partial p_j}\frac{\partial p_j}{\partial a_i}</script><p>it is easy to compute $\frac{\partial L}{\partial p_i}$</p>
-<script type="math/tex; mode=display">
-\frac{\partial L}{\partial p_i}=-\sum_iy_i\frac{1}{p_i}\tag1</script><p>then compute $\frac{\partial p_j}{\partial a_i}$, we need to divide it into two situations：</p>
-<ol>
-<li>if $i=j$</li>
-</ol>
-<script type="math/tex; mode=display">
-\begin{align*}
-\frac{\partial p_j}{\partial a_i}&=\frac{\partial p_i}{\partial a_i}=\frac{\partial{\frac{e^{a_i}}{\sum_{k=1}^Ne^{a_k}}}}{\partial a_i}=\frac{\sum_{k=1}^{N}e^{a_i}e^{a_k}-(e^{a_i})^2}{(\sum_{k=1}^Ne^{a_k})^2}\\
-&=\frac{e^{a_i}}{\sum_{k=1}^Ne^{a_k}}\left(1-\frac{e^{a_i}}{\sum_{k=1}^Ne^{a_k}}\right)\\
-&=p_i(1-p_i)
-\end{align*}</script><ol>
-<li>If $i\neq j$</li>
-</ol>
-<script type="math/tex; mode=display">
-\frac{\partial p_j}{\partial a_i}=\frac{\partial{\frac{e^{a_j}}{\sum_{k=1}^Ne^{a_k}}}}{\partial a_i}=
--\frac{e^{a_j}}{\sum_{k=1}^Ne^{a_k}}\frac{e^{a_i}}{\sum_{k=1}^Ne^{a_k}}=-p_jp_i\tag2</script><p>combine the result of (1) and (2)</p>
-<script type="math/tex; mode=display">
-\begin{align*}
-\frac{\partial L}{\partial a_i}& = \left(-\sum_iy_i\frac{1}{p_i}\right)\frac{\partial p_i}{\partial a_i}\\
-&=-\frac{y_i}{p_i}p_i(1-p_i)+\sum_{i\neq j}\frac{y_i}{p_i}p_ip_j\\
-&=-y_i+y_ip_i+\sum_{i\neq j}y_ip_i\\
-&=-y_i+p_i\sum_iy_i\\
-&=p_i-y_i
-\end{align*}</script><p>code in python</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">delta_entropy</span><span class="params">(X,y)</span>:</span></span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    X is the output of fully connected layer(N-dimensional vector)</span></span><br><span class="line"><span class="string">    y is true labels(integer)</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    grad = softmax(X)</span><br><span class="line">    grad[y] -= <span class="number">1</span></span><br><span class="line">    <span class="keyword">return</span> grad</span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>artificial intelligence</category>
-      </categories>
-      <tags>
-        <tag>softmax</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>WebRTC与NAT穿透</title>
     <url>/2019/03/02/WebRTC%E4%B8%8ENAT%E7%A9%BF%E9%80%8F/</url>
     <content><![CDATA[<p>WebRTC支持点对点通信（P2P），但是其建立通讯仍需要两类服务器。</p>
@@ -505,26 +377,72 @@ L=-\sum_iy_i log(p_i)</script><p>note: </p>
       </tags>
   </entry>
   <entry>
-    <title>ZELDA-男人的浪漫</title>
-    <url>/2018/03/19/ZELDA-%E7%94%B7%E4%BA%BA%E7%9A%84%E6%B5%AA%E6%BC%AB/</url>
-    <content><![CDATA[<p>如果一款游戏，如果能让你回到儿时，你会去玩吗？</p>
+    <title>STUN和TURN服务器搭建</title>
+    <url>/2019/03/02/STUN%E5%92%8CTURN%E6%9C%8D%E5%8A%A1%E5%99%A8%E6%90%AD%E5%BB%BA/</url>
+    <content><![CDATA[<p>使用CoTurn自建STUN和TURN服务。</p>
 <a id="more"></a>
-<p>游戏时间 100 小时，四神兽和boss全灭，120神庙解锁一半，支线任务完成1/4。</p>
-<p>拿到游戏到现在过去了10天，除了实习时间，我几乎都在玩这款游戏，这段时间我没有看动漫，甚至连手机都懒得碰。直到现在，在天气晴朗的时候，登上海拉尔大陆的顶端远眺，留给我的依旧是无数秘密。</p>
-<p><img src="https://ws4.sinaimg.cn/large/005PPQ5Ily1g0ymv18a9mj30l60b4adc.jpg" alt="9c29d14f-ae6e-42b4-9c36-c1f81c9217af"></p>
-<p>我无法忘记游戏开始走出出生地的震撼，一个广阔的大陆等着你探索。作为一个普通玩家，或许无法从专业性的角度去阐述这款游戏的优秀，但是我可以慢慢的回想我在游戏中的故事。</p>
-<p>开放世界、沙盒玩法可以说是游戏界经常提到的概念，在我以前玩的游戏中，我按照游戏设计者设计好的路线去解锁游戏，在这个过程中，总是会有一种压迫感，游戏设计者在不停的推着我前进。终于，游戏主线支线结束，站在广阔的地图上，我却不知道干什么。</p>
-<p>荒野之息却完全不同，游戏剧情“老套”，主线就是打魔王救公主。在游戏的过程中，我却忘记了主线，沉迷于爬山，炸鱼，采矿，做菜等等等等。看到一座很高的山，我费劲力气爬上去，只为看到更好的风景。为发现隐藏在海拉尔大陆的120个神庙而惊喜，进入神庙后又是另一番体验。就连npc都设计的非常巧妙，记得有一个npc，她对我说：“别摸鱼了，快去拯救世界”，令人爆笑。如果这些还不够，还有900个“呀哈哈”等着你去寻找，可能在石头下，也可能在山顶上。</p>
-<p>在大概两天后，我终于想起了公主，于是我开始进入主线，四大神兽每个都有不同的故事和解谜方式，不会让人厌烦。打败四大神兽后，我又开始收集13个回忆，慢慢的找到了所有林克和公主的故事，一个傲娇的公主是怎么慢慢成长，怎么喜欢上我的（笑）。接着就是面对最终boss加农了，这时候我却不想推进了，我不想结束这段旅行，还有那么多神庙没有解锁，那么多支线没有做，现在打boss总有种半途而废的感觉。不过游戏总有分别，又过了两天，我带着全村最好的剑，最好的弓，最好的盾，最好的药冲到boss，然后boss就死了，一段回忆后游戏戛然而止······</p>
-<p>在这段时间，做梦的时候我总是会梦到游戏剧情，在室外的时候，看到高楼大厦，我也不经意的会思考怎么爬上去，爬上去会看到什么样的风景。现在我大概知道为什么会沉迷这款游戏了，大概是这款游戏满足了我所有的浪漫。</p>
-<p>在童年时候，我会为钓到小鱼小虾而激动，会为爬到大坝上而激动。那时候会做梦，觉得自己是个大侠、冒险家。和小伙伴们去野外（隔壁村）探险，会去招惹村口的凶狗，会骑姥姥家养的小花狗。实际上，直到现在我还想做这些事，还对其乐此不疲，只不过没人陪我了。是的，我长大了，虽然还在校园，但烦恼却不少。所以，我感谢这款游戏，让我找到了冒险的感觉，为游戏中每一个新事物，为前方而满怀期待！</p>
-<p>最后，塞尔达天下第一！</p>
+<h3 id="下载-CoTurn"><a href="#下载-CoTurn" class="headerlink" title="下载 CoTurn"></a>下载 <a href="https://github.com/coturn/coturn/blob/master/INSTALL" target="_blank" rel="noopener">CoTurn</a></h3><p>下载指定版本的CoTurn并解压</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">wegt https:&#x2F;&#x2F;coturn.net&#x2F;turnserver&#x2F;v4.5.0.8&#x2F;turnserver-4.5.0.8.tar.gz</span><br><span class="line">tar -zxvf turnserver-4.5.0.8.tar.gz</span><br></pre></td></tr></table></figure>
+<h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><p>安装编译所需依赖</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">apt-get update</span><br><span class="line">apt-get install -y libssl-dev libevent-dev libpq-dev mysql-client libmysqlclient-dev libhiredis-dev openssl</span><br><span class="line">apt-get install gdebi-core -y</span><br><span class="line">apt-get install sqlite libsqlite3-dev -y</span><br></pre></td></tr></table></figure>
+<p>编译安装CoTurn</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">cd turnserver-4.5.0.8</span><br><span class="line">.&#x2F;configure</span><br><span class="line">make</span><br><span class="line">make install</span><br></pre></td></tr></table></figure>
+<p>查看是否安装成功</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">which turnserver</span><br></pre></td></tr></table></figure>
+<h3 id="配置"><a href="#配置" class="headerlink" title="配置"></a>配置</h3><p>添加用户</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">turnadmin -a –u 用户名 -r 域名 -p 密码</span><br></pre></td></tr></table></figure>
+<p>例如：添加用户sccs，密码为123456，域名fongda.com（域名可以随意填写）</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">turnadmin -a -u sccs -r fongda.com -p 123456</span><br></pre></td></tr></table></figure>
+<p>输入<code>turnadmin -l</code>检查是否添加用户成功</p>
+<h3 id="启动"><a href="#启动" class="headerlink" title="启动"></a>启动</h3><p>前台启动</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">turnserver -L 公网IP -a -f -r 域名</span><br></pre></td></tr></table></figure>
+<p>或者在后台运行</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">$ turnserver -L 公网IP -o -a -f -r 域名</span><br></pre></td></tr></table></figure>
+<h3 id="验证"><a href="#验证" class="headerlink" title="验证"></a>验证</h3><p>使用webrtc官方提供的网址进行验证：</p>
+<p><a href="https://webrtc.github.io/samples/src/content/peerconnection/trickle-ice/" target="_blank" rel="noopener">https://webrtc.github.io/samples/src/content/peerconnection/trickle-ice/</a></p>
+<p>输入要验证的STUN和TURN服务器</p>
+<p><img src="https://wx3.sinaimg.cn/large/005PPQ5Ily1g0ovehi2xbj31gs0iidhl.jpg" alt="image"></p>
+<p>出现Done时表示服务正常运行</p>
+<p><img src="https://wx2.sinaimg.cn/large/005PPQ5Ily1g0ovfxi3yzj31ie09maay.jpg" alt="image"></p>
 ]]></content>
       <categories>
-        <category>杂谈</category>
+        <category>技术分析</category>
       </categories>
       <tags>
-        <tag>游戏</tag>
+        <tag>WebRTC</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Deep Interest Network</title>
+    <url>/2020/05/11/Deep-Interest-Network/</url>
+    <content><![CDATA[<blockquote>
+<p>Deep Interest Network for Click-Through Rate Prediction</p>
+<p>Deep Interest Evolution Network for Click-Through Rate Prediction</p>
+<p>Deep Session Interest Network for Click-Through Rate Prediction</p>
+</blockquote>
+<a id="more"></a>
+<p>最近阅读了阿里的经典论文：DIN，并对后续的DIEN和DSIN进行了了解，此处做一个简单的记录。</p>
+<h4 id="DIN"><a href="#DIN" class="headerlink" title="DIN"></a>DIN</h4><p>对于DIN来说，核心在于如何更好的从用户的历史行为中提取合适的兴趣，简单的sum/average pooling是不符合实际场景的。用户在浏览的过程中，可能会对多种类型的商品感兴趣，其兴趣也是多种多样。比如说女生的浏览历史中存在服饰和电子产品，那么在预测裤子这件商品的点击时，历史行为中的服饰和电子产品的重要程度显然是不同的。DIN尝试通过注意力机制为历史行为中的商品赋予不同的权重，从而生成最符合当前预测商品的兴趣。</p>
+<p><img src="https://raw.githubusercontent.com/yinxiaojian/blog-img/master/20200516230137.png" alt=""></p>
+<h4 id="DIEN"><a href="#DIEN" class="headerlink" title="DIEN"></a>DIEN</h4><p>DIEN考虑到了两个问题：第一个问题是DIN直接使用行为去表示最终的兴趣，这是很困难的。我们需要去挖掘行为背后潜藏的兴趣。第二个问题在于用户某一方面的兴趣是睡着时间变化而变化的，因此我们需要考虑兴趣的动态变化，从而更好的进行预测。</p>
+<blockquote>
+<p>个人理解：DIEN提出的这两个问题都是很符合实际场景的，首先用户的行为是一个序列，有前后之分。直接使用赋予行为权重并求和，很难体现这一序列信息。论文里将其包装为hidden interest。其次，兴趣本身也是变化的，这里我们可以讲行为作为原始信息，兴趣作为一阶信息，那么兴趣的变化本质上就是二阶信息。</p>
+<p>因此论文也采用了GRU去捕捉一阶信息，在此基础上在使用一个GRU去捕捉二阶信息。</p>
+</blockquote>
+<p>针对问题一，DIEN采用GRU去捕捉行为背后隐藏的兴趣，在此基础上，使用DIN的attention机制获取最符合目标的兴趣，然后使用AUGRU去捕捉兴趣随着时间瓷都的变化。</p>
+<p><img src="https://raw.githubusercontent.com/yinxiaojian/blog-img/master/20200516231053.png" alt=""></p>
+<h4 id="DSIN"><a href="#DSIN" class="headerlink" title="DSIN"></a>DSIN</h4><p>DSIN从实际场景出发，提出用户的行为序列往往是由一个个的session组成的，每个session内部较为相似，同时不同session之间可能存在关联，并且在时间尺度上存在先后关系。</p>
+<p>因此DSIN讲用户的行为序列在时间尺度上切成一个个session（按照相邻行为时间差切割），然后使用Self-Attention去模拟单个session。在获取单个session的表示后，使用Bi-LSTM去模拟不同session之间的关系。同时其采用了DIN中的attention机制去为不同session赋予不同的权重。</p>
+<blockquote>
+<p>实际上，DSIN是讲单个session当作一个兴趣或者一个类别去模拟，然后再模拟session与session之间的关系，而attention机制则只是用来求和的。总的来说，DSIN从session尺度考虑问题，并非是很新鲜的想法，而且既然每个session之间差别较大，那么再使用LSTM去模拟session之间的时序关系是否可行？个人认为其不如DIN和DIEN合理。</p>
+</blockquote>
+<p><img src="https://raw.githubusercontent.com/yinxiaojian/blog-img/master/20200516234211.png" alt=""></p>
+]]></content>
+      <categories>
+        <category>paper notes</category>
+      </categories>
+      <tags>
+        <tag>machine learning</tag>
       </tags>
   </entry>
   <entry>
@@ -812,6 +730,91 @@ L=-\sum_iy_i log(p_i)</script><p>note: </p>
       </tags>
   </entry>
   <entry>
+    <title>java类与成员访问控制</title>
+    <url>/2017/10/27/java%E7%B1%BB%E4%B8%8E%E6%88%90%E5%91%98%E8%AE%BF%E9%97%AE%E6%8E%A7%E5%88%B6/</url>
+    <content><![CDATA[<p>java访问控制是基础中的基础，有public/private/protected/default四个类型，一般分为类的访问控制和成员访问控制两个类型。<br><a id="more"></a></p>
+<h3 id="修饰类"><a href="#修饰类" class="headerlink" title="修饰类"></a>修饰类</h3><p>修饰类只能使用public和default，不可以声明为protected或private。用public修饰的类任何情况下都可以访问。用default即不加任何修饰词，权限为包访问权限，在同一个包内的类可以访问。</p>
+<p>在修饰类的时候有以下几点需要注意</p>
+<ul>
+<li>每个编译单元（文件）只能有一个public类，如果有一个以上的public类，编译器会报错</li>
+<li>实际上类可以既不是public也可以不失default，这涉及到内部类，此处不介绍。</li>
+</ul>
+<h3 id="修饰成员"><a href="#修饰成员" class="headerlink" title="修饰成员"></a>修饰成员</h3><div class="table-container">
+<table>
+<thead>
+<tr>
+<th>权限修饰符</th>
+<th>同类</th>
+<th>同包</th>
+<th>不同包的子类</th>
+<th>不同包的非子类</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>public</td>
+<td>Y</td>
+<td>Y</td>
+<td>Y</td>
+<td>Y</td>
+</tr>
+<tr>
+<td>protected</td>
+<td>Y</td>
+<td>Y</td>
+<td>Y</td>
+<td>N</td>
+</tr>
+<tr>
+<td>default</td>
+<td>Y</td>
+<td>Y</td>
+<td>N</td>
+<td>N</td>
+</tr>
+<tr>
+<td>private</td>
+<td>Y</td>
+<td>N</td>
+<td>N</td>
+<td>N</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="有趣的类比"><a href="#有趣的类比" class="headerlink" title="有趣的类比"></a>有趣的类比</h3><p>public：全世界共享<br>default：只属于中国这个国家，权限收缩<br>protected：属于中国这个国家，当然不在中国的国人也有权使用<br>private：只属于单一的中国人</p>
+]]></content>
+      <categories>
+        <category>java</category>
+      </categories>
+      <tags>
+        <tag>java基础</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>ZELDA-男人的浪漫</title>
+    <url>/2018/03/19/ZELDA-%E7%94%B7%E4%BA%BA%E7%9A%84%E6%B5%AA%E6%BC%AB/</url>
+    <content><![CDATA[<p>如果一款游戏，如果能让你回到儿时，你会去玩吗？</p>
+<a id="more"></a>
+<p>游戏时间 100 小时，四神兽和boss全灭，120神庙解锁一半，支线任务完成1/4。</p>
+<p>拿到游戏到现在过去了10天，除了实习时间，我几乎都在玩这款游戏，这段时间我没有看动漫，甚至连手机都懒得碰。直到现在，在天气晴朗的时候，登上海拉尔大陆的顶端远眺，留给我的依旧是无数秘密。</p>
+<p><img src="https://ws4.sinaimg.cn/large/005PPQ5Ily1g0ymv18a9mj30l60b4adc.jpg" alt="9c29d14f-ae6e-42b4-9c36-c1f81c9217af"></p>
+<p>我无法忘记游戏开始走出出生地的震撼，一个广阔的大陆等着你探索。作为一个普通玩家，或许无法从专业性的角度去阐述这款游戏的优秀，但是我可以慢慢的回想我在游戏中的故事。</p>
+<p>开放世界、沙盒玩法可以说是游戏界经常提到的概念，在我以前玩的游戏中，我按照游戏设计者设计好的路线去解锁游戏，在这个过程中，总是会有一种压迫感，游戏设计者在不停的推着我前进。终于，游戏主线支线结束，站在广阔的地图上，我却不知道干什么。</p>
+<p>荒野之息却完全不同，游戏剧情“老套”，主线就是打魔王救公主。在游戏的过程中，我却忘记了主线，沉迷于爬山，炸鱼，采矿，做菜等等等等。看到一座很高的山，我费劲力气爬上去，只为看到更好的风景。为发现隐藏在海拉尔大陆的120个神庙而惊喜，进入神庙后又是另一番体验。就连npc都设计的非常巧妙，记得有一个npc，她对我说：“别摸鱼了，快去拯救世界”，令人爆笑。如果这些还不够，还有900个“呀哈哈”等着你去寻找，可能在石头下，也可能在山顶上。</p>
+<p>在大概两天后，我终于想起了公主，于是我开始进入主线，四大神兽每个都有不同的故事和解谜方式，不会让人厌烦。打败四大神兽后，我又开始收集13个回忆，慢慢的找到了所有林克和公主的故事，一个傲娇的公主是怎么慢慢成长，怎么喜欢上我的（笑）。接着就是面对最终boss加农了，这时候我却不想推进了，我不想结束这段旅行，还有那么多神庙没有解锁，那么多支线没有做，现在打boss总有种半途而废的感觉。不过游戏总有分别，又过了两天，我带着全村最好的剑，最好的弓，最好的盾，最好的药冲到boss，然后boss就死了，一段回忆后游戏戛然而止······</p>
+<p>在这段时间，做梦的时候我总是会梦到游戏剧情，在室外的时候，看到高楼大厦，我也不经意的会思考怎么爬上去，爬上去会看到什么样的风景。现在我大概知道为什么会沉迷这款游戏了，大概是这款游戏满足了我所有的浪漫。</p>
+<p>在童年时候，我会为钓到小鱼小虾而激动，会为爬到大坝上而激动。那时候会做梦，觉得自己是个大侠、冒险家。和小伙伴们去野外（隔壁村）探险，会去招惹村口的凶狗，会骑姥姥家养的小花狗。实际上，直到现在我还想做这些事，还对其乐此不疲，只不过没人陪我了。是的，我长大了，虽然还在校园，但烦恼却不少。所以，我感谢这款游戏，让我找到了冒险的感觉，为游戏中每一个新事物，为前方而满怀期待！</p>
+<p>最后，塞尔达天下第一！</p>
+]]></content>
+      <categories>
+        <category>杂谈</category>
+      </categories>
+      <tags>
+        <tag>游戏</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>google map 比例尺算法分析</title>
     <url>/2017/12/24/google-map-%E6%AF%94%E4%BE%8B%E5%B0%BA%E7%AE%97%E6%B3%95%E5%88%86%E6%9E%90/</url>
     <content><![CDATA[<p>比例尺即地图右下角显示地图距离与实际距离比例的控件，由于Google map自带比例尺控件存在的局限性——无法调整位置和格式，所以通过此文章，介绍比例尺算法及具体实现。</p>
@@ -837,6 +840,100 @@ L=-\sum_iy_i log(p_i)</script><p>note: </p>
       </categories>
       <tags>
         <tag>google map</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>深度学习CTR模型的早期演变</title>
+    <url>/2020/05/23/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0CTR%E6%A8%A1%E5%9E%8B%E7%9A%84%E6%97%A9%E6%9C%9F%E6%BC%94%E5%8F%98/</url>
+    <content><![CDATA[<blockquote>
+<p>Deep Crossing - Web-Scale Modeling without Manually Crafted Combinatorial Features</p>
+<p>Deep Learning over Multi-field Categorical Data</p>
+<p>Product-based Neural Networks for User Response Prediction</p>
+<p>Wide &amp; Deep Learning for Recommender Systems</p>
+<p>DeepFM: A Factorization-Machine based Neural Network for CTR Prediction</p>
+</blockquote>
+<a id="more"></a>
+<h3 id="Deep-Crossing-2016"><a href="#Deep-Crossing-2016" class="headerlink" title="Deep Crossing (2016)"></a>Deep Crossing (2016)</h3><p>倒退回最开始的时候，如果让我们设计一个最简单的DNN用于CTR，那么很容易引入一个embedding layer将稀疏特征（one-hot encoding）转换为密集嵌入（dense embedding），然后将其concat后输入到一个多层的神经网络，最终获得输入。而这就是Deep Cross的思想，所以说如果可以穿越到过去做科研还真是一大幸事。</p>
+<p>框架图如下，和普通的DNN不同的是，Deep Crossing 还引入了残差网络，效果有明显提升。</p>
+<p><img src="https://raw.githubusercontent.com/yinxiaojian/blog-img/master/20200524182256.png" alt=""></p>
+<h3 id="FNN-2016"><a href="#FNN-2016" class="headerlink" title="FNN (2016)"></a>FNN (2016)</h3><p>和 Deep Crossing相比，FNN使用FM的隐层向量作为作为DNN的输入，也就是对Embedding层进行预训练。</p>
+<blockquote>
+<p>从时间来看FNN和Deep Crossing属于同一时间的产物，如果FNN晚于Deep Crossing，那么单单凭借预训练这一工程技巧恐怕贡献是不足的。两篇文章思考的角度不同带来的结果也有所不同。</p>
+</blockquote>
+<p>框架图如下：</p>
+<p><img src="https://raw.githubusercontent.com/yinxiaojian/blog-img/master/20200524194525.png" alt=""></p>
+<h3 id="PNN-2016"><a href="#PNN-2016" class="headerlink" title="PNN (2016)"></a>PNN (2016)</h3><p>PNN 在embedding layer 和 hidden layer之间引入了product layer，在改层引入了特征交叉项。相比较FNN使用多层感知器对特征关联进行建模，PNN这种方式更加直接有效。</p>
+<blockquote>
+<p>从某种意义上说，如果将输入的dense embedding看作 LR 和 FM 中的 one-hot encoding的话，FNN 和 PNN 的关系就很像 LR 和 FM。</p>
+</blockquote>
+<p>框架图如下，事实上去掉product layer中的 p 部分（特征交叉部分），那么PNN将会退化为FNN，就像FM去掉特征交叉会退化为LR一样。</p>
+<p><img src="https://raw.githubusercontent.com/yinxiaojian/blog-img/master/20200524193722.png" alt=""></p>
+<h3 id="Wide-amp-Deep-2016"><a href="#Wide-amp-Deep-2016" class="headerlink" title="Wide &amp; Deep (2016)"></a>Wide &amp; Deep (2016)</h3><p>google这篇文章的出发点为如何同时实现memorization和generalization。</p>
+<p>memorization：记忆能力，学习历史数据集中已经出现过的物品或特征关联。</p>
+<p>generalization：泛化能力，基于相关性的传递原理，探究以前未出现或者极少出现的特征关联。</p>
+<blockquote>
+<p>人可以很好的达到memorization和generalization。就像做题一样，我们可以记住很多类型的题（memorization），然后举一反三（generalization）。</p>
+</blockquote>
+<p>传统的线形模型使用one-hot编码处理离散特征，但是不能对特征关联进行建模。因此一般通过人工构建特征组合（cross-product transformations）的方式，获取非线性建模能力，也就是记忆能力。但是历史数据中未出现过的特征关联则无法构建，因此LR仍不具备泛化能力。</p>
+<p>对于FM和DNN这类embedding-based的模型，不需要特征工程，通过对低维度的dense embedding进行组合可以学习到历史数据中未出现的特征组合，具备泛化能力。但是如果query-item矩阵稀疏、高秩的，学习有效的embedding是很困难的。在这种情况下，会导致过度泛化，从而导致一些不太相关的推荐。相对的，线性模型+cross product则能用很少的参数记住exception rules。</p>
+<blockquote>
+<p>这里的exception relues指的是？个人理解就是历史数据中存在的规则。</p>
+</blockquote>
+<p>因此，本文提出一个Wide &amp; deep 学习框架，通过对线形模型（wide model）和神经网络（wide model）进行联合训练，以达到记忆和泛化能力。</p>
+<p>框架图如下，本质就是对线性模型和神经网络的预测结果进行加权，最后联合训练。在实践中，用哪些作为wide和deep的输入是一个需要仔细考虑的问题。</p>
+<p><img src="https://raw.githubusercontent.com/yinxiaojian/blog-img/master/20200523184007.png" alt=""></p>
+<h3 id="DeepFM-2017"><a href="#DeepFM-2017" class="headerlink" title="DeepFM (2017)"></a>DeepFM (2017)</h3><p>DeepFM强调线形模型只能捕捉一阶特征，而FM可以捕捉二阶特征关联，DNN可以捕捉更高阶特征关联。因此其在wide &amp; deep基础上，将wide部分替换为FM模型（FM的线性部分可以捕捉一阶特征），从而达到捕捉一阶、二阶、甚至是高阶的特征关联。</p>
+<p>事实上wide &amp; deep也可以捕捉多阶特征关联，但是其wide部分需要进行特征工程，也就是上文提到的 cross-product transormations。而DeepFM则无需特征工程，可以直接进行训练。</p>
+<p>框架图如下：</p>
+<p><img src="https://raw.githubusercontent.com/yinxiaojian/blog-img/master/20200524180808.png" alt=""></p>
+<p>该文还对以上几种方法进行了简单的对比：</p>
+<p><img src="https://raw.githubusercontent.com/yinxiaojian/blog-img/master/20200524180944.png" alt=""></p>
+]]></content>
+      <categories>
+        <category>paper notes</category>
+      </categories>
+      <tags>
+        <tag>machine learning</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>meta learning notes</title>
+    <url>/2018/10/21/meta-learning-notes/</url>
+    <content><![CDATA[<h3 id="Definition"><a href="#Definition" class="headerlink" title="Definition"></a>Definition</h3><p>Meta-learning is equal to learning to learn. In practice, very closely related to multi-task<br>learning.</p>
+<p>In the typical machine learning setting, we are interested in a dataset $D$ and usually split $D$ so that we optimize parameters $\theta$ on a training set $D_{train}$ and evaluate its generalization on the test set $D_{test}$. In meta-learning, however, we are dealing with meta-sets $\mathcal{D}$ containing multiple regular datasets, where each $D \in \mathcal{D}$ has a split of $D_{train}$ and $D_{test}$.</p>
+<a id="more"></a>
+<ul>
+<li>Consider a typical learning algorithm<ul>
+<li>Input: training set $D_{train} = \{(X_t,Y_t)\}_{t=1}^{T}$</li>
+<li>Output: parameters $\theta$ of model $M$</li>
+<li>Objective: good performance on test set $D_{test} = (X,Y)$</li>
+</ul>
+</li>
+<li>Desire a meta-learning algorithm<ul>
+<li>Input: meta-training set $\mathcal{D}_{meta_train} = \{(D_{train}^{(n)},D_{test}^{(n)})\}_{n=1}^{N}$</li>
+<li>Output: parameters $\Theta$ representing a training algorithm</li>
+<li>Objective: good performance on meta-test set $\mathcal{D}_{meta_test} = \{(D_{train}^{(n’)},D_{test}^{(n’)})\}_{n’=1}^{N}$</li>
+</ul>
+</li>
+</ul>
+<p><img src="https://ws2.sinaimg.cn/large/005PPQ5Ily1g0yn2gf0muj31he0xe7wh.jpg" alt="meta learning, ref:Ravi&amp;Larochelle&#39;17"></p>
+<h3 id="Paper-and-Method"><a href="#Paper-and-Method" class="headerlink" title="Paper and Method"></a>Paper and Method</h3><h4 id="OPTIMIZATION-AS-A-MODEL-FOR-FEW-SHOT-LEARNING"><a href="#OPTIMIZATION-AS-A-MODEL-FOR-FEW-SHOT-LEARNING" class="headerlink" title="OPTIMIZATION AS A MODEL FOR FEW-SHOT LEARNING"></a>OPTIMIZATION AS A MODEL FOR FEW-SHOT LEARNING</h4><p>The standard optimization algorithms used to train deep neural networks are some variant of gradient descent, which uses updates of the form</p>
+<script type="math/tex; mode=display">
+\theta_t = \theta_{t-1} - \alpha_t \nabla_{\theta_{t-1}}\mathcal{L}_t.</script><p>Key Observation is that this update resembles the update for the cell state in an LSTM</p>
+<script type="math/tex; mode=display">
+c_t = f_t \odot c_{t-1} + i_t \odot \tilde{c}_t,</script><p>if $f_t = 1$, $c_{t-1} = \theta_{t-1}$, $i_t = \alpha_t$ and $\tilde{c}_t = - \nabla_{\theta_{t-1}} \mathcal{L}_t$.</p>
+<p>Thus, training a meta-learner LSTM to learn an update rule for training a neural network is key idea.</p>
+<p><img src="https://ws4.sinaimg.cn/large/005PPQ5Ily1g0yn09xsp9j313q0mewo9.jpg" alt=""> </p>
+<h4 id="Learning-to-learn-by-gradient-descent-by-gradient-descent"><a href="#Learning-to-learn-by-gradient-descent-by-gradient-descent" class="headerlink" title="Learning to learn by gradient descent by gradient descent"></a>Learning to learn by gradient descent by gradient descent</h4><p>Use LSTM to learn the update strategy of neural network, learn an optimizer by gradient descent method, and then use this optimizer to optimize other network parameters. The task of LSTM optimizer is learning $\nabla_{\theta_{t-1}}\mathcal{L}_t$.</p>
+<p><img src="https://ws1.sinaimg.cn/large/005PPQ5Ily1g0ymzujzn9j31420g80ut.jpg" alt=""></p>
+<h4 id="Model-Agnostic-Meta-Learning-for-Fast-Adaptation-of-Deep-Networks"><a href="#Model-Agnostic-Meta-Learning-for-Fast-Adaptation-of-Deep-Networks" class="headerlink" title="Model-Agnostic Meta-Learning for Fast Adaptation of Deep Networks"></a>Model-Agnostic Meta-Learning for Fast Adaptation of Deep Networks</h4><p>The goal of meta-learning is to train a model that can quickly adapt to a new task using only a few training iterations. To accomplish this, the model or learner is trained during a meta-learning phase on a set of tasks, such that the trained model can quickly adapt to new tasks using only a small number of examples or trials.</p>
+]]></content>
+      <categories>
+        <category>paper notes</category>
+      </categories>
+      <tags>
+        <tag>machine learning</tag>
+        <tag>deep learning</tag>
       </tags>
   </entry>
   <entry>
@@ -950,159 +1047,62 @@ Ent(\widetilde{D}) = -\sum_{k=1}^{|y|}\widetilde{p}_klog_2\widetilde{p}_k</scrip
       </tags>
   </entry>
   <entry>
-    <title>java类与成员访问控制</title>
-    <url>/2017/10/27/java%E7%B1%BB%E4%B8%8E%E6%88%90%E5%91%98%E8%AE%BF%E9%97%AE%E6%8E%A7%E5%88%B6/</url>
-    <content><![CDATA[<p>java访问控制是基础中的基础，有public/private/protected/default四个类型，一般分为类的访问控制和成员访问控制两个类型。<br><a id="more"></a></p>
-<h3 id="修饰类"><a href="#修饰类" class="headerlink" title="修饰类"></a>修饰类</h3><p>修饰类只能使用public和default，不可以声明为protected或private。用public修饰的类任何情况下都可以访问。用default即不加任何修饰词，权限为包访问权限，在同一个包内的类可以访问。</p>
-<p>在修饰类的时候有以下几点需要注意</p>
-<ul>
-<li>每个编译单元（文件）只能有一个public类，如果有一个以上的public类，编译器会报错</li>
-<li>实际上类可以既不是public也可以不失default，这涉及到内部类，此处不介绍。</li>
-</ul>
-<h3 id="修饰成员"><a href="#修饰成员" class="headerlink" title="修饰成员"></a>修饰成员</h3><div class="table-container">
-<table>
-<thead>
-<tr>
-<th>权限修饰符</th>
-<th>同类</th>
-<th>同包</th>
-<th>不同包的子类</th>
-<th>不同包的非子类</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>public</td>
-<td>Y</td>
-<td>Y</td>
-<td>Y</td>
-<td>Y</td>
-</tr>
-<tr>
-<td>protected</td>
-<td>Y</td>
-<td>Y</td>
-<td>Y</td>
-<td>N</td>
-</tr>
-<tr>
-<td>default</td>
-<td>Y</td>
-<td>Y</td>
-<td>N</td>
-<td>N</td>
-</tr>
-<tr>
-<td>private</td>
-<td>Y</td>
-<td>N</td>
-<td>N</td>
-<td>N</td>
-</tr>
-</tbody>
-</table>
-</div>
-<h3 id="有趣的类比"><a href="#有趣的类比" class="headerlink" title="有趣的类比"></a>有趣的类比</h3><p>public：全世界共享<br>default：只属于中国这个国家，权限收缩<br>protected：属于中国这个国家，当然不在中国的国人也有权使用<br>private：只属于单一的中国人</p>
-]]></content>
-      <categories>
-        <category>java</category>
-      </categories>
-      <tags>
-        <tag>java基础</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>深度学习CTR模型的早期演变</title>
-    <url>/2020/05/23/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0CTR%E6%A8%A1%E5%9E%8B%E7%9A%84%E6%97%A9%E6%9C%9F%E6%BC%94%E5%8F%98/</url>
-    <content><![CDATA[<blockquote>
-<p>Deep Crossing - Web-Scale Modeling without Manually Crafted Combinatorial Features</p>
-<p>Deep Learning over Multi-field Categorical Data</p>
-<p>Product-based Neural Networks for User Response Prediction</p>
-<p>Wide &amp; Deep Learning for Recommender Systems</p>
-<p>DeepFM: A Factorization-Machine based Neural Network for CTR Prediction</p>
-</blockquote>
+    <title>Softmax and Cross Entropy Loss</title>
+    <url>/2018/04/11/Softmax-and-Cross-Entropy-Loss/</url>
+    <content><![CDATA[<p>introduction and derivative of Softmax and Cross Entropy Loss.</p>
 <a id="more"></a>
-<h3 id="Deep-Crossing-2016"><a href="#Deep-Crossing-2016" class="headerlink" title="Deep Crossing (2016)"></a>Deep Crossing (2016)</h3><p>倒退回最开始的时候，如果让我们设计一个最简单的DNN用于CTR，那么很容易引入一个embedding layer将稀疏特征（one-hot encoding）转换为密集嵌入（dense embedding），然后将其concat后输入到一个多层的神经网络，最终获得输入。而这就是Deep Cross的思想，所以说如果可以穿越到过去做科研还真是一大幸事。</p>
-<p>框架图如下，和普通的DNN不同的是，Deep Crossing 还引入了残差网络，效果有明显提升。</p>
-<p><img src="https://raw.githubusercontent.com/yinxiaojian/blog-img/master/20200524182256.png" alt=""></p>
-<h3 id="FNN-2016"><a href="#FNN-2016" class="headerlink" title="FNN (2016)"></a>FNN (2016)</h3><p>和 Deep Crossing相比，FNN使用FM的隐层向量作为作为DNN的输入，也就是对Embedding层进行预训练。</p>
-<blockquote>
-<p>从时间来看FNN和Deep Crossing属于同一时间的产物，如果FNN晚于Deep Crossing，那么单单凭借预训练这一工程技巧恐怕贡献是不足的。两篇文章思考的角度不同带来的结果也有所不同。</p>
-</blockquote>
-<p>框架图如下：</p>
-<p><img src="/Users/yinxiaojian/Library/Application Support/typora-user-images/image-20200524184121879.png" alt="image-20200524184121879"></p>
-<h3 id="PNN-2016"><a href="#PNN-2016" class="headerlink" title="PNN (2016)"></a>PNN (2016)</h3><p>PNN 在embedding layer 和 hidden layer之间引入了product layer，在改层引入了特征交叉项。相比较FNN使用多层感知器对特征关联进行建模，PNN这种方式更加直接有效。</p>
-<blockquote>
-<p>从某种意义上说，如果将输入的dense embedding看作 LR 和 FM 中的 one-hot encoding的话，FNN 和 PNN 的关系就很像 LR 和 FM。</p>
-</blockquote>
-<p>框架图如下，事实上去掉product layer中的 p 部分（特征交叉部分），那么PNN将会退化为FNN，就像FM去掉特征交叉会退化为LR一样。</p>
-<p><img src="https://raw.githubusercontent.com/yinxiaojian/blog-img/master/20200524193722.png" alt=""></p>
-<h3 id="Wide-amp-Deep-2016"><a href="#Wide-amp-Deep-2016" class="headerlink" title="Wide &amp; Deep (2016)"></a>Wide &amp; Deep (2016)</h3><p>google这篇文章的出发点为如何同时实现memorization和generalization。</p>
-<p>memorization：记忆能力，学习历史数据集中已经出现过的物品或特征关联。</p>
-<p>generalization：泛化能力，基于相关性的传递原理，探究以前未出现或者极少出现的特征关联。</p>
-<blockquote>
-<p>人可以很好的达到memorization和generalization。就像做题一样，我们可以记住很多类型的题（memorization），然后举一反三（generalization）。</p>
-</blockquote>
-<p>传统的线形模型使用one-hot编码处理离散特征，但是不能对特征关联进行建模。因此一般通过人工构建特征组合（cross-product transformations）的方式，获取非线性建模能力，也就是记忆能力。但是历史数据中未出现过的特征关联则无法构建，因此LR仍不具备泛化能力。</p>
-<p>对于FM和DNN这类embedding-based的模型，不需要特征工程，通过对低维度的dense embedding进行组合可以学习到历史数据中未出现的特征组合，具备泛化能力。但是如果query-item矩阵稀疏、高秩的，学习有效的embedding是很困难的。在这种情况下，会导致过度泛化，从而导致一些不太相关的推荐。相对的，线性模型+cross product则能用很少的参数记住exception rules。</p>
-<blockquote>
-<p>这里的exception relues指的是？个人理解就是历史数据中存在的规则。</p>
-</blockquote>
-<p>因此，本文提出一个Wide &amp; deep 学习框架，通过对线形模型（wide model）和神经网络（wide model）进行联合训练，以达到记忆和泛化能力。</p>
-<p>框架图如下，本质就是对线性模型和神经网络的预测结果进行加权，最后联合训练。在实践中，用哪些作为wide和deep的输入是一个需要仔细考虑的问题。</p>
-<p><img src="https://raw.githubusercontent.com/yinxiaojian/blog-img/master/20200523184007.png" alt=""></p>
-<h3 id="DeepFM-2017"><a href="#DeepFM-2017" class="headerlink" title="DeepFM (2017)"></a>DeepFM (2017)</h3><p>DeepFM强调线形模型只能捕捉一阶特征，而FM可以捕捉二阶特征关联，DNN可以捕捉更高阶特征关联。因此其在wide &amp; deep基础上，将wide部分替换为FM模型（FM的线性部分可以捕捉一阶特征），从而达到捕捉一阶、二阶、甚至是高阶的特征关联。</p>
-<p>事实上wide &amp; deep也可以捕捉多阶特征关联，但是其wide部分需要进行特征工程，也就是上文提到的 cross-product transormations。而DeepFM则无需特征工程，可以直接进行训练。</p>
-<p>框架图如下：</p>
-<p><img src="https://raw.githubusercontent.com/yinxiaojian/blog-img/master/20200524180808.png" alt=""></p>
-<p>该文还对以上几种方法进行了简单的对比：</p>
-<p><img src="https://raw.githubusercontent.com/yinxiaojian/blog-img/master/20200524180944.png" alt=""></p>
+<h3 id="Softmax-function"><a href="#Softmax-function" class="headerlink" title="Softmax function"></a>Softmax function</h3><p>the softmax function takes N-dimensional vector of real numbers and transforms it into a vector of real number in range of (0,1) which means the probability of each classification.</p>
+<script type="math/tex; mode=display">
+p_i=\frac{e^{a_i}}{\sum_{k=1}^Ne^{a_k}}</script><p>it is easy to know  $\sum_{k=1}^Np_i=1$ .</p>
+<p>the code of softmax function in python:</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">softmax</span><span class="params">(X)</span>:</span></span><br><span class="line">    exps = np.exp(X)</span><br><span class="line">    <span class="keyword">return</span> exps / np.sum(exps)</span><br></pre></td></tr></table></figure>
+<p>sometimes the exp operation can overshot the limit of the floating point numbers in python, so we need to normalize the value by multiply a constant C.</p>
+<script type="math/tex; mode=display">
+p_i=\frac{e^{a_i}}{\sum_{k=1}^Ne^{a_k}}
+=\frac{Ce^{a_i}}{C\sum_{k=1}^Ne^{a_k}}
+=\frac{e^{a_i+log(C)}}{\sum_{k=1}^Ne^{a_k+log(C)}}</script><p>Generally, we max $log(C)=-max(a)$, so we need make a little change of our code:</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">softmax</span><span class="params">(X)</span>:</span></span><br><span class="line">    exps = np.exp(X-np.max(X))</span><br><span class="line">    <span class="keyword">return</span> exps / np.sum(exps)</span><br></pre></td></tr></table></figure>
+<h3 id="Cross-Entropy-Loss"><a href="#Cross-Entropy-Loss" class="headerlink" title="Cross Entropy Loss"></a>Cross Entropy Loss</h3><p>the defination of cross entropy loss is:</p>
+<script type="math/tex; mode=display">
+L=-\sum_iy_i log(p_i)</script><p>note: </p>
+<p>$p_i$ means the softmax value of  i-th neuron  in fully connected layer;</p>
+<p>if the true label of input sample is $j$,  then $y_{i=j}=1;y_{i\neq j}=0$.</p>
+<p>the code of loss function in python:</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">cross_entropy</span><span class="params">(X, y)</span>:</span></span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    X is the output of fully connected layer(N-dimensional vector)</span></span><br><span class="line"><span class="string">    y is true label(integer)</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    p = softmax(X)</span><br><span class="line">    loss = -np.log(p[y])</span><br><span class="line">    <span class="keyword">return</span> loss</span><br></pre></td></tr></table></figure>
+<h3 id="Backward-propagation"><a href="#Backward-propagation" class="headerlink" title="Backward propagation"></a>Backward propagation</h3><p>we need to compute the derivative of cross entropy loss:</p>
+<script type="math/tex; mode=display">
+\frac{\partial L}{\partial a_i}=\frac{\partial L}{\partial p_j}\frac{\partial p_j}{\partial a_i}</script><p>it is easy to compute $\frac{\partial L}{\partial p_i}$</p>
+<script type="math/tex; mode=display">
+\frac{\partial L}{\partial p_i}=-\sum_iy_i\frac{1}{p_i}\tag1</script><p>then compute $\frac{\partial p_j}{\partial a_i}$, we need to divide it into two situations：</p>
+<ol>
+<li>if $i=j$</li>
+</ol>
+<script type="math/tex; mode=display">
+\begin{align*}
+\frac{\partial p_j}{\partial a_i}&=\frac{\partial p_i}{\partial a_i}=\frac{\partial{\frac{e^{a_i}}{\sum_{k=1}^Ne^{a_k}}}}{\partial a_i}=\frac{\sum_{k=1}^{N}e^{a_i}e^{a_k}-(e^{a_i})^2}{(\sum_{k=1}^Ne^{a_k})^2}\\
+&=\frac{e^{a_i}}{\sum_{k=1}^Ne^{a_k}}\left(1-\frac{e^{a_i}}{\sum_{k=1}^Ne^{a_k}}\right)\\
+&=p_i(1-p_i)
+\end{align*}</script><ol>
+<li>If $i\neq j$</li>
+</ol>
+<script type="math/tex; mode=display">
+\frac{\partial p_j}{\partial a_i}=\frac{\partial{\frac{e^{a_j}}{\sum_{k=1}^Ne^{a_k}}}}{\partial a_i}=
+-\frac{e^{a_j}}{\sum_{k=1}^Ne^{a_k}}\frac{e^{a_i}}{\sum_{k=1}^Ne^{a_k}}=-p_jp_i\tag2</script><p>combine the result of (1) and (2)</p>
+<script type="math/tex; mode=display">
+\begin{align*}
+\frac{\partial L}{\partial a_i}& = \left(-\sum_iy_i\frac{1}{p_i}\right)\frac{\partial p_i}{\partial a_i}\\
+&=-\frac{y_i}{p_i}p_i(1-p_i)+\sum_{i\neq j}\frac{y_i}{p_i}p_ip_j\\
+&=-y_i+y_ip_i+\sum_{i\neq j}y_ip_i\\
+&=-y_i+p_i\sum_iy_i\\
+&=p_i-y_i
+\end{align*}</script><p>code in python</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">delta_entropy</span><span class="params">(X,y)</span>:</span></span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    X is the output of fully connected layer(N-dimensional vector)</span></span><br><span class="line"><span class="string">    y is true labels(integer)</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    grad = softmax(X)</span><br><span class="line">    grad[y] -= <span class="number">1</span></span><br><span class="line">    <span class="keyword">return</span> grad</span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
-        <category>paper notes</category>
+        <category>artificial intelligence</category>
       </categories>
       <tags>
-        <tag>machine learning</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>meta learning notes</title>
-    <url>/2018/10/21/meta-learning-notes/</url>
-    <content><![CDATA[<h3 id="Definition"><a href="#Definition" class="headerlink" title="Definition"></a>Definition</h3><p>Meta-learning is equal to learning to learn. In practice, very closely related to multi-task<br>learning.</p>
-<p>In the typical machine learning setting, we are interested in a dataset $D$ and usually split $D$ so that we optimize parameters $\theta$ on a training set $D_{train}$ and evaluate its generalization on the test set $D_{test}$. In meta-learning, however, we are dealing with meta-sets $\mathcal{D}$ containing multiple regular datasets, where each $D \in \mathcal{D}$ has a split of $D_{train}$ and $D_{test}$.</p>
-<a id="more"></a>
-<ul>
-<li>Consider a typical learning algorithm<ul>
-<li>Input: training set $D_{train} = \{(X_t,Y_t)\}_{t=1}^{T}$</li>
-<li>Output: parameters $\theta$ of model $M$</li>
-<li>Objective: good performance on test set $D_{test} = (X,Y)$</li>
-</ul>
-</li>
-<li>Desire a meta-learning algorithm<ul>
-<li>Input: meta-training set $\mathcal{D}_{meta_train} = \{(D_{train}^{(n)},D_{test}^{(n)})\}_{n=1}^{N}$</li>
-<li>Output: parameters $\Theta$ representing a training algorithm</li>
-<li>Objective: good performance on meta-test set $\mathcal{D}_{meta_test} = \{(D_{train}^{(n’)},D_{test}^{(n’)})\}_{n’=1}^{N}$</li>
-</ul>
-</li>
-</ul>
-<p><img src="https://ws2.sinaimg.cn/large/005PPQ5Ily1g0yn2gf0muj31he0xe7wh.jpg" alt="meta learning, ref:Ravi&amp;Larochelle&#39;17"></p>
-<h3 id="Paper-and-Method"><a href="#Paper-and-Method" class="headerlink" title="Paper and Method"></a>Paper and Method</h3><h4 id="OPTIMIZATION-AS-A-MODEL-FOR-FEW-SHOT-LEARNING"><a href="#OPTIMIZATION-AS-A-MODEL-FOR-FEW-SHOT-LEARNING" class="headerlink" title="OPTIMIZATION AS A MODEL FOR FEW-SHOT LEARNING"></a>OPTIMIZATION AS A MODEL FOR FEW-SHOT LEARNING</h4><p>The standard optimization algorithms used to train deep neural networks are some variant of gradient descent, which uses updates of the form</p>
-<script type="math/tex; mode=display">
-\theta_t = \theta_{t-1} - \alpha_t \nabla_{\theta_{t-1}}\mathcal{L}_t.</script><p>Key Observation is that this update resembles the update for the cell state in an LSTM</p>
-<script type="math/tex; mode=display">
-c_t = f_t \odot c_{t-1} + i_t \odot \tilde{c}_t,</script><p>if $f_t = 1$, $c_{t-1} = \theta_{t-1}$, $i_t = \alpha_t$ and $\tilde{c}_t = - \nabla_{\theta_{t-1}} \mathcal{L}_t$.</p>
-<p>Thus, training a meta-learner LSTM to learn an update rule for training a neural network is key idea.</p>
-<p><img src="https://ws4.sinaimg.cn/large/005PPQ5Ily1g0yn09xsp9j313q0mewo9.jpg" alt=""> </p>
-<h4 id="Learning-to-learn-by-gradient-descent-by-gradient-descent"><a href="#Learning-to-learn-by-gradient-descent-by-gradient-descent" class="headerlink" title="Learning to learn by gradient descent by gradient descent"></a>Learning to learn by gradient descent by gradient descent</h4><p>Use LSTM to learn the update strategy of neural network, learn an optimizer by gradient descent method, and then use this optimizer to optimize other network parameters. The task of LSTM optimizer is learning $\nabla_{\theta_{t-1}}\mathcal{L}_t$.</p>
-<p><img src="https://ws1.sinaimg.cn/large/005PPQ5Ily1g0ymzujzn9j31420g80ut.jpg" alt=""></p>
-<h4 id="Model-Agnostic-Meta-Learning-for-Fast-Adaptation-of-Deep-Networks"><a href="#Model-Agnostic-Meta-Learning-for-Fast-Adaptation-of-Deep-Networks" class="headerlink" title="Model-Agnostic Meta-Learning for Fast Adaptation of Deep Networks"></a>Model-Agnostic Meta-Learning for Fast Adaptation of Deep Networks</h4><p>The goal of meta-learning is to train a model that can quickly adapt to a new task using only a few training iterations. To accomplish this, the model or learner is trained during a meta-learning phase on a set of tasks, such that the trained model can quickly adapt to new tasks using only a small number of examples or trials.</p>
-]]></content>
-      <categories>
-        <category>paper notes</category>
-      </categories>
-      <tags>
-        <tag>machine learning</tag>
-        <tag>deep learning</tag>
+        <tag>softmax</tag>
       </tags>
   </entry>
 </search>

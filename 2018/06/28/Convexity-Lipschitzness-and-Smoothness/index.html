@@ -1,563 +1,619 @@
+
+
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
 <head>
   <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
-<meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 4.2.1">
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
-  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/favicon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="Jianwen Yin">
+  <meta name="keywords" content="">
+  <title>Convexity, Lipschitzness, and Smoothness - CodingxWriting</title>
 
-<link rel="stylesheet" href="/css/main.css">
-
-
-<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
-
-<script id="hexo-configurations">
-    var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"blog.yinjianwen.site","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
-  </script>
-
-  <meta name="description" content="introduction from “understandingmachine learning theory algorithms”">
-<meta property="og:type" content="article">
-<meta property="og:title" content="Convexity, Lipschitzness, and Smoothness">
-<meta property="og:url" content="http://blog.yinjianwen.site/2018/06/28/Convexity-Lipschitzness-and-Smoothness/index.html">
-<meta property="og:site_name" content="CodingxWriting">
-<meta property="og:description" content="introduction from “understandingmachine learning theory algorithms”">
-<meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2018-06-28T02:44:50.000Z">
-<meta property="article:modified_time" content="2018-08-15T12:37:30.789Z">
-<meta property="article:author" content="Jianwen Yin">
-<meta property="article:tag" content="machine learning">
-<meta name="twitter:card" content="summary">
-
-<link rel="canonical" href="http://blog.yinjianwen.site/2018/06/28/Convexity-Lipschitzness-and-Smoothness/">
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
 
 
-<script id="page-configurations">
-  // https://hexo.io/docs/variables.html
-  CONFIG.page = {
-    sidebar: "",
-    isHome : false,
-    isPost : true,
-    lang   : 'zh-CN'
-  };
-</script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/github-markdown-css/4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
 
-  <title>Convexity, Lipschitzness, and Smoothness | CodingxWriting</title>
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.staticfile.org/highlight.js/10.0.0/styles/github-gist.min.css" />
+    
+  
+
   
 
 
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
 
 
 
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
 
-  <noscript>
-  <style>
-  .use-motion .brand,
-  .use-motion .menu-item,
-  .sidebar-inner,
-  .use-motion .post-block,
-  .use-motion .pagination,
-  .use-motion .comments,
-  .use-motion .post-header,
-  .use-motion .post-body,
-  .use-motion .collection-header { opacity: initial; }
 
-  .use-motion .site-title,
-  .use-motion .site-subtitle {
-    opacity: initial;
-    top: initial;
-  }
+<link  rel="stylesheet" href="/css/main.css" />
 
-  .use-motion .logo-line-before i { left: initial; }
-  .use-motion .logo-line-after i { right: initial; }
-  </style>
-</noscript><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+<!-- 自定义样式保持在最底部 -->
 
-</head>
 
-<body itemscope itemtype="http://schema.org/WebPage">
-  <!-- hexo-inject:begin --><!-- hexo-inject:end --><div class="container use-motion">
-    <div class="headband"></div>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.2.0"><!-- hexo-inject:begin --><!-- hexo-inject:end --></head>
 
-    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-container">
-  <div class="site-nav-toggle">
-    <div class="toggle" aria-label="切换导航栏">
-      <span class="toggle-line toggle-line-first"></span>
-      <span class="toggle-line toggle-line-middle"></span>
-      <span class="toggle-line toggle-line-last"></span>
+
+<body>
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Jianwen Yin</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
     </div>
   </div>
-
-  <div class="site-meta">
-
-    <a href="/" class="brand" rel="start">
-      <span class="logo-line-before"><i></i></span>
-      <h1 class="site-title">CodingxWriting</h1>
-      <span class="logo-line-after"><i></i></span>
-    </a>
-      <p class="site-subtitle" itemprop="description">Across the Great Wall we can reach every corner in the world.</p>
-  </div>
-
-  <div class="site-nav-right">
-    <div class="toggle popup-trigger">
-    </div>
-  </div>
-</div>
-
-
-
-
-<nav class="site-nav">
-  <ul id="menu" class="main-menu menu">
-        <li class="menu-item menu-item-home">
-
-    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
-
-  </li>
-        <li class="menu-item menu-item-tags">
-
-    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
-
-  </li>
-        <li class="menu-item menu-item-categories">
-
-    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
-
-  </li>
-        <li class="menu-item menu-item-archives">
-
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
-
-  </li>
-  </ul>
 </nav>
 
+    <div class="banner intro-2" id="background" parallax=true
+         style="background: url('/img/default.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="container page-header text-center fade-in-up">
+            <span class="h2" id="subtitle">
+              
+            </span>
 
-
-
-</div>
-    </header>
-
-    
-  <div class="back-to-top">
-    <i class="fa fa-arrow-up"></i>
-    <span>0%</span>
-  </div>
-
-
-    <main class="main">
-      <div class="main-inner">
-        <div class="content-wrap">
-          
-
-          <div class="content post posts-expand">
             
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2018-06-28 10:44" pubdate>
+        2018年6月28日 上午
+      </time>
+    </span>
+  
+</div>
 
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      623 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      11
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- 不蒜子统计文章PV -->
+      <span id="busuanzi_container_page_pv" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="busuanzi_value_page_pv"></span> 次
+      </span>
     
   
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://blog.yinjianwen.site/2018/06/28/Convexity-Lipschitzness-and-Smoothness/">
+</div>
 
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="Author">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="CodingxWriting">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          Convexity, Lipschitzness, and Smoothness
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2018-06-28 10:44:50" itemprop="dateCreated datePublished" datetime="2018-06-28T10:44:50+08:00">2018-06-28</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2018-08-15 20:37:30" itemprop="dateModified" datetime="2018-08-15T20:37:30+08:00">2018-08-15</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/artificial-intelligence/" itemprop="url" rel="index"><span itemprop="name">artificial intelligence</span></a>
-                </span>
-            </span>
+            
+          </div>
 
           
-            <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv" style="display: none;">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">阅读次数：</span>
-              <span id="busuanzi_value_page_pv"></span>
-            </span>
-
         </div>
-      </header>
+      </div>
+    </div>
+  </header>
 
+  <main>
     
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
       
-        <p>introduction from “understandingmachine learning theory algorithms”</p>
-<a id="more"></a>
-<h2 id="Convexity"><a href="#Convexity" class="headerlink" title="Convexity"></a>Convexity</h2><h3 id="Convexity-set"><a href="#Convexity-set" class="headerlink" title="Convexity set"></a>Convexity set</h3><p>A set C in a vector space is convex if for any two vector $\mathbf{u},\mathbf{v}$ in $C$, the line segment between $\mathbf{u}$ and $\mathbf{v}$ is contained in $C$. That is, for any $a\in[0,1]$ we have that $\alpha \mathbf{u}+(1-\alpha)\mathbf{v} \in C$.</p>
-<h3 id="Convexity-function"><a href="#Convexity-function" class="headerlink" title="Convexity function"></a>Convexity function</h3><p>Let $C$ be a convex set. A function $f:C \rightarrow \mathbb{R}$ is convex for every $\mathbf{u},\mathbf{v}\in C$ and $\alpha\in[0,1]$,</p>
-<script type="math/tex; mode=display">
-f(\alpha \mathbf{u} + (1-\alpha)\mathbf{v}) \le \alpha f(\mathbf{u}) + (1-\alpha) f(\mathbf{v}).</script><p><strong>Important property</strong></p>
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto" id="post">
+            <!-- SEO header -->
+            <h1 style="display: none">Convexity, Lipschitzness, and Smoothness</h1>
+            
+            <div class="markdown-body" id="post-body">
+              <p>introduction from "understandingmachine learning theory algorithms"</p>
+<!--- more --->
+<p>##Convexity</p>
+<h3 id="convexity-set">Convexity set</h3>
+<p>A set C in a vector space is convex if for any two vector <span class="math inline">\(\mathbf{u},\mathbf{v}\)</span> in <span class="math inline">\(C\)</span>, the line segment between <span class="math inline">\(\mathbf{u}\)</span> and <span class="math inline">\(\mathbf{v}\)</span> is contained in <span class="math inline">\(C\)</span>. That is, for any <span class="math inline">\(a\in[0,1]\)</span> we have that <span class="math inline">\(\alpha \mathbf{u}+(1-\alpha)\mathbf{v} \in C\)</span>.</p>
+<h3 id="convexity-function">Convexity function</h3>
+<p>Let <span class="math inline">\(C\)</span> be a convex set. A function <span class="math inline">\(f:C \rightarrow \mathbb{R}\)</span> is convex for every <span class="math inline">\(\mathbf{u},\mathbf{v}\in C\)</span> and <span class="math inline">\(\alpha\in[0,1]\)</span>, <span class="math display">\[
+f(\alpha \mathbf{u} + (1-\alpha)\mathbf{v}) \le \alpha f(\mathbf{u}) + (1-\alpha) f(\mathbf{v}).
+\]</span> <strong>Important property</strong></p>
 <ul>
-<li>Every local minimum of the function is also a global minimum. </li>
-<li>For every $\mathbf{w}$ we can construct a tangent to $f$ at $\mathbf{w}$ that lies below $f$ everywhere, that is for convex differentiable function,</li>
+<li>Every local minimum of the function is also a global minimum.</li>
+<li>For every <span class="math inline">\(\mathbf{w}\)</span> we can construct a tangent to <span class="math inline">\(f\)</span> at <span class="math inline">\(\mathbf{w}\)</span> that lies below <span class="math inline">\(f\)</span> everywhere, that is for convex differentiable function,</li>
 </ul>
-<script type="math/tex; mode=display">
-\forall \mathbf{u}, f(\mathbf{u}) \ge f(\mathbf{w}) + \langle \nabla f(\mathbf{w}), \mathbf{u} - \mathbf{w} \rangle.</script><p><strong>LEMMA</strong></p>
-<p>Let $f:\mathbb{R} \rightarrow \mathbb{R}$ be a scalar twice diffrential function, and Let $f’,f’’$ be its first and second derivatives, respectively. Then, the following are equivalent:</p>
-<ol>
-<li>$f$ is convex </li>
-<li>$f’$ is monotonically nondecreasing</li>
-<li>$f’’$ is nonnegative</li>
+<p><span class="math display">\[
+\forall \mathbf{u}, f(\mathbf{u}) \ge f(\mathbf{w}) + \langle \nabla f(\mathbf{w}), \mathbf{u} - \mathbf{w} \rangle.
+\]</span></p>
+<p><strong>LEMMA</strong></p>
+<p>Let <span class="math inline">\(f:\mathbb{R} \rightarrow \mathbb{R}\)</span> be a scalar twice diffrential function, and Let <span class="math inline">\(f&#39;,f&#39;&#39;\)</span> be its first and second derivatives, respectively. Then, the following are equivalent:</p>
+<ol type="1">
+<li><span class="math inline">\(f\)</span> is convex</li>
+<li><span class="math inline">\(f&#39;\)</span> is monotonically nondecreasing</li>
+<li><span class="math inline">\(f&#39;&#39;\)</span> is nonnegative</li>
 </ol>
 <p><strong>CLAIM</strong></p>
 <ul>
-<li><p>Assume that $f:\mathbb{R}^d \rightarrow \mathbb{R}$can be written as $f(\mathbf{w}) = g(\langle \mathbf{w}, \mathbf{x}) + y)$, for some $\mathbf{x} \in \mathbb{R}^d, y\in \mathbb{R}$. Then, <strong>convexity of $g$ implies the convexity of $f$</strong>.</p>
-<p><strong>Meaning</strong>: The composition of a convex scalar function with a linear function yields a convex vector-valued function.</p>
-</li>
-<li><p>For $i=1,…,r,let f_i : \mathbb{R}^d \rightarrow \mathbb{R}$ be a convex function. The following functions $g(x)$from $\mathbb{R}$ to $\mathbb{R}$ are also convex.</p>
-<p>$g(x)=max_{i\in[r]} f_i(x)$</p>
-<p>$g(x)=\sum_{i=1}^r w_i f_i(x)$, where for all $i,w_i \ge 0$.</p>
-<p><strong>Meaning</strong>:The maximum of convex functions is convex and that a weighted sum of convex functions, with nonnegative weights, is also convex.</p>
-</li>
+<li><p>Assume that <span class="math inline">\(f:\mathbb{R}^d \rightarrow \mathbb{R}\)</span>can be written as <span class="math inline">\(f(\mathbf{w}) = g(\langle \mathbf{w}, \mathbf{x}) + y)\)</span>, for some <span class="math inline">\(\mathbf{x} \in \mathbb{R}^d, y\in \mathbb{R}\)</span>. Then, <strong>convexity of <span class="math inline">\(g\)</span> implies the convexity of <span class="math inline">\(f\)</span></strong>.</p>
+<p><strong>Meaning</strong>: The composition of a convex scalar function with a linear function yields a convex vector-valued function.</p></li>
+<li><p>For <span class="math inline">\(i=1,…,r,let f_i : \mathbb{R}^d \rightarrow \mathbb{R}\)</span> be a convex function. The following functions <span class="math inline">\(g(x)\)</span>from <span class="math inline">\(\mathbb{R}\)</span> to <span class="math inline">\(\mathbb{R}\)</span> are also convex.</p>
+<p><span class="math inline">\(g(x)=max_{i\in[r]} f_i(x)\)</span></p>
+<p><span class="math inline">\(g(x)=\sum_{i=1}^r w_i f_i(x)\)</span>, where for all <span class="math inline">\(i,w_i \ge 0\)</span>.</p>
+<p><strong>Meaning</strong>:The maximum of convex functions is convex and that a weighted sum of convex functions, with nonnegative weights, is also convex.</p></li>
 </ul>
-<h2 id="Lipschitzness"><a href="#Lipschitzness" class="headerlink" title="Lipschitzness"></a>Lipschitzness</h2><p><strong>DEFINITION</strong>: Let $C \subset \mathbb{R}^d$. A function $f:\mathbb{R}^d\rightarrow\mathbb{R}^k$ is $\rho$-Lipschitz over $C$ if for every $\mathbf{w}_1,\mathbf{w}_2 \in C$ we have $|f(\mathbb{w_1})-f(\mathbb{w_2}) | \le \rho|\mathbf{w_1}-\mathbf{w_2}|$.</p>
-<p>MEANING: if $f$ is everywhere bounded (in absolute value) by $\rho$, then the function is $\rho$-Lipschitz.</p>
-<p><strong>CLAIM</strong>: Let $f(x) = g_1(g_2(\mathbf{x}))$, where $g_1$ is $\rho_1$-Lipschitz and $g_2$ is $\rho_2$-Lipschitz. Then, $f \space is \space(\rho_1\rho_2)-Lipschitz$. In particular, if $g_2$ is the linear function, $g_2(\mathbf{x})=\langle \mathbf{v},\mathbf{x}\rangle+b$, for some $\mathbf{v} \in \mathbb{R}^d, b\in \mathbb{R},then \space f \space (\rho_1|\mathbf{v}|)-Lipschitz$.</p>
-<h2 id="Smoothness"><a href="#Smoothness" class="headerlink" title="Smoothness"></a>Smoothness</h2><p><strong>DEFINITION</strong>: A differentiable function $f$: $\mathbb{R}^d \rightarrow \mathbb{R}$ is $\beta$-smooth if its gradient is $\beta$-Lipschitz; namely, for all $\mathbf{v},\mathbf{w}$ we have $|\nabla f(\mathbf{v}) - \nabla f(\mathbf{w}) | \le \beta|\mathbf{v} - \mathbf{w} |$.</p>
-<p><strong>CLAIM</strong>: Let $f(\mathbf{w}) = g(\langle \mathbf{w} , \mathbf{x} \rangle + b), where \space g:\mathbb{R} \rightarrow \mathbb{R}​$ is a $\beta​$-smooth function, $\mathbf{x} \in \mathbb{R}^d​$, and $b \in \mathbb{R}​$. Then, $f \space is  \space (\beta |\mathbf{x}|)​$-smooth.</p>
+<p>##Lipschitzness</p>
+<p><strong>DEFINITION</strong>: Let <span class="math inline">\(C \subset \mathbb{R}^d\)</span>. A function <span class="math inline">\(f:\mathbb{R}^d\rightarrow\mathbb{R}^k\)</span> is <span class="math inline">\(\rho\)</span>-Lipschitz over <span class="math inline">\(C\)</span> if for every <span class="math inline">\(\mathbf{w}_1,\mathbf{w}_2 \in C\)</span> we have <span class="math inline">\(\|f(\mathbb{w_1})-f(\mathbb{w_2}) \| \le \rho\|\mathbf{w_1}-\mathbf{w_2}\|\)</span>.</p>
+<p>MEANING: if <span class="math inline">\(f\)</span> is everywhere bounded (in absolute value) by <span class="math inline">\(\rho\)</span>, then the function is <span class="math inline">\(\rho\)</span>-Lipschitz.</p>
+<p><strong>CLAIM</strong>: Let <span class="math inline">\(f(x) = g_1(g_2(\mathbf{x}))\)</span>, where <span class="math inline">\(g_1\)</span> is <span class="math inline">\(\rho_1\)</span>-Lipschitz and <span class="math inline">\(g_2\)</span> is <span class="math inline">\(\rho_2\)</span>-Lipschitz. Then, <span class="math inline">\(f \space is \space(\rho_1\rho_2)-Lipschitz\)</span>. In particular, if <span class="math inline">\(g_2\)</span> is the linear function, <span class="math inline">\(g_2(\mathbf{x})=\langle \mathbf{v},\mathbf{x}\rangle+b\)</span>, for some <span class="math inline">\(\mathbf{v} \in \mathbb{R}^d, b\in \mathbb{R},then \space f \space (\rho_1\|\mathbf{v}\|)-Lipschitz\)</span>.</p>
+<h2 id="smoothness">Smoothness</h2>
+<p><strong>DEFINITION</strong>: A differentiable function <span class="math inline">\(f\)</span>: <span class="math inline">\(\mathbb{R}^d \rightarrow \mathbb{R}\)</span> is <span class="math inline">\(\beta\)</span>-smooth if its gradient is <span class="math inline">\(\beta\)</span>-Lipschitz; namely, for all <span class="math inline">\(\mathbf{v},\mathbf{w}\)</span> we have <span class="math inline">\(\|\nabla f(\mathbf{v}) - \nabla f(\mathbf{w}) \| \le \beta\|\mathbf{v} - \mathbf{w} \|\)</span>.</p>
+<p><strong>CLAIM</strong>: Let <span class="math inline">\(f(\mathbf{w}) = g(\langle \mathbf{w} , \mathbf{x} \rangle + b), where \space g:\mathbb{R} \rightarrow \mathbb{R}​\)</span> is a <span class="math inline">\(\beta​\)</span>-smooth function, <span class="math inline">\(\mathbf{x} \in \mathbb{R}^d​\)</span>, and <span class="math inline">\(b \in \mathbb{R}​\)</span>. Then, <span class="math inline">\(f \space is \space (\beta \|\mathbf{x}\|)​\)</span>-smooth.</p>
 <p>实际上，凸性要求一个函数在局部增长得比线性函数要快，而强凸性则要求其增长得比一个二次函数（二次项系数为m/2）快。</p>
 
-    </div>
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/artificial-intelligence/">artificial intelligence</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/machine-learning/">machine learning</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2018/10/21/meta-learning-notes/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">meta learning notes</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2018/04/11/Softmax-and-Cross-Entropy-Loss/">
+                        <span class="hidden-mobile">Softmax and Cross Entropy Loss</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
 
-    
-    
-    
-
-      <footer class="post-footer">
-          
-          <div class="post-tags">
-              <a href="/tags/machine-learning/" rel="tag"><i class="fa fa-tag"></i> machine learning</a>
-          </div>
-
-        
-
-
-        
-    <div class="post-nav">
-      <div class="post-nav-item">
-    <a href="/2018/04/11/Softmax-and-Cross-Entropy-Loss/" rel="prev" title="Softmax and Cross Entropy Loss">
-      <i class="fa fa-chevron-left"></i> Softmax and Cross Entropy Loss
-    </a></div>
-      <div class="post-nav-item">
-    <a href="/2018/10/21/meta-learning-notes/" rel="next" title="meta learning notes">
-      meta learning notes <i class="fa fa-chevron-right"></i>
-    </a></div>
-    </div>
-      </footer>
-    
-  </article>
-  
-  
-  
-
-
-
-          </div>
-          
-    <div class="comments" id="gitalk-container"></div>
-
-<script>
-  window.addEventListener('tabs:register', () => {
-    let { activeClass } = CONFIG.comments;
-    if (CONFIG.comments.storage) {
-      activeClass = localStorage.getItem('comments_active') || activeClass;
-    }
-    if (activeClass) {
-      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
-      if (activeTab) {
-        activeTab.click();
+            
+              <!-- Comments -->
+              <article class="comments" id="comments">
+                
+                
+  <script type="text/javascript">
+    function loadUtterances() {
+      var light = 'github-light';
+      var dark = 'github-dark';
+      var schema = document.documentElement.getAttribute('data-user-color-scheme');
+      if (schema === 'dark') {
+        schema = dark;
+      } else {
+        schema = light;
       }
-    }
-  });
-  if (CONFIG.comments.storage) {
-    window.addEventListener('tabs:click', event => {
-      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
-      let commentClass = event.target.classList[1];
-      localStorage.setItem('comments_active', commentClass);
-    });
-  }
-</script>
-
-        </div>
-          
-  
-  <div class="toggle sidebar-toggle">
-    <span class="toggle-line toggle-line-first"></span>
-    <span class="toggle-line toggle-line-middle"></span>
-    <span class="toggle-line toggle-line-last"></span>
-  </div>
-
-  <aside class="sidebar">
-    <div class="sidebar-inner">
-
-      <ul class="sidebar-nav motion-element">
-        <li class="sidebar-nav-toc">
-          文章目录
-        </li>
-        <li class="sidebar-nav-overview">
-          站点概览
-        </li>
-      </ul>
-
-      <!--noindex-->
-      <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Convexity"><span class="nav-number">1.</span> <span class="nav-text">Convexity</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Convexity-set"><span class="nav-number">1.1.</span> <span class="nav-text">Convexity set</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Convexity-function"><span class="nav-number">1.2.</span> <span class="nav-text">Convexity function</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Lipschitzness"><span class="nav-number">2.</span> <span class="nav-text">Lipschitzness</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Smoothness"><span class="nav-number">3.</span> <span class="nav-text">Smoothness</span></a></li></ol></div>
-      </div>
-      <!--/noindex-->
-
-      <div class="site-overview-wrap sidebar-panel">
-        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <img class="site-author-image" itemprop="image" alt="Author"
-      src="/images/avatar.png">
-  <p class="site-author-name" itemprop="name">Author</p>
-  <div class="site-description" itemprop="description"></div>
-</div>
-<div class="site-state-wrap motion-element">
-  <nav class="site-state">
-      <div class="site-state-item site-state-posts">
-          <a href="/archives/">
-        
-          <span class="site-state-item-count">13</span>
-          <span class="site-state-item-name">日志</span>
-        </a>
-      </div>
-      <div class="site-state-item site-state-categories">
-            <a href="/categories/">
-          
-        <span class="site-state-item-count">7</span>
-        <span class="site-state-item-name">分类</span></a>
-      </div>
-      <div class="site-state-item site-state-tags">
-            <a href="/tags/">
-          
-        <span class="site-state-item-count">9</span>
-        <span class="site-state-item-name">标签</span></a>
-      </div>
-  </nav>
-</div>
-  <div class="links-of-author motion-element">
-      <span class="links-of-author-item">
-        <a href="https://github.com/yinxiaojian" title="GitHub → https://github.com/yinxiaojian" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
-      </span>
-      <span class="links-of-author-item">
-        <a href="/jianwen_yin@163.com" title="E-Mail → jianwen_yin@163.com"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
-      </span>
-  </div>
-
-
-
-      </div>
-
-    </div>
-  </aside>
-  <div id="sidebar-dimmer"></div>
-
-
-      </div>
-    </main>
-
-    <footer class="footer">
-      <div class="footer-inner">
-        
-
-        
-
-<div class="copyright">
-  
-  &copy; 
-  <span itemprop="copyrightYear">2020</span>
-  <span class="with-love">
-    <i class="fa fa-heart"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">Jianwen Yin</span>
-</div>
-
-        
-<div class="busuanzi-count">
-  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
-    <span class="post-meta-item" id="busuanzi_container_site_uv" style="display: none;">
-      <span class="post-meta-item-icon">
-        <i class="fa fa-user"></i>
-      </span>
-      <span class="site-uv" title="总访客量">
-        <span id="busuanzi_value_site_uv"></span>
-      </span>
-    </span>
-    <span class="post-meta-divider">|</span>
-    <span class="post-meta-item" id="busuanzi_container_site_pv" style="display: none;">
-      <span class="post-meta-item-icon">
-        <i class="fa fa-eye"></i>
-      </span>
-      <span class="site-pv" title="总访问量">
-        <span id="busuanzi_value_site_pv"></span>
-      </span>
-    </span>
-</div>
-
-
-
-
-
-
-
-
-      </div>
-    </footer>
-  </div>
-
-  
-  <script src="/lib/anime.min.js"></script>
-  <script src="/lib/velocity/velocity.min.js"></script>
-  <script src="/lib/velocity/velocity.ui.min.js"></script>
-
-<script src="/js/utils.js"></script>
-
-<script src="/js/motion.js"></script>
-
-
-<script src="/js/schemes/pisces.js"></script>
-
-
-<script src="/js/next-boot.js"></script>
-
-
-
-
-  
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-
-  
+      window.UtterancesThemeLight = light;
+      window.UtterancesThemeDark = dark;
+      var s = document.createElement('script');
+      s.setAttribute('src', 'https://utteranc.es/client.js');
+      s.setAttribute('repo', 'yinxiaojian/blog-comment');
+      s.setAttribute('issue-term', 'pathname');
       
+      s.setAttribute('label', 'utterances');
+      
+      s.setAttribute('theme', schema);
+      s.setAttribute('crossorigin', 'anonymous');
+      document.getElementById('comments').appendChild(s);
+    }
+    waitElementVisible('comments', loadUtterances)
+  </script>
 
-<script>
-  if (typeof MathJax === 'undefined') {
-    window.MathJax = {
-      loader: {
-        source: {
-          '[tex]/amsCd': '[tex]/amscd',
-          '[tex]/AMScd': '[tex]/amscd'
-        }
-      },
-      tex: {
-        inlineMath: {'[+]': [['$', '$']]},
-        tags: 'ams'
-      },
-      options: {
-        renderActions: {
-          findScript: [10, doc => {
-            document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
-              const display = !!node.type.match(/; *mode=display/);
-              const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
-              const text = document.createTextNode('');
-              node.parentNode.replaceChild(text, node);
-              math.start = {node: text, delim: '', n: 0};
-              math.end = {node: text, delim: '', n: 0};
-              doc.math.push(math);
-            });
-          }, '', false],
-          insertedScript: [200, () => {
-            document.querySelectorAll('mjx-container').forEach(node => {
-              let target = node.parentNode;
-              if (target.nodeName.toLowerCase() === 'li') {
-                target.parentNode.classList.add('has-jax');
-              }
-            });
-          }, '', false]
-        }
-      }
-    };
-    (function () {
-      var script = document.createElement('script');
-      script.src = '//cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js';
-      script.defer = true;
-      document.head.appendChild(script);
-    })();
-  } else {
-    MathJax.startup.document.state(0);
-    MathJax.texReset();
-    MathJax.typeset();
-  }
-</script>
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div id="tocbot"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
 
     
+  </main>
+
+  
+    <a id="scroll-top-button" href="#" role="button">
+      <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
 
   
 
-<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.css">
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+  <div class="statistics">
+    
+    
 
-<script>
-NexT.utils.loadComments(document.querySelector('#gitalk-container'), () => {
-  NexT.utils.getScript('//cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js', () => {
-    var gitalk = new Gitalk({
-      clientID    : '4d2be4ddd111613247dd',
-      clientSecret: 'e35d6fe6539051d9f3972abbc33705957b10716a',
-      repo        : 'blog-comment',
-      owner       : 'yinxiaojian',
-      admin       : ['yinxiaojian'],
-      id          : '01c666bf41a1320b062530b15a4c2fec',
-        language: '',
-      distractionFreeMode: true
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+<!-- SCRIPTS -->
+<script  src="https://cdn.staticfile.org/jquery/3.4.1/jquery.min.js" ></script>
+<script  src="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/main.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script defer src="https://cdn.staticfile.org/clipboard.js/2.0.6/clipboard.min.js" ></script>
+  <script  src="/js/clipboard-use.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+
+  <script  src="https://cdn.staticfile.org/tocbot/4.11.1/tocbot.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      var boardCtn = $('#board-ctn');
+      var boardTop = boardCtn.offset().top;
+
+      tocbot.init({
+        tocSelector: '#tocbot',
+        contentSelector: '#post-body',
+        headingSelector: 'h1,h2,h3,h4,h5,h6',
+        linkClass: 'tocbot-link',
+        activeLinkClass: 'tocbot-active-link',
+        listClass: 'tocbot-list',
+        isCollapsedClass: 'tocbot-is-collapsed',
+        collapsibleClass: 'tocbot-is-collapsible',
+        collapseDepth: 0,
+        scrollSmooth: true,
+        headingsOffset: -boardTop
+      });
+      if ($('.toc-list-item').length > 0) {
+        $('#toc').css('visibility', 'visible');
+      }
     });
-    gitalk.render('gitalk-container');
-  }, window.Gitalk);
-});
-</script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/typed.js/2.0.11/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "Convexity, Lipschitzness, and Smoothness&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 70,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/anchor-js/4.2.2/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "hover",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      searchFunc(path, 'local-search-input', 'local-search-result');
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script  src="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.staticfile.org/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+  <script>
+    $('#post img:not(.no-zoom img, img[no-zoom]), img[zoom]').each(
+      function () {
+        var element = document.createElement('a');
+        $(element).attr('data-fancybox', 'images');
+        $(element).attr('href', $(this).attr('src'));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+  
+
+  
+    <!-- MathJax -->
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']]
+        },
+        options: {
+          renderActions: {
+            findScript: [10, doc => {
+              document.querySelectorAll('script[type^="math/tex"]').forEach(node => {
+                const display = !!node.type.match(/; *mode=display/);
+                const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display);
+                const text = document.createTextNode('');
+                node.parentNode.replaceChild(text, node);
+                math.start = { node: text, delim: '', n: 0 };
+                math.end = { node: text, delim: '', n: 0 };
+                doc.math.push(math);
+              });
+            }, '', false],
+            insertedScript: [200, () => {
+              document.querySelectorAll('mjx-container').forEach(node => {
+                let target = node.parentNode;
+                if (target.nodeName.toLowerCase() === 'li') {
+                  target.parentNode.classList.add('has-jax');
+                }
+              });
+            }, '', false]
+          }
+        }
+      };
+    </script>
+
+    <script async src="https://cdn.staticfile.org/mathjax/3.0.5/es5/tex-svg.js" ></script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+
+  
+
+
+
+
+
+
+
+
+
+
 
 </body>
 </html>
